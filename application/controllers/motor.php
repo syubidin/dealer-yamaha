@@ -82,7 +82,7 @@ class motor extends CI_Controller{
             }
         }else{
             // Jika form belum dikirim, ambil data berdasarkan ID dan tampilkan halaman edit
-            $data['motor'] = $this->upload_model->get_upload_by_id($id);
+            $data['motor'] = $this->upload_model->get_motor_by_id($id);
             $this->load->view('admin/edit', $data);
         }
     }

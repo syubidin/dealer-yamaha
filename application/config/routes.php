@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 | Please see the user guide for complete details:
 |
-|	https://codeigniter.com/userguide3/general/routing.html
+|	https://codeigniter.com/user_guide/general/routing.html
 |
 | -------------------------------------------------------------------------
 | RESERVED ROUTES
@@ -49,6 +49,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+$route['order-total']='welcome/order_total';
+$route['order-barang']='welcome/order_barang';
+$route['order-dalam-proses']='welcome/order_proses';
+$route['order-dalam-pengiriman']='welcome/order_delivered';
+$route['cart']='welcome/cart';
+$route['checkout']='welcome/checkout';
+$route['public/about']='welcome/about';
+$route['public/category']='welcome/category';
+$route['public/product']='welcome/product';
+$route['public/user_profil']='welcome/profil';
+$route['public/testimoni']='welcome/testimoni';
+$route['public/konfirmasi']='welcome/konfirmasiBayar';
+$route['detail/(:any)/(:any)']='welcome/detailproduct';
+$route['category/(:any)/(:any)']='welcome/bycategory';
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

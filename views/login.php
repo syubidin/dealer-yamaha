@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><?= $title; ?></title>
     <!-- Favicons -->
-    <link href="<?=settings('general','favicon');?>" rel="icon">
+    <link rel="icon" href="<?= base_url('assets/logo-ridezone.png') ?>" type="image/x-icon">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -18,12 +18,9 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url('assets/'); ?>dist/css/AdminLTE.min.css">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
 
     <!-- Google Font -->
     <link rel="stylesheet"
@@ -33,9 +30,9 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <img src="<?=base_url('uploads/dasboard2.jpg'); ?>"alt="logo" width="350" class="shadow-light rounded-circle">
+            <img src="<?=base_url('assets/logo-ridezone.png'); ?>"alt="logo" width="250" height="200px" class="shadow-light rounded-circle">
                 <div>
-                    <b>Dealer Resmi Motor Yamaha</b></=>
+                    <b style="color:#d30000;">Dealer Motor Yamaha</b>
                 </div>
         </div>
         <!-- /.login-logo -->
@@ -47,11 +44,14 @@
             <form action="" method="post">
                 <div class="form-group has-feedback">
                     <input type="text" class="form-control" placeholder="Username" name="username">
-                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    <span class="input-group-text form-control-feedback"><i class="bi bi-envelope-at-fill"></i></span>
                 </div>
                 <div class="form-group has-feedback">
                     <input type="password" class="form-control" placeholder="Password" name="password">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <a href="<?=base_url('auth/forgot_password');?>" class="text-decoration-none">Forgot password?</a>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
             </form>
@@ -69,6 +69,7 @@
     <script src="<?= base_url('assets/'); ?>bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
     <script src="<?= base_url('assets/'); ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
 </body>
 
 

@@ -30,7 +30,6 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <img src="<?=base_url('assets/logo-ridezone.png'); ?>"alt="logo" width="250" height="200px" class="shadow-light rounded-circle">
                 <div>
                     <b style="color:#d30000;">Dealer Motor Yamaha</b>
                 </div>
@@ -38,27 +37,17 @@
         <!-- /.login-logo -->
         <div class="login-box-body">
             <?=$this->session->flashdata('msg');?>
-            <p class="login-box-msg">Please enter your new password !</p>
+            <p class="login-box-msg">Please fill out your username !</p>
 			
-
-            <form action="<?= base_url('auth/reset_password') ?>" method="post">
+            <form action="<?= base_url('auth/forgot_password') ?>" method="post">
                 <div class="form-group has-feedback">
-                    <input type="number" class="form-control" placeholder="Recovery Code" name="user_forgot_password_key">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="New Password" name="password1">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="Confirm Password" name="password2">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    <input type="text" class="form-control" placeholder="Username" name="username">
+                    <span class="input-group-text form-control-feedback"><i class="bi bi-envelope-at-fill"></i></span>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block btn-flat">Send</button>
             </form>
-
             <br>
-            <a href="<?=base_url('auth/login');?>">Back to login</a><br>
+            <a href="<?=base_url('auth');?>">Back to login</a><br>
 
         </div>
         <!-- /.login-box-body -->

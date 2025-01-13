@@ -186,7 +186,7 @@ $(function() {
                         <th>HARJA JUAL</th>
                         <th>DISKON</th>
                         <!-- <th>STOK</th> -->
-                        <?php if($_GET['s']=='minim'):?>
+                        <?php if(isset($_GET['s']) && $_GET['s'] == 'minim'): ?>
                         <th>STOK</th>
                         <th width="20">ACTION</th>
                         <?php else:?>
@@ -197,7 +197,7 @@ $(function() {
                 <tbody>
                     <?php 
 					$n=1; 
-					if($_GET['s']=='minim'){
+					if(isset($_GET['s']) && $_GET['s'] == 'minim') {
 						$param = 10;
 					}else{
 						$param = '';
@@ -229,7 +229,7 @@ $(function() {
                         <td><?='Rp. '.money($p['harga_beli']);?></td>
                         <td><?='Rp. '.money($p['harga_jual']);?></td>
                         <td><?='Rp. '.money($p['diskon']);?></td>
-                        <?php if($_GET['s']=='minim'):?>
+                        <?php if(isset($_GET['s']) && $_GET['s'] == 'minim'): ?>
                         <td><?=money($p['stok']);?></td>
                         <td><a href="#modal_restok" class="btn btn-xs btn-info btn-flat" data-toggle="modal"
                                 onclick="view(<?=$p['idproduct'];?>)">Re-Stok</a>

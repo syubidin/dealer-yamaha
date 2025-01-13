@@ -276,6 +276,7 @@ $(function() {
                         <th>FULLNAME</th>
                         <th>NO. TELP</th>
                         <th>USERNAME</th>
+                        <th>FOTO</th>
                         <th>DATETIME</th>
                     </tr>
                 </thead>
@@ -303,6 +304,9 @@ $(function() {
                         <td><?=$u['user_fullname'];?></td>
                         <td><?=$u['user_telp'];?></td>
                         <td><?=$u['user_name'];?></td>
+                        <td>
+                            <img src="<?= base_url('uploads/users/' . $u['user_gambar']); ?>" alt="<?=$u['user_gambar'];?>" style="width: 50px; height: 50px; object-fit: cover;">
+                        </td>
                         <td><?=date('Y-m-d H:i:s',$u['create_at']);?></td>
                     </tr>
                     <?php endforeach; ?>

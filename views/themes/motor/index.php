@@ -231,9 +231,7 @@
 <script src="<?=base_url().'views/themes/'.theme_active().'/';?>js/jquery.animateNumber.min.js"></script>
 <script src="<?=base_url().'views/themes/'.theme_active().'/';?>js/bootstrap-datepicker.js"></script>
 <script src="<?=base_url().'views/themes/'.theme_active().'/';?>js/scrollax.min.js"></script>
-<!-- <script src="https://maps.googleapis.com/maps/api/js?key=<?=settings('general','google_map_api_key');?>&sensor=false">
-</script> -->
-<!-- <script src="<?=base_url().'views/themes/'.theme_active().'/';?>js/google-map.js"></script> -->
+
 <script src="<?=base_url().'views/themes/'.theme_active().'/';?>js/main.js"></script>
 <script>
 $(document).ready(function() {
@@ -283,11 +281,7 @@ $(document).ready(function() {
         var produk_satuan = $(this).data("produksatuan");
         var produk_berat = $(this).data("produkberat");
         var qty = $('#' + produk_id).val();
-        // alert(produk_id);
-        // alert(produk_gambar);
-        // alert(produk_nama);
-        // alert(produk_harga);
-        // alert(qty);
+
         $.ajax({
             url: "<?=base_url();?>welcome/add_to_cart",
             method: "POST",
@@ -337,17 +331,6 @@ $(document).ready(function() {
             }
         });
     });
-
-
-    // $('#jml_bayar').mask('000,000,000,000,000', {
-    //     reverse: true
-    // });
-    // $('#jml_bayar').on("input", function() {
-    //     var jumlah = $('#jml_bayar').val();
-    //     $('#dibayar').html('Rp. ' + jumlah);
-    // })
-    // // Load shopping cart
-    // $('#detail_cart').load("http://localhost/simapp/welcome/load_cart");
 
     function load_pesanan() {
         $('#cart_detail').load("<?=base_url();?>welcome/load_cart");
@@ -399,9 +382,6 @@ $(document).ready(function() {
     });
     $('#form-addbayar').hide();
 
-    // function bayar(id) {
-    //     alert(id);
-    // }
     function convertToRupiah(angka) {
         var rupiah = '';
         var angkarev = angka.toString().split('').reverse().join('');
@@ -543,30 +523,6 @@ $(function() {
         }
     });
 
-
-
-    // $("#kec").change(function() {
-    //     var value = $(this).val();
-    //     if (value > 0) {
-    //         $.ajax({
-    //             data: {
-    //                 modul: 'kelurahan',
-    //                 id: value
-    //             },
-    //             success: function(respond) {
-    //                 $("#kel").html(respond);
-    //             }
-    //         })
-    //     }
-    // });
-
 })
 </script>
-
-
-
-
-
-
-
 </html>

@@ -18,6 +18,7 @@ class Product extends CI_Controller {
 		$data['title'] = 'All Product';
 		$data['product'] = $data['allproduct'] = true;
 		$data['content'] = 'backend/product';
+		$data['s'] = isset($_GET['s']) ? $_GET['s'] : null;
 		$this->load->view('backend/index', $data);
 	}
 	public function create()

@@ -11,28 +11,63 @@
         </div>
     </div>
 </div>
+<br><br>
+
 <section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
     <div class="container">
-        <div class="row">
-            <div class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center"
-                style="background-image: url(<?=base_url().'views/themes/'.theme_active().'/';?>images/dasboard2.jpg);">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/R885jD-bb2o?si=4NPVHs68f0trKNf2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-            <div class="col-md-7 py-5 wrap-about pb-md-5 ftco-animate">
-                <div class="heading-section-bold mb-4 mt-md-5">
-                    <div class="ml-md-0">
-                        <h2 class="mb-4">Welcome to dealer yamaha</h2>
-                    </div>
+        <div class="row align-items-stretch">
+            <!-- Kolom Video -->
+            <div class="col-md-5 d-flex align-items-stretch">
+                <div class="video-wrapper d-flex justify-content-center align-items-center" 
+                    style="background-color: #f8f9fa; border: 1px solid #ddd; padding: 20px; border-radius: 8px; width: 100%; transition: transform 0.3s, box-shadow 0.3s;">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/R885jD-bb2o?si=4NPVHs68f0trKNf2" 
+                        title="YouTube video player" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen 
+                        style="max-width: 100%; max-height: 100%; aspect-ratio: 16/9; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    </iframe>
                 </div>
-                <div class="pb-md-5">
-                    <p>Silahkan berbelanja di website dealer yamaha.</p>
-                    <p>Motor dengan inovasi blue core.</p>
-                    <p><a href="<?=base_url('public/product');?>" class="btn btn-primary">Shop now</a></p>
+            </div>
+
+            <!-- Kolom Teks -->
+            <div class="col-md-7 d-flex align-items-stretch">
+                <div class="category-wrap-2 ftco-animate" 
+                    style="background-color: #ffffff; border: 1px solid #ddd; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.3s, box-shadow 0.3s;">
+                    <div class="text">
+                        <h2 style="color: #2c3e50;"><b>Tentang Dealer Yamaha</b></h2>
+                        <p style="font-size: 16px; line-height: 1.8; color: #444;">Dealer Yamaha kami menyediakan berbagai jenis sepeda motor Yamaha berkualitas tinggi dengan pelayanan terbaik. Kami juga menyediakan layanan purna jual, termasuk perawatan, suku cadang asli, dan aksesoris resmi Yamaha.</p>
+                        <p style="font-size: 16px; line-height: 1.8; color: #444;">Dengan pengalaman bertahun-tahun, kami berkomitmen memberikan kenyamanan dan kepuasan bagi pelanggan kami. Temukan berbagai penawaran menarik hanya di dealer Yamaha kami!</p>
+                        <a href="https://www.yamaha-motor.co.id/" target="_blank" class="btn btn-primary" 
+                            style="background-color: #007bff; border: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; text-transform: uppercase; transition: background-color 0.3s, transform 0.3s;">Selengkapnya</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</section><br><br>
+
+<style>
+/* Efek hover untuk video */
+.video-wrapper:hover {
+    transform: scale(1.03); /* Sedikit memperbesar */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Bayangan lebih dalam */
+}
+
+/* Efek hover untuk teks */
+.category-wrap-2:hover {
+    transform: scale(1.03); /* Sedikit memperbesar */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Bayangan lebih dalam */
+}
+
+/* Efek hover untuk tombol */
+.btn-primary:hover {
+    background-color: #0056b3; /* Warna lebih gelap saat hover */
+    transform: translateY(-3px); /* Sedikit naik ke atas */
+}
+</style>
+
+
+
 <!-- 
 <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
     <div class="container py-4">

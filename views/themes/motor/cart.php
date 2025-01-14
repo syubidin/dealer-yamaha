@@ -43,7 +43,7 @@
 
                                 <td class="product-name">
                                     <h3><?=$items['product_name'];?></h3>
-                                    <p>Satuan : <?=$items['satuan'];?><br> Berat : <?=floatval($items['berat']) * intval($items['qty']);?>
+                                    <p>Satuan : <?=$items['satuan'];?><br> Berat : <?=$items['berat']*$items['qty'];?>
                                         gram
                                     </p>
                                 </td>
@@ -67,7 +67,7 @@
                 </div>
             </div>
         </div>
-        <form action="<?=base_url('user/proses_order');?>" method="post" enctype="multipart/form-data">
+        <form action="<?=site_url('user/proses_order');?>" method="post" enctype="multipart/form-data">
             <div class="row justify-content-end">
                 <!-- <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
                 <div class="cart-total mb-3">
@@ -182,7 +182,7 @@
                         </div> -->
                         <!-- </form> -->
                     </div>
-                    <p><button type="button" class="btn btn-primary py-3 px-4" id="cekOngkir">Hitung</button>
+                    <p><button type="button" class="btn btn-primary py-3 px-4" id="cekOngkir" onclick="hitungOngkir()">Hitung</button>
                     </p>
                 </div>
                 <?php endif;?>
@@ -221,9 +221,8 @@
                     </div>
                     <?php if($this->session->userdata('username') && $this->session->userdata('access')=='customer'):?>
                     <p>
-                        <!-- <a href="<?=base_url('user/proses_order');?>" class="btn btn-primary py-3 px-4">Proceed to
-                            Checkout</a> -->
-                        <button type="submit" class="btn btn-primary py-3 px-4">Proceed to
+                       
+                        <button type="submit" href="<?=base_url('user/proses_order');?>" class="btn btn-primary py-3 px-4">Proceed to
                             Checkout</bu>
                     </p>
                     <?php else:?>
@@ -235,13 +234,37 @@
             </div>
         </form>
     </div>
-
-
-
-
-
-
-
-
-
 </section>
+   <script>
+    function hitungOngkir() {
+        // Ambil data input
+        const provinsi = document.getElementById('prov_order').value;
+        const kabupaten = document.getElementById('kab_order').value;
+        const kecamatan = document.querySelector('input[name="kec"]').value;
+        const kurir = document.getElementById('kurir').value;
+
+        // Validasi input
+        if (provinsi === '0' || kabupaten === '0' || !kecamatan || kurir === '0') {
+            alert('Silakan lengkapi semua informasi yang diperlukan!');
+            return;
+        }
+
+        // Simulasi penghitungan ongkir
+        const berat = <?= cartWeight(user()['idusers']); ?>; // Berat total dari cart
+        const biayaOngkir = berat * 5000; // Contoh penghitungan ongkir
+        const estimasi = 3; // Estimasi hari pengiriman (3 hari)
+
+        // Tampilkan hasil ke form
+        document.querySelector('input[name="ongkir"]').value = biayaOngkir;
+        document.querySelector('input[name="estimasi"]').value = estimasi;
+
+        // Update total harga
+        const subtotal = <?= cartsubTotal(user()['idusers']); ?>;
+        const total = subtotal + biayaOngkir;
+        document.querySelector('.biaya-ongkir').textContent = `Rp. ${biayaOngkir}`;
+        document.getElementById('cart-total').textContent = `Rp. ${total}`;
+
+        // Pesan sukses
+        alert('Biaya ongkir berhasil dihitung!');
+    }
+</script>

@@ -8,7 +8,7 @@
     <title>Dealer Yamaha Motor</title>
     <meta name="keywords" content="<?=settings('general','meta_keywords');?>" />
     <meta name="description" content="<?=settings('general','meta_description');?>" />
-    <link rel="icon" href="<?= base_url('assets/ridezone.png')?>" type="image/x-icon">
+    <link rel="icon" href="<?= base_url('assets/logo-ridezone.png')?>" type="image/x-icon">
     <!-- Favicons -->
     <link href="<?= base_url(); ?>assets/front-end/img/<?= settings('general','favicon'); ?>" rel="icon">
     <!-- Tell the browser to be responsive to screen width -->
@@ -164,8 +164,7 @@
         <header class="main-header">
             <!-- Logo -->
             <div class="logo">
-              
-                <img src="<?= base_url('assets/ridezone.png')?>" alt="E-commerce Logo" class="mr-2" style="height:50px; width:50px">
+                <img src="<?= base_url('assets/logo-ridezone.png')?>" alt="E-commerce Logo" class="mr-2" style="height:50px; width:50px">
             </div>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 08, 2025 at 09:26 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 7.4.33
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 14, 2025 at 11:16 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -48,8 +48,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`idcart`, `product_id`, `user_id`, `qty`, `harga`, `satuan`, `berat`, `create_at`, `create_by`, `update_at`, `update_by`, `delete_at`, `delete_by`) VALUES
-(3, 34, 2, 1, 16000000, 'unit', 1057, 1661772411, 2, 0, 0, 0, 0),
-(4, 35, 2, 1, 1200000, 'unit', 1057, 1661772418, 2, 0, 0, 0, 0);
+(6, 67, 11, 1, 17230000, 'unit', 67, 1735408060, 11, 0, 0, 0, 0),
+(7, 62, 11, 1, 19400000, 'unit', 56, 1735408060, 11, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -89,8 +89,7 @@ INSERT INTO `detail_order` (`iddetail_order`, `product_id`, `order_id`, `qty`, `
 (21, 29, 16, 1, 150000, 'potong', 3000, 1661772397, 2, 0, 0, 0, 0),
 (22, 39, 16, 1, 118500, 'pcs', 1057, 1661772397, 2, 0, 0, 0, 0),
 (23, 62, 17, 1, 19400000, 'unit', 56, 1671184982, 10, 0, 0, 0, 0),
-(24, 29, 18, 1, 27450000, 'Unit', 3000, 1736326566, 11, 0, 0, 0, 0),
-(25, 30, 19, 1, 24700000, 'unit', 112, 1736344273, 11, 0, 0, 0, 0);
+(24, 34, 18, 1, 16000000, 'unit', 1057, 1735394326, 2, 0, 0, 0, 0);
 
 --
 -- Triggers `detail_order`
@@ -7903,9 +7902,9 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`idpembayaran`, `order_id`, `user_id`, `file`, `total`, `status`, `keterangan`, `tgl_bayar`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
-(17, 17, 10, 'bukti-bayar-1671163489.jpg', 14803, 'pending', 'sdh di transper', 1671185089, 1671184982, 10, 0, 0),
-(18, 18, 11, 'bukti-bayar-1736305021.png', 10000000, 'verified', 'Pembayaran-pertama', 1736326621, 1736326566, 11, 1736344454, 1),
-(19, 19, 11, '', 0, 'pending', '', 0, 1736344273, 11, 0, 0);
+(17, 17, 10, 'bukti-bayar-1671163489.jpg', 14803, 'verified', 'sdh di transper', 1671185089, 1671184982, 10, 1736590598, 1),
+(18, 18, 2, '', 0, 'pending', '', 0, 1735394326, 2, 0, 0),
+(19, 19, 11, '', 0, 'pending', '', 0, 1735398097, 11, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -7945,9 +7944,9 @@ CREATE TABLE `pesanan` (
 --
 
 INSERT INTO `pesanan` (`idorder`, `code`, `no_resi`, `datetime`, `user_id`, `subtotal`, `total_weight`, `order_ongkir`, `total_harga`, `order_prov`, `order_kab`, `order_kec`, `order_kodepos`, `order_address`, `order_kurir`, `order_layanan`, `status_bayar`, `status`, `create_at`, `create_by`, `update_at`, `update_by`, `delete_at`, `delete_by`) VALUES
-(17, 'ODR-1671184982', '', 1671184982, 10, 0, 56, 0, 0, 31, 3172, 'koja', '14270', 'jl,ndjjdldooldkjk', 'JNE', 'REG', 'belum lunas', 'pembayaran pending', 1671184982, 10, 1671185207, 1, 0, 0),
-(18, 'ODR-1736326565', 'R0001', 1736326565, 11, 0, 3000, 0, 0, 32, 3275, 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 'JNE', 'REG', 'lunas', 'pembayaran terima', 1736326565, 11, 1736326898, 1, 0, 0),
-(19, 'ODR-1736344273', '', 1736344273, 11, 0, 112, 0, 0, 32, 3275, 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 'JNE', 'OKE', 'belum lunas', 'pembayaran pending', 1736344273, 11, 0, 0, 0, 0);
+(17, 'ODR-1671184982', '', 1671184982, 10, 0, 56, 0, 0, 31, 3172, 'koja', '14270', 'jl,ndjjdldooldkjk', 'JNE', 'REG', 'lunas', 'selesai', 1671184982, 10, 1736714647, 1, 0, 0),
+(18, 'ODR-1735394326', '', 1735394326, 2, 0, 1057, 0, 0, 32, 3275, 'Bantargebang', '17145', 'Bekasi Timur Regency', 'JNE', 'OKE', 'belum lunas', 'pembayaran pending', 1735394326, 2, 0, 0, 0, 0),
+(19, 'ODR-1735398097', '', 1735398097, 11, 0, 0, 0, 0, 32, 3216, 'Bantargebang', '17154', 'Regensi', 'JNE', 'REG', 'belum lunas', 'pembayaran pending', 1735398097, 11, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -7981,13 +7980,13 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`idproduct`, `category_id`, `product_name`, `product_seo`, `satuan`, `harga_beli`, `harga_jual`, `diskon`, `berat`, `product_image`, `keterangan`, `stok`, `create_at`, `create_by`, `update_at`, `update_by`, `delete_at`, `delete_by`) VALUES
-(30, 1, 'FREEGO 125', 'Matic', 'unit', 24500000, 24700000, 0, '112', 'freego-125.png', 'Tipe Mesin	Air Cooled 4-Stroke,SOHC\r\nSusunan Silinder	Single Cylinder\r\nDiameter x Langkah	52,4 x 57,9 mm\r\nPerbandingan Kompresi	9,5 : 1\r\nVolume Silinder	125 cc\r\nDaya Maksimum	7,0 kW / 8000 rpm\r\nTorsi Maksimum	9,5 Nm/ 5500 rpm\r\nSistem Starter	Electric Starter\r\nSistem Pelumasan	Wet Sump\r\nKapasitas Oli Mesin	Total = 0,84 L ; Berkala = 0,80 L', 1, 1575210130, 1, 1575626858, 1, 0, 0),
-(29, 1, 'fazzio', 'Matic', 'Unit', 27000000, 27500000, 50000, '3000', 'fazzio.png', 'Motor ini memiliki dua sumber tenaga yang saling bersinergi, yaitu tenaga dari mesin 125 cc serta tenaga yang berasal dari Electric Power Assist Start yang membuat akselerasi awal lebih bertenaga dan halus.\r\n\r\nBaca artikel CNN Indonesia \"Spesifikasi dan Keunggulan Yamaha Fazzio\" \r\n', 2, 1575210109, 1, 1575626869, 1, 0, 0),
+(30, 1, 'FREEGO 125', 'Matic', 'unit', 24500000, 24700000, 0, '112', 'freego-125.png', 'Tipe Mesin	Air Cooled 4-Stroke,SOHC\r\nSusunan Silinder	Single Cylinder\r\nDiameter x Langkah	52,4 x 57,9 mm\r\nPerbandingan Kompresi	9,5 : 1\r\nVolume Silinder	125 cc\r\nDaya Maksimum	7,0 kW / 8000 rpm\r\nTorsi Maksimum	9,5 Nm/ 5500 rpm\r\nSistem Starter	Electric Starter\r\nSistem Pelumasan	Wet Sump\r\nKapasitas Oli Mesin	Total = 0,84 L ; Berkala = 0,80 L', 2, 1575210130, 1, 1575626858, 1, 0, 0),
+(29, 1, 'fazzio', 'Matic', 'Unit', 27000000, 27500000, 50000, '3000', 'fazzio.png', 'Motor ini memiliki dua sumber tenaga yang saling bersinergi, yaitu tenaga dari mesin 125 cc serta tenaga yang berasal dari Electric Power Assist Start yang membuat akselerasi awal lebih bertenaga dan halus.\r\n\r\nBaca artikel CNN Indonesia \"Spesifikasi dan Keunggulan Yamaha Fazzio\" \r\n', 3, 1575210109, 1, 1575626869, 1, 0, 0),
 (27, 10, 'ALL NEW NMAX 155', 'Maxi Yamaha', 'unit', 31125000, 31225000, 2000, '11000', 'nmax.jfif', 'Kapasitas Oli Mesin	Total – 1,00 L ; Berkala 0,90 L\r\nSistem Bahan Bakar	FI (Fuel Injection)\r\nTipe Kopling	Kering, Centrifugal Automatic\r\nTipe Transmisi	V-belt Automatic\r\nTipe Mesin	Liquid cooled 4-stroke, SOHC\r\nJumlah/Posisi Silinder	Single Cylinder\r\nKapasitas Mesin	155cc\r\nDiameter x Langkah	58,0 mm x 58.7 mm\r\nPerbandingan Kompresi	11.6 : 1\r\nDaya Maksimum	11.3 kW / 8000 rpm\r\nTorsi Maksimum	13.9Nm / 6500rpm\r\n', 0, 1575210085, 1, 1575626878, 1, 0, 0),
 (31, 1, 'gear 125', 'Matic', 'Ikat', 17200000, 17500000, 0, '1057', 'gear-125.png', 'Yamaha Gear baru saja diluncurkan ke pasar Indonesia oleh PT Yamaha Indonesia Motor Manufacturing (YIMM) lewat peluncuran virtual. Ini adalah skuter terbaru Yamaha yang masuk dalam keluarga skuter matik (skutik) bermesin Blue Core 125 cc.\r\nSekilas tampilan Yamaha Gear mirip dengan Yamaha Mio, tapi jika dilihat lebih dekat motor ini berbeda. Yamaha Gear memiliki panjang x lebar x tinggi: 1.870mm x 685 mm x 1060 mm. Jarak sumbu rodanya 1.260, tinggi tempat duduk 750 mm dan jarak ke tanahya 160 mm.\r\n\r\nBaca artikel detikoto, \"Spesifikasi Lengkap Yamaha Gear 125 yang Baru Meluncur\" selengkapnya https://oto.detik.com/berita/d-5269043/spesifikasi-lengkap-yamaha-gear-125-yang-baru-meluncur.\r\n\r\nDownload Apps Detikcom Sekarang https://apps.detik.com/detik/\r\n', 2, 1575210446, 1, 1575626844, 1, 0, 0),
 (32, 1, 'X-RIDE', 'MATIC', 'UNIT', 19400000, 19600000, 0, '1057', 'x-ride.png', 'TIPE MESIN	4 Langkah, 2 Valve SOHC, Berpendingin Angin, Bluecore\r\nSUSUNAN SILINDER	Cylinder Tunggal\r\nDIAMETER X LANGKAH	52,4 x 57,9 mm\r\nPERBANDINGAN KOMPRESI	9,5 : 1\r\nVOLUME SILINDER	125 cc\r\nDAYA MAKSIMUM	7,0 Kw / 8000 rpm\r\nTORSI MAKSIMUM	9,6 N.m / 5500 rpm\r\nSISTEM STARTER	Electric Starter & kick starter\r\nSISTEM PELUMASAN	Wet sump\r\nKAPASITAS OLI MESIN	Total : 0,84 L ; Berkala : 0,80 L ; Ganti Filter Oli : 0,80 L\r\n', 1, 1575210478, 1, 1575626835, 1, 0, 0),
 (33, 28, 'XSR-155', 'naked bike', 'unit', 37100000, 37200000, 0, '90', 'xsr-155.png', 'Pipa Knalpot\r\nSingle Exhaust\r\nJenis Penggerak\r\nChain Drive\r\nJumlah silinder\r\n1\r\nKatup Per Silinder\r\n4\r\nSistem Pendinginan\r\nPendingin Cairan\r\nJumlah langkah\r\n4-Stroke\r\nSistem pelumasan\r\nWet Sump\r\nRasio Kompresi\r\n11.6:1\r\nKonfigurasi Katup\r\nSOHC\r\nKapasitas\r\n155\r\nDiameter x langkah\r\n58 mm x 58.7 mm\r\nJenis Kopling\r\nWet, Multi-Plate', 1, 1661771578, 1, 1661771578, 1, 0, 0),
-(34, 1, 'MIO M3', 'Matic', 'unit', 17125000, 17125000, 30000, '1057', 'mio-m3.png', 'Tipe mesin	Air cooled 4-stroke, SOHC\r\nSusunan silinder	Single cylinder\r\nDiameter X Langkah	52,4 x 57,9 mm\r\nPerbandingan kompresi	9,5 : 1\r\nVolume silinder	125 cc\r\nDaya maksimum	7 kW / 8000 rpm\r\nTorsi maksimum	9.6 Nm / 5500 rpm\r\nSistem starter	Electric & kick starter\r\nSistem pelumasan	Wet sump\r\nKapasitas oli mesin	Total = 0,84 L ; Berkala = 0,80 L\r\n', 12, 1575559513, 1, 1575626815, 1, 0, 0),
+(34, 1, 'MIO M3', 'Matic', 'unit', 17125000, 17125000, 30000, '1057', 'mio-m3.png', 'Tipe mesin	Air cooled 4-stroke, SOHC\r\nSusunan silinder	Single cylinder\r\nDiameter X Langkah	52,4 x 57,9 mm\r\nPerbandingan kompresi	9,5 : 1\r\nVolume silinder	125 cc\r\nDaya maksimum	7 kW / 8000 rpm\r\nTorsi maksimum	9.6 Nm / 5500 rpm\r\nSistem starter	Electric & kick starter\r\nSistem pelumasan	Wet sump\r\nKapasitas oli mesin	Total = 0,84 L ; Berkala = 0,80 L\r\n', 11, 1575559513, 1, 1575626815, 1, 0, 0),
 (35, 1, 'Fino', 'Matic', 'unit', 18200000, 18400000, 0, '1057', 'fino.png', 'Volume Cylinder	125 cc\r\nPerbandingan Kompresi	9,5 : 1\r\nDaya Maksimum	7.0 kW (9.52 PS) / 8000rpm\r\nTorsi Maksimum	9.6 N.m (0,98 kgf.m) / 5500rpm\r\nSistem Starter	Elektrik & kick starter\r\nSistem Pelumasan	Basah\r\nKapasitas Oli Mesin	Total = 0,84 L ; Berkala = 0,80 L\r\nSistem Bahan Bakar	Fuel Injection\r\nTipe Kopling	Kering, sentrifugal Automatic\r\nTipe Transmisi	V-belt automatic\r\nTipe Mesin	Air cooled, 4-stroke, SOHC\r\nJumlah / Posisi Silinder	Single cylinder\r\nDiameter X Langkah	52,4 x 57,9 mm\r\n', 12, 1575626912, 1, 0, 0, 0, 0),
 (36, 10, 'XMAX CONNECTED', 'Matic Maxi', 'unit', 66000000, 66100000, 0, '1057', 'xmax.jfif', 'Big Fuel Tank Capacity (13 L) Aktivitas berkendara menjadi lebih nyaman dan menyenangkan dengan tangki bensin berkapasitas besar. Smart Key System. Sistem kunci canggih tanpa anak kunci (keyless), dilengkapi fitur Answer Back System, memudahkan pengendara mencari posisi parkir motor. Electric Power Socket.\r\n', 12, 1576435486, 1, 1576435486, 1, 0, 0),
 (37, 28, 'mt-25', 'naked bike', 'unit', 56100000, 56320000, 0, '1057', 'mt-25.png', 'Pipa Knalpot\r\nSingle Exhaust\r\nJenis Penggerak\r\nChain Drive\r\nKatup Per Silinder\r\n4\r\nKonfigurasi Katup\r\nDOHC\r\nJenis Kopling\r\nWet\r\nSistem Pendinginan\r\nPendingin Cairan\r\nJumlah langkah\r\n4-Stroke\r\nTipe injeksi\r\nDirect Injection\r\n', 11, 1661771589, 1, 1661771589, 1, 0, 0),
@@ -8141,7 +8140,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `group`, `variable`, `value`, `default`, `description`, `created_at`, `updated_at`, `deleted_at`, `restored_at`, `created_by`, `updated_by`, `deleted_by`, `restored_by`, `is_deleted`) VALUES
-(1, 'general', 'meta_description', 'Dealer yamaha', 'Produk terbaru', 'Deskripsi Meta', '2018-04-01 18:51:58', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, NULL, NULL, 'false'),
+(1, 'general', 'meta_description', 'Dealer Yamaha', 'Produk terbaru', 'Deskripsi Meta', '2018-04-01 18:51:58', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, NULL, NULL, 'false'),
 (2, 'general', 'meta_keywords', 'Motor yamaha', 'motor terbaik', 'Kata Kunci Meta', '2018-04-01 18:51:58', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, NULL, NULL, 'false'),
 (3, 'general', 'google_map_api_key', 'AIzaSyBdZwsJsQY8wt-JNofqHzV11pMaSLgUC-Y', 'AIzaSyDmiycFxzYZ37FOwA4wqSbL3z2YvIYIArw', 'API Key Google Map', '2018-04-01 18:51:58', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, NULL, NULL, 'false'),
 (4, 'general', 'latitude', '-2.08', '-6.2407311', 'Latitude', '2018-04-01 18:51:58', '2019-10-26 00:02:31', NULL, NULL, NULL, 1, NULL, NULL, 'false'),
@@ -8263,11 +8262,12 @@ CREATE TABLE `testimonial` (
 --
 
 INSERT INTO `testimonial` (`idtestimoni`, `user_id`, `name`, `telp`, `job`, `message`, `status`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
-(2, 2, 'Billy', '081222333444', 'karyawan swasta', 'Saya sejek kecil suka dengan motor yamaha', 'No', 1575714719, 2, 1661723817, 2),
-(3, 5, 'Muhammad', '083893900', 'wirasuwasta', 'Terima kasih yamaha', 'Yes', 1575715791, 5, 1575715852, 1),
+(2, 2, 'Billy', '081222333444', 'karyawan swasta', 'Saya sejek kecil suka dengan motor yamaha', 'Yes', 1575714719, 2, 1735407257, 1),
+(3, 5, 'Muhammad', '083893900', 'wirasuwasta', 'Terima kasih yamaha', 'Yes', 1575715791, 5, 1735407251, 1),
 (5, 4, 'Zahra Amelia', '0829128790', 'Guru', 'Teman terbaik saat berkendara', 'Yes', 0, 0, 1575716085, 1),
 (6, 6, 'Widya Prastika', 'widnya@gmail.co', 'Wirausaha', 'Mesinnya bagus', 'Yes', 1576433102, 6, 1576433133, 1),
-(7, 2, 'roin', '087122233444', 'Programmer', 'Mesin terkenal sangat tangguh', 'No', 1576496271, 2, 1661723817, 2);
+(7, 2, 'roin', '087122233444', 'Programmer', 'Mesin terkenal sangat tangguh', 'No', 1576496271, 2, 1661723817, 2),
+(8, 11, 'Fatimah Azzahra', '087874080963', 'mahasiswi', 'bagus sekali ', 'Yes', 1735395456, 11, 1735407264, 1);
 
 -- --------------------------------------------------------
 
@@ -8299,6 +8299,7 @@ INSERT INTO `themes` (`id_theme`, `theme_name`, `theme_folder`, `theme_author`, 
 CREATE TABLE `users` (
   `idusers` int(11) NOT NULL,
   `user_name` varchar(25) DEFAULT NULL,
+  `user_gambar` varchar(255) NOT NULL,
   `user_password` varchar(128) DEFAULT NULL,
   `user_fullname` varchar(128) DEFAULT NULL,
   `user_telp` varchar(15) NOT NULL,
@@ -8324,47 +8325,14 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`idusers`, `user_name`, `user_password`, `user_fullname`, `user_telp`, `user_url`, `user_bio`, `user_group_id`, `user_type`, `user_forgot_password_key`, `user_forgot_password_date`, `last_loggin`, `ip_address`, `is_active`, `is_block`, `create_at`, `update_at`, `delete_at`, `create_by`, `update_by`, `delete_by`) VALUES
-(1, 'admin', '$2y$10$fetknyRWIpyGMC5NhLh5OOFsJM39k3r5LY.RJp6vCFjvnjpBh5992', 'Dealer yamaha', '081222333444', 'https://yamaha.com', '-', NULL, 'super_user', NULL, NULL, 1736344550, '::1', 1, 0, 1556509343, 1661633811, NULL, 1, 1, NULL),
-(2, 'customer', '$2y$10$P40GddIH4tDw9.FE5.IkW.ckgrqEHZL84wyejtHQvGHJEh.Bxy.Ke', 'Eka Saputra', '082248577297', '', '', NULL, 'customer', NULL, NULL, 1661772299, '::1', 1, 0, 1574127580, 1661724195, NULL, 1, 1, NULL),
-(5, 'user', '$2y$10$dnbz1kC5cQw9iWzIWV2dHupAG6YCiBUbE2R.B2Pi4grD9hnl7EASu', 'Zahra Amelia', '081444555666', '', '', NULL, 'user', NULL, NULL, 1575715603, '::1', 1, 0, 1575715597, 1661724296, NULL, 1, 1, NULL),
-(10, 'yogi', '$2y$10$FkH1qAGiyuOkZU/Mgbsw9Oupi/Z96c1Hwi9UOcqzTYNx7mjYkfG22', 'yogi sa', '086738283993', '', '', NULL, 'customer', NULL, NULL, 1671184836, '::1', 1, 0, 1671184823, NULL, NULL, 1, NULL, NULL),
-(11, 'syubidin', '$2y$10$WSnpmDh44y.gOzcuxImUwurTA6LA/LyPLC2uwS5TYuoKSlFPtlm4O', 'Syuby Attala', '08123456789', '', '', NULL, 'customer', NULL, NULL, 1736344514, '::1', 1, 0, 1736324645, NULL, NULL, 1, NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_group`
---
-
-CREATE TABLE `user_group` (
-  `iduser_group` int(11) NOT NULL,
-  `user_group` varchar(128) DEFAULT NULL,
-  `create_at` int(11) DEFAULT NULL,
-  `update_at` int(11) DEFAULT NULL,
-  `delete_at` int(11) DEFAULT NULL,
-  `create_by` int(11) DEFAULT NULL,
-  `update_by` int(11) DEFAULT NULL,
-  `delete_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_privileges`
---
-
-CREATE TABLE `user_privileges` (
-  `iduser_privileges` int(11) NOT NULL,
-  `user_group_id` int(11) DEFAULT NULL,
-  `module_id` int(11) DEFAULT NULL,
-  `create_at` int(11) DEFAULT NULL,
-  `update_at` int(11) DEFAULT NULL,
-  `delete_at` int(11) DEFAULT NULL,
-  `create_by` int(11) DEFAULT NULL,
-  `update_by` int(11) DEFAULT NULL,
-  `delete_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+INSERT INTO `users` (`idusers`, `user_name`, `user_gambar`, `user_password`, `user_fullname`, `user_telp`, `user_url`, `user_bio`, `user_group_id`, `user_type`, `user_forgot_password_key`, `user_forgot_password_date`, `last_loggin`, `ip_address`, `is_active`, `is_block`, `create_at`, `update_at`, `delete_at`, `create_by`, `update_by`, `delete_by`) VALUES
+(1, 'admin', '', '$2y$10$fetknyRWIpyGMC5NhLh5OOFsJM39k3r5LY.RJp6vCFjvnjpBh5992', 'Dealer yamaha', '081222333444', 'https://yamaha.com', '-', NULL, 'super_user', NULL, NULL, 1736846046, '::1', 1, 0, 1556509343, 1661633811, NULL, 1, 1, NULL),
+(2, 'customer', '', '$2y$10$P40GddIH4tDw9.FE5.IkW.ckgrqEHZL84wyejtHQvGHJEh.Bxy.Ke', 'Eka Saputra', '082248577297', '', '', NULL, 'customer', NULL, NULL, 1735394166, '::1', 1, 0, 1574127580, 1661724195, NULL, 1, 1, NULL),
+(5, 'user', '', '$2y$10$obUw4kBrR7A6bsYP.K9HqepMvAwTLPiTzNKojOJjs0NWIL79Wi91a', 'Zahra Amelia', '081444555666', '', '', NULL, 'administrator', NULL, NULL, 1736785802, '::1', 1, 0, 1575715597, 1736785756, NULL, 1, 1, NULL),
+(19, 'mar', 'user-1736691397.png', '$2y$10$ZavP6aPuxkgy0fByPzrYZOi2wPwPj2WaO9NPHdoHWY.DMxWMf5mYC', 'Fatimah Azzahra', '087874080963', '', '', NULL, 'customer', NULL, NULL, 1736804743, '::1', 1, 0, 1736712997, 1736805739, NULL, 1, 1, NULL),
+(23, 'elea', 'user-1736787085.png', '$2y$10$mspOu1CSXcREqYOu66cbZuLeHYasqbJ1zbJi1ZVl3zIak0kqZT6f2', 'Elea', '087879099276', '', '', NULL, 'user', NULL, NULL, NULL, NULL, 1, 0, 1736808686, 1736818434, NULL, 1, 1, NULL),
+(24, 'ele', 'user-1736826399.png', '$2y$10$l7gZNyNYg8uJvugQYlFLz.pkf3LhYfBeV/BF2yVFiecP8uz.gvPae', 'eleea', '087879099276', '', '', NULL, 'user', NULL, NULL, NULL, NULL, 1, 0, 2025, 1736849547, NULL, 1, 1, NULL),
+(25, 'bibi', 'user-1736827987.png', '$2y$10$tuoBJjAnLOaolMfHmV1IguEsX3wtrEOPOVyK8GY4.ZQzXwDBredF2', 'Elea', '087879099276', '', '', NULL, 'user', NULL, NULL, NULL, NULL, 1, 0, 1736849587, NULL, NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -8395,7 +8363,8 @@ CREATE TABLE `user_profile` (
 INSERT INTO `user_profile` (`idUser_profile`, `users_id`, `fullname`, `telp`, `prov`, `kab`, `kec`, `kodepos`, `address`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
 (5, 7, 'Eka Saputra', '082248577297', '51', '5171', 'Manimeri a', '98363', 'asd', 1577559444, 7, 0, 0),
 (6, 10, 'yogi sa', '086738283993', '31', '3172', 'koja', '14270', 'jlnkjkdslkllskdjjsdi', 1671185015, 10, 0, 0),
-(7, 11, 'Syuby Attala', '08123456789', '32', '3275', 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 1736325374, 11, 0, 0);
+(7, 2, 'Eka Saputra', '082248577297', '32', '3275', 'Bantargebang', '17154', 'Bekasi Timur Regency', 1735394522, 2, 1735394569, 7),
+(8, 12, 'Fatimah Azzahra', '087874080963', '32', '3216', 'Bantargebang', '17154', 'Marakas bekasi utara', 1736522404, 12, 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -8517,18 +8486,6 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`idusers`);
 
 --
--- Indexes for table `user_group`
---
-ALTER TABLE `user_group`
-  ADD PRIMARY KEY (`iduser_group`);
-
---
--- Indexes for table `user_privileges`
---
-ALTER TABLE `user_privileges`
-  ADD PRIMARY KEY (`iduser_privileges`);
-
---
 -- Indexes for table `user_profile`
 --
 ALTER TABLE `user_profile`
@@ -8548,7 +8505,7 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `detail_order`
 --
 ALTER TABLE `detail_order`
-  MODIFY `iddetail_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `iddetail_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `info`
@@ -8620,7 +8577,7 @@ ALTER TABLE `slider`
 -- AUTO_INCREMENT for table `testimonial`
 --
 ALTER TABLE `testimonial`
-  MODIFY `idtestimoni` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idtestimoni` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `themes`
@@ -8632,25 +8589,13 @@ ALTER TABLE `themes`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `idusers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `user_group`
---
-ALTER TABLE `user_group`
-  MODIFY `iduser_group` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `user_privileges`
---
-ALTER TABLE `user_privileges`
-  MODIFY `iduser_privileges` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idusers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `user_profile`
 --
 ALTER TABLE `user_profile`
-  MODIFY `idUser_profile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idUser_profile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

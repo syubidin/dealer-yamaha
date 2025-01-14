@@ -383,7 +383,7 @@ $(function() {
         </div>
     </div>
 </div>
-<!-- Modal Ubah Gambar -->
+
 <div class="modal fade" tabindex="-1" id="ganti_password" role="dialog">
     <div class="modal-dialog" role="document">
         <form action="" method="post" enctype="multipart/form-data" id="form-ganti-password">

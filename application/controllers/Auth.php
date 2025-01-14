@@ -143,7 +143,7 @@ class Auth extends CI_Controller {
             redirect('auth/reset_password');
         } else {
             // Username tidak ditemukan
-            $this->session->set_flashdata('msg', '<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Username tidak terdaftar.</div>');
+            $this->session->set_flashdata('msg', '<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Username is not registered.</div>');
             redirect('auth/forgot_password');
         }
     }
@@ -169,7 +169,7 @@ class Auth extends CI_Controller {
 				$this->db->where('idusers', $user['idusers']);
 				$this->db->update('users', ['user_password' => $password, 'user_forgot_password_key' => null]);
 
-				$this->session->set_flashdata('msg', '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Password berhasil direset. Silakan login dengan password baru Anda.</div>');
+				$this->session->set_flashdata('msg', '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Password successfully reset. Please login with your new password</div>');
 				redirect('auth');
 			} else {
 				// Kode pemulihan salah

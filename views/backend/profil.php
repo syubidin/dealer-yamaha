@@ -33,6 +33,17 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="user_gambar" class="col-sm-3 control-label">Gambar Profil</label>
+                    <div class="col-sm-9">
+                        <?php if ($update_user->user_gambar): ?>
+                            <img src="<?=base_url('uploads/users/'.$update_user->user_gambar);?>" width="100" height="100" />
+                        <?php else: ?>
+                            <p>No image uploaded</p>
+                        <?php endif; ?>
+                        <input type="file" name="user_gambar" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="user_url" class="col-sm-3 control-label">URL</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control" id="user_url" value="<?=$update_user->user_url;?>"
@@ -50,8 +61,7 @@
             <div class="box-footer">
                 <div class="row">
                     <div class="col-sm-offset-3 col-sm-9">
-                        <button type="submit" class="btn btn-primary submit"><i class="fa fa-save"></i> UPDATE
-                            PROFILE</button>
+                        <button type="submit" class="btn btn-primary submit"><i class="fa fa-save"></i> UPDATE PROFILE</button>
                     </div>
                 </div>
             </div>

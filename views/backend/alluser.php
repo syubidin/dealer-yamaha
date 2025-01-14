@@ -315,11 +315,11 @@ $(function() {
         </div>
     </div>
 </section>
-<!-- Modal view produk -->
+
 <div class="modal fade" id="modal_add" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="<?=base_url('user/addNewUser');?>" method="post" enctype="multipart/form-data">
+            <form action="<?= base_url('user/addNewUser'); ?>" method="post" enctype="multipart/form-data">
                 <div class="modal-header bg-blue">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
@@ -337,13 +337,16 @@ $(function() {
                     </div>
                     <div class="form-group">
                         <label>Username <span style="color:red;">*</span></label>
-                        <input type="text" class="form-control" name="user_name" id="username" placeholder="Username"
-                            required>
+                        <input type="text" class="form-control" name="user_name" id="username" placeholder="Username" required>
+                    </div>
+                    <!-- Image Upload -->
+                    <div class="form-group">
+                        <label>Profile Image <span style="color:red;">*</span></label>
+                        <input type="file" class="form-control" name="user_gambar" accept="image/*" required>
                     </div>
                     <div class="form-group" id="password">
                         <label>Password <span style="color:red;">*</span></label>
-                        <input type="password" class="form-control" name="user_password" placeholder="Password"
-                            required>
+                        <input type="password" class="form-control" name="user_password" placeholder="Password" required>
                     </div>
                     <div class="form-group" id="access">
                         <label>User Access <span style="color:red;">*</span></label>
@@ -354,16 +357,15 @@ $(function() {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-default btn-flat pull-left"
-                        data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-sm btn-default btn-flat pull-left" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-sm btn-success btn-flat" id="btn-tambah">Add</button>
-                    <button type="button" class="btn btn-sm btn-success btn-flat" id="btn-ubah"
-                        onclick="ubahuser()">Edit</button>
+                    <button type="button" class="btn btn-sm btn-success btn-flat" id="btn-ubah" onclick="ubahuser()">Edit</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 <!-- Modal konfirmasi delete -->
 <div class="modal fade" id="modal_block" role="dialog">
     <div class="modal-dialog">

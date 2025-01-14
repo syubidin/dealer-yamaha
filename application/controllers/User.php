@@ -78,19 +78,50 @@ class User extends CI_Controller {
 	}
 	public function editprofil()
 	{
+		// Handle image upload if exists
+		$user_image = NULL;
+		if ($_FILES['user_gambar']['name']) {
+			// Configuration for file upload
+			$config['upload_path'] = './uploads/users/';
+			$config['allowed_types'] = 'jpg|jpeg|png|gif';
+			$config['max_size'] = 2048; // 2MB
+			$config['encrypt_name'] = TRUE; // Encrypt the name of the uploaded file
+			$this->load->library('upload', $config);
+	
+			if ($this->upload->do_upload('user_gambar')) {
+				$upload_data = $this->upload->data();
+				$user_image = $upload_data['file_name']; // Get uploaded image file name
+			} else {
+				// Error message for upload failure
+				$this->toastr->error('Image upload failed. Please try again.');
+				redirect('user/user_profile');
+			}
+		}
+	
+		// Prepare data for database update
 		$data = [
-			'user_fullname'=>$this->input->post('user_fullname', true),
-			'user_telp'=>$this->input->post('user_telp', true),
-			'user_url'=>$this->input->post('user_url', true),
-			'user_bio'=>$this->input->post('user_bio', true),
-			'update_at'=>get_dateTime(),
-			'update_by'=>$this->input->post('idusers', true)
+			'user_fullname' => $this->input->post('user_fullname', true),
+			'user_telp' => $this->input->post('user_telp', true),
+			'user_url' => $this->input->post('user_url', true),
+			'user_bio' => $this->input->post('user_bio', true),
+			'update_at' => get_dateTime(),
+			'update_by' => $this->input->post('idusers', true)
 		];
+	
+		// If there is a new image, update it
+		if ($user_image) {
+			$data['user_gambar'] = $user_image;
+		}
+	
+		// Update user data in database
 		$this->db->where('idusers', $this->input->post('idusers', true));
 		$this->db->update('users', $data);
+	
+		// Success message
 		$this->toastr->success('Your Profile Updated');
 		redirect('user/user_profile');
 	}
+
 	public function usergroup()
 	{
 		$data['title'] = 'All Group';
@@ -203,8 +234,21 @@ class User extends CI_Controller {
 		$this->db->update('testimonial', $data);
 		redirect('public/testimoni');
 	}
-	public function addNewUser(){
-		// $this->User_m->register();
+		public function addNewUser() {
+		// Handle image upload
+		$config['upload_path'] = './uploads/users/';
+		$config['allowed_types'] = 'jpg|jpeg|png|gif';
+		$config['max_size'] = 2048; // 2MB
+		$config['encrypt_name'] = TRUE; // Encrypt the name of the uploaded file
+		$this->load->library('upload', $config);
+	
+		if ($this->upload->do_upload('user_gambar')) {
+			$upload_data = $this->upload->data();
+			$user_image = $upload_data['file_name'];
+		} else {
+			$user_image = NULL; // If no image uploaded, set to NULL
+		}
+	
 		$data = [
 			'user_name' => htmlspecialchars($this->input->post('user_name', true)),
 			'user_password' => password_hash(htmlspecialchars($this->input->post('user_password', true)), PASSWORD_DEFAULT),
@@ -214,30 +258,65 @@ class User extends CI_Controller {
 			'is_active' => 1,
 			'is_block' => 0,
 			'create_at' => get_dateTime(),
-			'create_by' => user()['idusers']
+			'create_by' => user()['idusers'],
+			'user_gambar' => $user_image // Store the image file name
 		];
+	
 		$this->db->insert('users', $data);
 		$this->toastr->success('Created Successfully');
 		redirect('user/alluser');
 	}
-	public function updateUser()
-	{
-		if($this->input->post('idusers', true)==1){
-			$user_type = 'super_user';
-		}else{
-			$user_type = htmlspecialchars($this->input->post('user_type', true));
+
+	public function updateUser() {
+		// Get current user ID
+		$user_id = $this->input->post('idusers', true);
+	
+		// Default user_image is NULL
+		$user_image = NULL;
+	
+		// Check if new image is uploaded
+		if (!empty($_FILES['user_gambar']['name'])) {
+			// Config upload path and restrictions
+			$config['upload_path'] = './uploads/users/';
+			$config['allowed_types'] = 'jpg|jpeg|png|gif';
+			$config['max_size'] = 2048; // 2MB
+			$config['encrypt_name'] = TRUE; // Encrypt the name of the uploaded file
+			$this->load->library('upload', $config);
+	
+			if ($this->upload->do_upload('user_gambar')) {
+				$upload_data = $this->upload->data();
+				$user_image = $upload_data['file_name']; // Store new image name
+			} else {
+				// If upload fails, keep the error message for debugging
+				log_message('error', 'Upload error: ' . $this->upload->display_errors());
+			}
 		}
+	
+		// If image is not uploaded, try to keep the old image
+		if (!$user_image) {
+			// Query to get the current image from the database if no new image uploaded
+			$user = $this->db->get_where('users', ['idusers' => $user_id])->row();
+			if ($user) {
+				$user_image = $user->user_gambar; // Retain old image if no new image
+			}
+		}
+	
+		// Prepare data for update
 		$data = [
 			'user_name' => htmlspecialchars($this->input->post('user_name', true)),
 			'user_fullname' => htmlspecialchars($this->input->post('user_fullname', true)),
 			'user_telp' => htmlspecialchars($this->input->post('user_telp', true)),
-			'user_type' => $user_type,
-			"update_at"=>get_dateTime(),
-			"update_by"=>user()['idusers']
+			'user_type' => ($user_id == 1) ? 'super_user' : htmlspecialchars($this->input->post('user_type', true)),
+			'update_at' => get_dateTime(),
+			'update_by' => user()['idusers'],
+			'user_gambar' => $user_image, // Store the image filename (new or old)
 		];
-		$this->db->where('idusers', $this->input->post('idusers', true));
+	
+		// Update the user record in the database
+		$this->db->where('idusers', $user_id);
 		$this->db->update('users', $data);
 	}
+	
 	public function changepassword()
 	{
 		$data = [

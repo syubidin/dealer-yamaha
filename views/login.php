@@ -44,7 +44,7 @@
             <form action="" method="post">
                 <div class="form-group has-feedback">
                     <input type="text" class="form-control" placeholder="Username" name="username">
-                    <span class="input-group-text form-control-feedback"><i class="bi bi-envelope-at-fill"></i></span>
+                    <span class="input-group-text form-control-feedback"><i class="bi bi-person-fill"></i></i></span>
                 </div>
                 <div class="form-group has-feedback">
                     <input type="password" class="form-control" placeholder="Password" name="password">

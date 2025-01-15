@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Jan 14, 2025 at 11:16 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- Host: 127.0.0.1
+-- Generation Time: Jan 15, 2025 at 08:54 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -49,7 +49,8 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`idcart`, `product_id`, `user_id`, `qty`, `harga`, `satuan`, `berat`, `create_at`, `create_by`, `update_at`, `update_by`, `delete_at`, `delete_by`) VALUES
 (6, 67, 11, 1, 17230000, 'unit', 67, 1735408060, 11, 0, 0, 0, 0),
-(7, 62, 11, 1, 19400000, 'unit', 56, 1735408060, 11, 0, 0, 0, 0);
+(7, 62, 11, 1, 19400000, 'unit', 56, 1735408060, 11, 0, 0, 0, 0),
+(15, 29, 26, 1, 27450000, 'Unit', 3000, 1736944532, 26, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -89,7 +90,13 @@ INSERT INTO `detail_order` (`iddetail_order`, `product_id`, `order_id`, `qty`, `
 (21, 29, 16, 1, 150000, 'potong', 3000, 1661772397, 2, 0, 0, 0, 0),
 (22, 39, 16, 1, 118500, 'pcs', 1057, 1661772397, 2, 0, 0, 0, 0),
 (23, 62, 17, 1, 19400000, 'unit', 56, 1671184982, 10, 0, 0, 0, 0),
-(24, 34, 18, 1, 16000000, 'unit', 1057, 1735394326, 2, 0, 0, 0, 0);
+(24, 34, 18, 1, 16000000, 'unit', 1057, 1735394326, 2, 0, 0, 0, 0),
+(25, 38, 20, 1, 28220000, 'unit', 1057, 1736874740, 26, 0, 0, 0, 0),
+(26, 38, 21, 1, 28220000, 'unit', 1057, 1736936451, 26, 0, 0, 0, 0),
+(27, 50, 22, 1, 27300000, 'unit', 35, 1736936625, 26, 0, 0, 0, 0),
+(28, 33, 23, 1, 37200000, 'unit', 90, 1736936670, 26, 0, 0, 0, 0),
+(29, 29, 24, 1, 27450000, 'Unit', 3000, 1736942185, 26, 0, 0, 0, 0),
+(30, 34, 25, 1, 17095000, 'unit', 1057, 1736943891, 26, 0, 0, 0, 0);
 
 --
 -- Triggers `detail_order`
@@ -7889,6 +7896,10 @@ CREATE TABLE `pembayaran` (
   `file` varchar(255) NOT NULL,
   `total` int(11) NOT NULL,
   `status` enum('pending','verified') NOT NULL,
+  `jenis_pembayaran` enum('cash','credit') DEFAULT NULL,
+  `uang_muka` int(11) DEFAULT NULL,
+  `durasi_cicilan` int(11) DEFAULT NULL,
+  `status_cicilan` enum('pending','lunas') DEFAULT 'pending',
   `keterangan` varchar(255) NOT NULL,
   `tgl_bayar` int(11) NOT NULL,
   `create_at` int(11) NOT NULL,
@@ -7901,10 +7912,16 @@ CREATE TABLE `pembayaran` (
 -- Dumping data for table `pembayaran`
 --
 
-INSERT INTO `pembayaran` (`idpembayaran`, `order_id`, `user_id`, `file`, `total`, `status`, `keterangan`, `tgl_bayar`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
-(17, 17, 10, 'bukti-bayar-1671163489.jpg', 14803, 'verified', 'sdh di transper', 1671185089, 1671184982, 10, 1736590598, 1),
-(18, 18, 2, '', 0, 'pending', '', 0, 1735394326, 2, 0, 0),
-(19, 19, 11, '', 0, 'pending', '', 0, 1735398097, 11, 0, 0);
+INSERT INTO `pembayaran` (`idpembayaran`, `order_id`, `user_id`, `file`, `total`, `status`, `jenis_pembayaran`, `uang_muka`, `durasi_cicilan`, `status_cicilan`, `keterangan`, `tgl_bayar`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
+(17, 17, 10, 'bukti-bayar-1671163489.jpg', 14803, 'verified', NULL, NULL, NULL, 'pending', 'sdh di transper', 1671185089, 1671184982, 10, 1736590598, 1),
+(18, 18, 2, '', 0, 'pending', NULL, NULL, NULL, 'pending', '', 0, 1735394326, 2, 0, 0),
+(19, 19, 11, '', 0, 'pending', NULL, NULL, NULL, 'pending', '', 0, 1735398097, 11, 0, 0),
+(20, 20, 26, '', 0, 'pending', NULL, NULL, NULL, 'pending', '', 0, 1736874740, 26, 0, 0),
+(21, 21, 26, '', 0, 'pending', NULL, NULL, NULL, 'pending', '', 0, 1736936451, 26, 0, 0),
+(22, 22, 26, '', 0, 'pending', NULL, NULL, NULL, 'pending', '', 0, 1736936625, 26, 0, 0),
+(23, 23, 26, '', 0, 'pending', NULL, NULL, NULL, 'pending', '', 0, 1736936670, 26, 0, 0),
+(24, 24, 26, '', 0, 'pending', NULL, NULL, NULL, 'pending', '', 0, 1736942180, 26, 0, 0),
+(25, 25, 26, '', 0, 'pending', NULL, NULL, NULL, 'pending', '', 0, 1736943891, 26, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -7946,7 +7963,13 @@ CREATE TABLE `pesanan` (
 INSERT INTO `pesanan` (`idorder`, `code`, `no_resi`, `datetime`, `user_id`, `subtotal`, `total_weight`, `order_ongkir`, `total_harga`, `order_prov`, `order_kab`, `order_kec`, `order_kodepos`, `order_address`, `order_kurir`, `order_layanan`, `status_bayar`, `status`, `create_at`, `create_by`, `update_at`, `update_by`, `delete_at`, `delete_by`) VALUES
 (17, 'ODR-1671184982', '', 1671184982, 10, 0, 56, 0, 0, 31, 3172, 'koja', '14270', 'jl,ndjjdldooldkjk', 'JNE', 'REG', 'lunas', 'selesai', 1671184982, 10, 1736714647, 1, 0, 0),
 (18, 'ODR-1735394326', '', 1735394326, 2, 0, 1057, 0, 0, 32, 3275, 'Bantargebang', '17145', 'Bekasi Timur Regency', 'JNE', 'OKE', 'belum lunas', 'pembayaran pending', 1735394326, 2, 0, 0, 0, 0),
-(19, 'ODR-1735398097', '', 1735398097, 11, 0, 0, 0, 0, 32, 3216, 'Bantargebang', '17154', 'Regensi', 'JNE', 'REG', 'belum lunas', 'pembayaran pending', 1735398097, 11, 0, 0, 0, 0);
+(19, 'ODR-1735398097', '', 1735398097, 11, 0, 0, 0, 0, 32, 3216, 'Bantargebang', '17154', 'Regensi', 'JNE', 'REG', 'belum lunas', 'pembayaran pending', 1735398097, 11, 0, 0, 0, 0),
+(20, 'ODR-1736874740', '', 1736874740, 26, 0, 1057, 0, 0, 32, 3275, 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 'JNE', 'OKE', 'belum lunas', 'pembayaran pending', 1736874740, 26, 0, 0, 0, 0),
+(21, 'ODR-1736936451', '', 1736936451, 26, 0, 1057, 0, 0, 32, 3275, 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 'JNE', 'OKE', 'belum lunas', 'pembayaran pending', 1736936451, 26, 0, 0, 0, 0),
+(22, 'ODR-1736936625', '', 1736936625, 26, 0, 35, 0, 0, 32, 3275, 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 'JNE', 'OKE', 'belum lunas', 'pembayaran pending', 1736936625, 26, 0, 0, 0, 0),
+(23, 'ODR-1736936669', '', 1736936669, 26, 0, 90, 0, 0, 32, 3275, 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 'JNE', 'OKE', 'belum lunas', 'pembayaran pending', 1736936669, 26, 0, 0, 0, 0),
+(24, 'ODR-1736942174', '', 1736942174, 26, 0, 3000, 0, 0, 32, 3275, 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 'JNE', 'OKE', 'belum lunas', 'pembayaran pending', 1736942174, 26, 0, 0, 0, 0),
+(25, 'ODR-1736943890', '', 1736943890, 26, 0, 1057, 0, 0, 32, 3275, 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 'POS', 'Biasa', 'belum lunas', 'pembayaran pending', 1736943890, 26, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -7981,20 +8004,20 @@ CREATE TABLE `product` (
 
 INSERT INTO `product` (`idproduct`, `category_id`, `product_name`, `product_seo`, `satuan`, `harga_beli`, `harga_jual`, `diskon`, `berat`, `product_image`, `keterangan`, `stok`, `create_at`, `create_by`, `update_at`, `update_by`, `delete_at`, `delete_by`) VALUES
 (30, 1, 'FREEGO 125', 'Matic', 'unit', 24500000, 24700000, 0, '112', 'freego-125.png', 'Tipe Mesin	Air Cooled 4-Stroke,SOHC\r\nSusunan Silinder	Single Cylinder\r\nDiameter x Langkah	52,4 x 57,9 mm\r\nPerbandingan Kompresi	9,5 : 1\r\nVolume Silinder	125 cc\r\nDaya Maksimum	7,0 kW / 8000 rpm\r\nTorsi Maksimum	9,5 Nm/ 5500 rpm\r\nSistem Starter	Electric Starter\r\nSistem Pelumasan	Wet Sump\r\nKapasitas Oli Mesin	Total = 0,84 L ; Berkala = 0,80 L', 2, 1575210130, 1, 1575626858, 1, 0, 0),
-(29, 1, 'fazzio', 'Matic', 'Unit', 27000000, 27500000, 50000, '3000', 'fazzio.png', 'Motor ini memiliki dua sumber tenaga yang saling bersinergi, yaitu tenaga dari mesin 125 cc serta tenaga yang berasal dari Electric Power Assist Start yang membuat akselerasi awal lebih bertenaga dan halus.\r\n\r\nBaca artikel CNN Indonesia \"Spesifikasi dan Keunggulan Yamaha Fazzio\" \r\n', 3, 1575210109, 1, 1575626869, 1, 0, 0),
+(29, 1, 'fazzio', 'Matic', 'Unit', 27000000, 27500000, 50000, '3000', 'fazzio.png', 'Motor ini memiliki dua sumber tenaga yang saling bersinergi, yaitu tenaga dari mesin 125 cc serta tenaga yang berasal dari Electric Power Assist Start yang membuat akselerasi awal lebih bertenaga dan halus.\r\n\r\nBaca artikel CNN Indonesia \"Spesifikasi dan Keunggulan Yamaha Fazzio\" \r\n', 2, 1575210109, 1, 1575626869, 1, 0, 0),
 (27, 10, 'ALL NEW NMAX 155', 'Maxi Yamaha', 'unit', 31125000, 31225000, 2000, '11000', 'nmax.jfif', 'Kapasitas Oli Mesin	Total – 1,00 L ; Berkala 0,90 L\r\nSistem Bahan Bakar	FI (Fuel Injection)\r\nTipe Kopling	Kering, Centrifugal Automatic\r\nTipe Transmisi	V-belt Automatic\r\nTipe Mesin	Liquid cooled 4-stroke, SOHC\r\nJumlah/Posisi Silinder	Single Cylinder\r\nKapasitas Mesin	155cc\r\nDiameter x Langkah	58,0 mm x 58.7 mm\r\nPerbandingan Kompresi	11.6 : 1\r\nDaya Maksimum	11.3 kW / 8000 rpm\r\nTorsi Maksimum	13.9Nm / 6500rpm\r\n', 0, 1575210085, 1, 1575626878, 1, 0, 0),
 (31, 1, 'gear 125', 'Matic', 'Ikat', 17200000, 17500000, 0, '1057', 'gear-125.png', 'Yamaha Gear baru saja diluncurkan ke pasar Indonesia oleh PT Yamaha Indonesia Motor Manufacturing (YIMM) lewat peluncuran virtual. Ini adalah skuter terbaru Yamaha yang masuk dalam keluarga skuter matik (skutik) bermesin Blue Core 125 cc.\r\nSekilas tampilan Yamaha Gear mirip dengan Yamaha Mio, tapi jika dilihat lebih dekat motor ini berbeda. Yamaha Gear memiliki panjang x lebar x tinggi: 1.870mm x 685 mm x 1060 mm. Jarak sumbu rodanya 1.260, tinggi tempat duduk 750 mm dan jarak ke tanahya 160 mm.\r\n\r\nBaca artikel detikoto, \"Spesifikasi Lengkap Yamaha Gear 125 yang Baru Meluncur\" selengkapnya https://oto.detik.com/berita/d-5269043/spesifikasi-lengkap-yamaha-gear-125-yang-baru-meluncur.\r\n\r\nDownload Apps Detikcom Sekarang https://apps.detik.com/detik/\r\n', 2, 1575210446, 1, 1575626844, 1, 0, 0),
 (32, 1, 'X-RIDE', 'MATIC', 'UNIT', 19400000, 19600000, 0, '1057', 'x-ride.png', 'TIPE MESIN	4 Langkah, 2 Valve SOHC, Berpendingin Angin, Bluecore\r\nSUSUNAN SILINDER	Cylinder Tunggal\r\nDIAMETER X LANGKAH	52,4 x 57,9 mm\r\nPERBANDINGAN KOMPRESI	9,5 : 1\r\nVOLUME SILINDER	125 cc\r\nDAYA MAKSIMUM	7,0 Kw / 8000 rpm\r\nTORSI MAKSIMUM	9,6 N.m / 5500 rpm\r\nSISTEM STARTER	Electric Starter & kick starter\r\nSISTEM PELUMASAN	Wet sump\r\nKAPASITAS OLI MESIN	Total : 0,84 L ; Berkala : 0,80 L ; Ganti Filter Oli : 0,80 L\r\n', 1, 1575210478, 1, 1575626835, 1, 0, 0),
-(33, 28, 'XSR-155', 'naked bike', 'unit', 37100000, 37200000, 0, '90', 'xsr-155.png', 'Pipa Knalpot\r\nSingle Exhaust\r\nJenis Penggerak\r\nChain Drive\r\nJumlah silinder\r\n1\r\nKatup Per Silinder\r\n4\r\nSistem Pendinginan\r\nPendingin Cairan\r\nJumlah langkah\r\n4-Stroke\r\nSistem pelumasan\r\nWet Sump\r\nRasio Kompresi\r\n11.6:1\r\nKonfigurasi Katup\r\nSOHC\r\nKapasitas\r\n155\r\nDiameter x langkah\r\n58 mm x 58.7 mm\r\nJenis Kopling\r\nWet, Multi-Plate', 1, 1661771578, 1, 1661771578, 1, 0, 0),
-(34, 1, 'MIO M3', 'Matic', 'unit', 17125000, 17125000, 30000, '1057', 'mio-m3.png', 'Tipe mesin	Air cooled 4-stroke, SOHC\r\nSusunan silinder	Single cylinder\r\nDiameter X Langkah	52,4 x 57,9 mm\r\nPerbandingan kompresi	9,5 : 1\r\nVolume silinder	125 cc\r\nDaya maksimum	7 kW / 8000 rpm\r\nTorsi maksimum	9.6 Nm / 5500 rpm\r\nSistem starter	Electric & kick starter\r\nSistem pelumasan	Wet sump\r\nKapasitas oli mesin	Total = 0,84 L ; Berkala = 0,80 L\r\n', 11, 1575559513, 1, 1575626815, 1, 0, 0),
+(33, 28, 'XSR-155', 'naked bike', 'unit', 37100000, 37200000, 0, '90', 'xsr-155.png', 'Pipa Knalpot\r\nSingle Exhaust\r\nJenis Penggerak\r\nChain Drive\r\nJumlah silinder\r\n1\r\nKatup Per Silinder\r\n4\r\nSistem Pendinginan\r\nPendingin Cairan\r\nJumlah langkah\r\n4-Stroke\r\nSistem pelumasan\r\nWet Sump\r\nRasio Kompresi\r\n11.6:1\r\nKonfigurasi Katup\r\nSOHC\r\nKapasitas\r\n155\r\nDiameter x langkah\r\n58 mm x 58.7 mm\r\nJenis Kopling\r\nWet, Multi-Plate', 0, 1661771578, 1, 1661771578, 1, 0, 0),
+(34, 1, 'MIO M3', 'Matic', 'unit', 17125000, 17125000, 30000, '1057', 'mio-m3.png', 'Tipe mesin	Air cooled 4-stroke, SOHC\r\nSusunan silinder	Single cylinder\r\nDiameter X Langkah	52,4 x 57,9 mm\r\nPerbandingan kompresi	9,5 : 1\r\nVolume silinder	125 cc\r\nDaya maksimum	7 kW / 8000 rpm\r\nTorsi maksimum	9.6 Nm / 5500 rpm\r\nSistem starter	Electric & kick starter\r\nSistem pelumasan	Wet sump\r\nKapasitas oli mesin	Total = 0,84 L ; Berkala = 0,80 L\r\n', 10, 1575559513, 1, 1575626815, 1, 0, 0),
 (35, 1, 'Fino', 'Matic', 'unit', 18200000, 18400000, 0, '1057', 'fino.png', 'Volume Cylinder	125 cc\r\nPerbandingan Kompresi	9,5 : 1\r\nDaya Maksimum	7.0 kW (9.52 PS) / 8000rpm\r\nTorsi Maksimum	9.6 N.m (0,98 kgf.m) / 5500rpm\r\nSistem Starter	Elektrik & kick starter\r\nSistem Pelumasan	Basah\r\nKapasitas Oli Mesin	Total = 0,84 L ; Berkala = 0,80 L\r\nSistem Bahan Bakar	Fuel Injection\r\nTipe Kopling	Kering, sentrifugal Automatic\r\nTipe Transmisi	V-belt automatic\r\nTipe Mesin	Air cooled, 4-stroke, SOHC\r\nJumlah / Posisi Silinder	Single cylinder\r\nDiameter X Langkah	52,4 x 57,9 mm\r\n', 12, 1575626912, 1, 0, 0, 0, 0),
 (36, 10, 'XMAX CONNECTED', 'Matic Maxi', 'unit', 66000000, 66100000, 0, '1057', 'xmax.jfif', 'Big Fuel Tank Capacity (13 L) Aktivitas berkendara menjadi lebih nyaman dan menyenangkan dengan tangki bensin berkapasitas besar. Smart Key System. Sistem kunci canggih tanpa anak kunci (keyless), dilengkapi fitur Answer Back System, memudahkan pengendara mencari posisi parkir motor. Electric Power Socket.\r\n', 12, 1576435486, 1, 1576435486, 1, 0, 0),
 (37, 28, 'mt-25', 'naked bike', 'unit', 56100000, 56320000, 0, '1057', 'mt-25.png', 'Pipa Knalpot\r\nSingle Exhaust\r\nJenis Penggerak\r\nChain Drive\r\nKatup Per Silinder\r\n4\r\nKonfigurasi Katup\r\nDOHC\r\nJenis Kopling\r\nWet\r\nSistem Pendinginan\r\nPendingin Cairan\r\nJumlah langkah\r\n4-Stroke\r\nTipe injeksi\r\nDirect Injection\r\n', 11, 1661771589, 1, 1661771589, 1, 0, 0),
-(38, 28, 'VIXION', 'naked bike', 'unit', 28600000, 28220500, 500, '1057', 'VIXION.png', 'Kapasitas Tempat Duduk\r\n2\r\nGround Clearance\r\n165 mm\r\nLebar\r\n720 mm\r\nPanjang\r\n1955 mm\r\nKapasitas Tangki Oli\r\n1.15 L\r\nWheelbase\r\n1295 mm\r\nTinggi\r\n1025 mm\r\nBerat Kosong\r\n132 kg\r\nKategori\r\nStreet\r\nKetinggian Jok\r\n795 mm', 100, 1661771767, 1, 0, 0, 0, 0),
+(38, 28, 'VIXION', 'naked bike', 'unit', 28600000, 28220500, 500, '1057', 'VIXION.png', 'Kapasitas Tempat Duduk\r\n2\r\nGround Clearance\r\n165 mm\r\nLebar\r\n720 mm\r\nPanjang\r\n1955 mm\r\nKapasitas Tangki Oli\r\n1.15 L\r\nWheelbase\r\n1295 mm\r\nTinggi\r\n1025 mm\r\nBerat Kosong\r\n132 kg\r\nKategori\r\nStreet\r\nKetinggian Jok\r\n795 mm', 98, 1661771767, 1, 0, 0, 0, 0),
 (39, 28, 'MT-15', 'naked bike', 'unit', 37900000, 38020500, 2000, '1057', 'MT-15.png', 'Pipa Knalpot\r\nSingle Exhaust\r\nJenis Penggerak\r\nChain Drive\r\nJumlah silinder\r\n1\r\nKatup Per Silinder\r\n4\r\nSistem Pendinginan\r\nPendingin Cairan\r\nJumlah langkah\r\n4-Stroke\r\nSistem pelumasan\r\nWet Sump\r\nRasio Kompresi\r\n11.6:1\r\nKonfigurasi Katup\r\nSOHC\r\nKapasitas\r\n155\r\nDiameter x langkah\r\n58 mm x 58.7 mm\r\nTipe injeksi\r\nFuel Injection', 499, 1661771873, 1, 0, 0, 0, 0),
 (40, 29, 'ALL NEW R15 CONNECTED', 'sport', 'unit', 39100000, 39125500, 5500, '1057', 'ALLNEWR15CONNECTED.png', 'https://www.yamaha-motor.co.id/product/all-new-R15-connected/#fifth-section', 350, 1661771973, 1, 0, 0, 0, 0),
 (5, 15, 'XMAX CONNECTED', 'matic', 'unit', 0, 0, 0, '', 'maxi.png', 'Nmax Connected ditawarkan dalam opsi mesin 1: 155 cc. Periksa spesifikasi lengkapnya di sini: Yamaha Nmax Connected spec. Berapa Kapasitas Mesin dari Yamaha Nmax Connected? Apa Fitur Keamanan yang Tersedia di Yamaha Nmax Connected? Fitur keselamatan Yamaha Nmax Connected adalah: ABS, Dimmer Switch, Reflektor samping, Alarm and Engine Check Warning.', 2, 1233, 122123, 122323, 0, 0, 0),
-(50, 10, 'ALL NEW AEROX 155 CONNECTED', 'Maxi', 'unit', 27190280, 27300000, 0, '35 kg', 'aerox.png', 'Yamaha Aerox 155VVA tersedia dalam pilihan mesin Petrol di Indonesia Scooter baru dari Yamaha hadir dalam 6 varian. Bicara soal spesifikasi mesin Yamaha Aerox 155VVA, ini ditenagai dua pilihan mesin Petrol berkapasitas 155.1 cc. Aerox 155VVA tersedia dengan transmisi CVT tergantung variannya. Aerox 155VVA adalah Scooter 2 seater dengan panjang 1990 mm, lebar 700 mm, wheelbase 1350 mm. serta ground clearance 142 mm.', 3, 155626858, 1, 157526858, 1, 0, 0),
+(50, 10, 'ALL NEW AEROX 155 CONNECTED', 'Maxi', 'unit', 27190280, 27300000, 0, '35 kg', 'aerox.png', 'Yamaha Aerox 155VVA tersedia dalam pilihan mesin Petrol di Indonesia Scooter baru dari Yamaha hadir dalam 6 varian. Bicara soal spesifikasi mesin Yamaha Aerox 155VVA, ini ditenagai dua pilihan mesin Petrol berkapasitas 155.1 cc. Aerox 155VVA tersedia dengan transmisi CVT tergantung variannya. Aerox 155VVA adalah Scooter 2 seater dengan panjang 1990 mm, lebar 700 mm, wheelbase 1350 mm. serta ground clearance 142 mm.', 2, 155626858, 1, 157526858, 1, 0, 0),
 (53, 10, 'LEXI', 'matic', 'unit', 22540000, 22560000, 0, '20 kg', 'lexi.png', 'Spesifikasi dan fitur utama Yamaha Lexi 2022. Lihat spesifikasi mesin, dimensi, fitur keamanan dan teknologi secara rinci di bawah.', 4, 1667071873, 1, 1661891873, 1, 0, 0),
 (56, 29, 'R25', 'Sport', 'unit', 62200000, 62300000, 0, '35 kg', 'R25.png', 'apasitas Tempat Duduk\r\n2\r\nGround Clearance\r\n160 mm\r\nTinggi\r\n1135 mm\r\nLebar\r\n720 mm\r\nPanjang\r\n2090 mm\r\nWheelbase\r\n1380 mm\r\nKapasitas Tangki Oli\r\n2.4 L\r\nKategori\r\nSport\r\nKetinggian Jok\r\n780 mm', 2, 7281902, 1, 8276389, 1, 0, 0),
 (60, 30, 'Mx King 150', 'MOPED 4 tak', 'unit', 25180000, 25280900, 0, '56 kg', 'MxKing150.png', 'Yamaha Jupiter MX King 150 dibandrol dengan harga Rp 21,95 Juta. Jupiter MX King 150 dari Yamaha Indonesia hadir dalam mesin Petrol dengan perpindahan mesin cc yang menawarkan tenaga hp. Yamaha Jupiter MX King 150 tersedia dalam transmisi Variable Kecepatan CVT yang memiliki penghematan bahan bakar kmpl. King 150 ditawarkan dalam 3 warna: Black Sniper, Red Corner, White Superior. Cicilan bulanan terendah untuk Yamaha Jupiter MX King 150 adalah Rp 500.821 selama 36 Bulan dengan uang muka Rp 5,49 Juta. Motor Moped ini bersaing ketat dengan. Varian Yamaha Jupiter MX Lainnya adalah :Standard, King 150.', 3, 8176299, 1, 927390, 1, 0, 0),
@@ -8332,7 +8355,8 @@ INSERT INTO `users` (`idusers`, `user_name`, `user_gambar`, `user_password`, `us
 (19, 'mar', 'user-1736691397.png', '$2y$10$ZavP6aPuxkgy0fByPzrYZOi2wPwPj2WaO9NPHdoHWY.DMxWMf5mYC', 'Fatimah Azzahra', '087874080963', '', '', NULL, 'customer', NULL, NULL, 1736804743, '::1', 1, 0, 1736712997, 1736805739, NULL, 1, 1, NULL),
 (23, 'elea', 'user-1736787085.png', '$2y$10$mspOu1CSXcREqYOu66cbZuLeHYasqbJ1zbJi1ZVl3zIak0kqZT6f2', 'Elea', '087879099276', '', '', NULL, 'user', NULL, NULL, NULL, NULL, 1, 0, 1736808686, 1736818434, NULL, 1, 1, NULL),
 (24, 'ele', 'user-1736826399.png', '$2y$10$l7gZNyNYg8uJvugQYlFLz.pkf3LhYfBeV/BF2yVFiecP8uz.gvPae', 'eleea', '087879099276', '', '', NULL, 'user', NULL, NULL, NULL, NULL, 1, 0, 2025, 1736849547, NULL, 1, 1, NULL),
-(25, 'bibi', 'user-1736827987.png', '$2y$10$tuoBJjAnLOaolMfHmV1IguEsX3wtrEOPOVyK8GY4.ZQzXwDBredF2', 'Elea', '087879099276', '', '', NULL, 'user', NULL, NULL, NULL, NULL, 1, 0, 1736849587, NULL, NULL, 1, NULL, NULL);
+(25, 'bibi', 'user-1736827987.png', '$2y$10$tuoBJjAnLOaolMfHmV1IguEsX3wtrEOPOVyK8GY4.ZQzXwDBredF2', 'Elea', '087879099276', '', '', NULL, 'user', NULL, NULL, NULL, NULL, 1, 0, 1736849587, NULL, NULL, 1, NULL, NULL),
+(26, 'syubidin', '', '$2y$10$J0220rQI0rRVDxvrfH6AGOQeqF9u57ErsmiGtc26KKpUz5HqJN3A.', 'Syuby Alwi Akbar Attala', '08123456789', '', '', NULL, 'customer', NULL, NULL, 1736934777, '::1', 1, 0, 1736874630, NULL, NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -8364,7 +8388,8 @@ INSERT INTO `user_profile` (`idUser_profile`, `users_id`, `fullname`, `telp`, `p
 (5, 7, 'Eka Saputra', '082248577297', '51', '5171', 'Manimeri a', '98363', 'asd', 1577559444, 7, 0, 0),
 (6, 10, 'yogi sa', '086738283993', '31', '3172', 'koja', '14270', 'jlnkjkdslkllskdjjsdi', 1671185015, 10, 0, 0),
 (7, 2, 'Eka Saputra', '082248577297', '32', '3275', 'Bantargebang', '17154', 'Bekasi Timur Regency', 1735394522, 2, 1735394569, 7),
-(8, 12, 'Fatimah Azzahra', '087874080963', '32', '3216', 'Bantargebang', '17154', 'Marakas bekasi utara', 1736522404, 12, 0, 0);
+(8, 12, 'Fatimah Azzahra', '087874080963', '32', '3216', 'Bantargebang', '17154', 'Marakas bekasi utara', 1736522404, 12, 0, 0),
+(9, 26, 'Syuby Alwi Akbar Attala', '08123456789', '32', '3275', 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 1736874715, 26, 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -8499,13 +8524,13 @@ ALTER TABLE `user_profile`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `idcart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idcart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `detail_order`
 --
 ALTER TABLE `detail_order`
-  MODIFY `iddetail_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `iddetail_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `info`
@@ -8535,13 +8560,13 @@ ALTER TABLE `ongkir`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `idpembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idpembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `idorder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idorder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -8589,13 +8614,13 @@ ALTER TABLE `themes`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `idusers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `idusers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `user_profile`
 --
 ALTER TABLE `user_profile`
-  MODIFY `idUser_profile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idUser_profile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

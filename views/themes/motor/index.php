@@ -3,7 +3,7 @@
 
 <head>
     <title>Dealer Motor Yamaha</title>
-    <link rel="icon" href="<?= base_url('assets/logo-ridezone.png')?>" type="image/x-icon">
+    <link rel="icon" href="<?= base_url('assets/ridezone.png')?>" type="image/x-icon">
     <meta charset="utf-8">
     
 
@@ -42,7 +42,7 @@
                     <div class="row d-flex">
                     <div class="col-md pr-4 d-flex topper align-items-center">
                             <div class="icon mr-2 d-flex justify-content-center align-items-center"></div>
-                                    <img src="<?= base_url('assets/logo-ridezone.png')?>" alt="E-commerce Logo" class="mr-2" style="height:50px; width:70px">
+                                    <img src="<?= base_url('assets/ridezone.png')?>" alt="E-commerce Logo" class="mr-2" style="height:75px; width:125px">
                         </div>
                         <div class="col-md pr-4 d-flex topper align-items-center">
                             <div class="icon mr-2 d-flex justify-content-center align-items-center"><span

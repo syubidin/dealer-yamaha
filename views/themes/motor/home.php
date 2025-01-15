@@ -43,39 +43,40 @@
 
 <section class="ftco-section ftco-category ftco-no-pt">
     <div class="container pt-5">
-        <div class="row align-items-center">
-            <!-- Kategori Produk -->
-            <div class="col-md-5 d-flex align-items-stretch">
-                <div class="category-wrap-2 ftco-animate img align-self-stretch d-flex"
-                    style="background-image: url(<?=base_url().'views/themes/'.theme_active().'/';?>images/dashboard3.jpg); background-size: cover; background-position: center; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
-                    <div class="text text-center d-flex flex-column justify-content-center align-items-center p-4" style="background-color: rgba(0, 0, 0, 0.5); border-radius: 10px;">
-                        <h2 class="text-white"><b>KATEGORI PRODUK</b></h2>
-                        <p class="text-white">Temukan berbagai macam kategori produk terbaik yang kami sediakan.</p>
-                        <p><a href="<?=base_url('public/category');?>" class="btn btn-primary">Semua Kategori</a></p>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4 align-items-stretch d-flex">
+                        <div class="category-wrap-2 ftco-animate img align-self-stretch d-flex"
+                            style="background-image: url(<?=base_url().'views/themes/'.theme_active().'/';?>images/dashboard3.jpg);">
+                            <div class="text text-center">
+                                <h2><b>KATEGORI PRODUK</b></h2>
+                                <p>Silahkan pilih kategori produk yang ada</p>
+                                <p><a href="<?=base_url('public/category');?>" class="btn btn-primary">Semua
+                                        Kategori</a></p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- Selamat Datang -->
-            <div class="col-md-7">
-                <div class="py-5 wrap-about pb-md-5 ftco-animate">
-                    <div class="heading-section-bold mb-4">
-                        <h2 class="mb-4 text-primary text-center">Selamat Datang di Dealer Yamaha</h2>
-                    </div>
-                    <div>
-                        <p class="text-justify">Dealer Yamaha adalah tempat yang tepat untuk memenuhi kebutuhan Anda akan kendaraan bermotor berkualitas. Kami menyediakan berbagai macam motor Yamaha dengan teknologi inovatif seperti Blue Core yang hemat bahan bakar, ramah lingkungan, dan memberikan performa terbaik.</p>
-                        <p class="text-justify">Nikmati pengalaman belanja yang mudah, cepat, dan nyaman di website kami. Kami juga memiliki beragam penawaran menarik untuk Anda!</p>
-                        <p class="text-justify">Jelajahi koleksi terbaru kami sekarang dan temukan motor Yamaha yang sesuai dengan gaya dan kebutuhan Anda.</p>
-                        <div class="text-center mt-4">
-                            <p><a href="<?=base_url('public/product');?>" class="btn btn-primary">Belanja Sekarang</a></p>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <?php foreach(produk_kategori() as $pk):?>
+                            <div class="col-md-3">
+                                <a href="<?=base_url('category/').$pk['idcategory'].'/'.$pk['category_seo'];?>">
+                                    <div class="category-wrap ftco-animate img mb-2 d-flex align-items-end"
+                                        style="background-image: url(<?=base_url().'uploads/category/'.$pk['category_image'];?>);">
+                                        <div class="text px-3 py-1">
+                                            <h2 class="mb-0" style="color:white;"><?=$pk['category_name'];?></h2>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <?php endforeach;?>
                         </div>
                     </div>
                 </div>
-            </div>                 
+            </div>
         </div>
-    </div>
 </section>
-
-
 
 <section class="ftco-section" style="margin-top:-65px;">
     <div class="container">

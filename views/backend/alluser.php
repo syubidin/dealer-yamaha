@@ -353,6 +353,7 @@ $(function() {
                         <select name="user_type" class="form-control">
                             <option value="administrator">Administrator</option>
                             <option value="user">User</option>
+                            <option value="customer">User</option>
                         </select>
                     </div>
                 </div>

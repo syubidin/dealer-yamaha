@@ -234,7 +234,7 @@ class User extends CI_Controller {
 		$this->db->update('testimonial', $data);
 		redirect('public/testimoni');
 	}
-		public function addNewUser() {
+	public function addNewUser() {
 		// Handle image upload
 		$config['upload_path'] = './uploads/users/';
 		$config['allowed_types'] = 'jpg|jpeg|png|gif';
@@ -249,12 +249,13 @@ class User extends CI_Controller {
 			$user_image = NULL; // If no image uploaded, set to NULL
 		}
 	
+		// Prepare data for insertion
 		$data = [
 			'user_name' => htmlspecialchars($this->input->post('user_name', true)),
 			'user_password' => password_hash(htmlspecialchars($this->input->post('user_password', true)), PASSWORD_DEFAULT),
 			'user_fullname' => htmlspecialchars($this->input->post('user_fullname', true)),
 			'user_telp' => htmlspecialchars($this->input->post('user_telp', true)),
-			'user_type' => htmlspecialchars($this->input->post('user_type', true)),
+			'user_type' => htmlspecialchars($this->input->post('user_type', true)), // Store user type
 			'is_active' => 1,
 			'is_block' => 0,
 			'create_at' => get_dateTime(),
@@ -262,10 +263,12 @@ class User extends CI_Controller {
 			'user_gambar' => $user_image // Store the image file name
 		];
 	
+		// Insert data into the database
 		$this->db->insert('users', $data);
 		$this->toastr->success('Created Successfully');
 		redirect('user/alluser');
 	}
+	
 
 	public function updateUser() {
 		// Get current user ID
@@ -301,20 +304,25 @@ class User extends CI_Controller {
 			}
 		}
 	
-		// Prepare data for update
+		// Update data
 		$data = [
-			'user_name' => htmlspecialchars($this->input->post('user_name', true)),
 			'user_fullname' => htmlspecialchars($this->input->post('user_fullname', true)),
 			'user_telp' => htmlspecialchars($this->input->post('user_telp', true)),
-			'user_type' => ($user_id == 1) ? 'super_user' : htmlspecialchars($this->input->post('user_type', true)),
+			'user_name' => htmlspecialchars($this->input->post('user_name', true)),
+			'user_type' => htmlspecialchars($this->input->post('user_type', true)), // Update user_type
 			'update_at' => get_dateTime(),
-			'update_by' => user()['idusers'],
-			'user_gambar' => $user_image, // Store the image filename (new or old)
+			'update_by' => user()['idusers']
 		];
 	
-		// Update the user record in the database
+		// Add image if exists
+		if ($user_image) {
+			$data['user_gambar'] = $user_image;
+		}
+	
 		$this->db->where('idusers', $user_id);
 		$this->db->update('users', $data);
+		$this->toastr->success('Updated Successfully');
+		redirect('user/alluser');
 	}
 	
 	public function changepassword()

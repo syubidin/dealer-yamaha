@@ -78,50 +78,19 @@ class User extends CI_Controller {
 	}
 	public function editprofil()
 	{
-		// Handle image upload if exists
-		$user_image = NULL;
-		if ($_FILES['user_gambar']['name']) {
-			// Configuration for file upload
-			$config['upload_path'] = './uploads/users/';
-			$config['allowed_types'] = 'jpg|jpeg|png|gif';
-			$config['max_size'] = 2048; // 2MB
-			$config['encrypt_name'] = TRUE; // Encrypt the name of the uploaded file
-			$this->load->library('upload', $config);
-	
-			if ($this->upload->do_upload('user_gambar')) {
-				$upload_data = $this->upload->data();
-				$user_image = $upload_data['file_name']; // Get uploaded image file name
-			} else {
-				// Error message for upload failure
-				$this->toastr->error('Image upload failed. Please try again.');
-				redirect('user/user_profile');
-			}
-		}
-	
-		// Prepare data for database update
 		$data = [
-			'user_fullname' => $this->input->post('user_fullname', true),
-			'user_telp' => $this->input->post('user_telp', true),
-			'user_url' => $this->input->post('user_url', true),
-			'user_bio' => $this->input->post('user_bio', true),
-			'update_at' => get_dateTime(),
-			'update_by' => $this->input->post('idusers', true)
+			'user_fullname'=>$this->input->post('user_fullname', true),
+			'user_telp'=>$this->input->post('user_telp', true),
+			'user_url'=>$this->input->post('user_url', true),
+			'user_bio'=>$this->input->post('user_bio', true),
+			'update_at'=>get_dateTime(),
+			'update_by'=>$this->input->post('idusers', true)
 		];
-	
-		// If there is a new image, update it
-		if ($user_image) {
-			$data['user_gambar'] = $user_image;
-		}
-	
-		// Update user data in database
 		$this->db->where('idusers', $this->input->post('idusers', true));
 		$this->db->update('users', $data);
-	
-		// Success message
 		$this->toastr->success('Your Profile Updated');
 		redirect('user/user_profile');
 	}
-
 	public function usergroup()
 	{
 		$data['title'] = 'All Group';
@@ -175,48 +144,47 @@ class User extends CI_Controller {
 	public function addTestimoni()
 	{
 		$data = [
-			'user_id'=>$this->input->post('user_id', true),
-			'name'=>$this->input->post('nama', true),
-			'telp'=>$this->input->post('telp', true),
-			'job'=>$this->input->post('job', true),
-			'message'=>$this->input->post('message', true),
-			'create_at'=>get_dateTime(),
-			'create_by'=>user()['idusers']
+			'user_id' => user()['idusers'],
+			'name' => $this->input->post('nama', true),
+			'telp' => $this->input->post('telp', true),
+			'job' => $this->input->post('job', true),
+			'message' => $this->input->post('message', true),
+			'create_at' => get_dateTime(),
+			'create_by' => user()['idusers']
 		];
 		$this->db->insert('testimonial', $data);
+		$this->toastr->success('Testimoni telah ditambahkan');
 		redirect('public/testimoni');
 	}
 	public function addKonfirmasi()
 	{
-		$config['upload_path']          = './uploads/bukti/';
-		$config['allowed_types']        = 'gif|jpg|png';
-		$config['max_size']             = 1024;
-		// $config['max_width']            = 1024;
-		// $config['max_height']           = 768;
-		$config['file_name']           = 'bukti-bayar-'.time();
+		$config['upload_path'] = './uploads/bukti/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size'] = 1024;
+		$config['file_name'] = 'bukti-bayar-' . time();
 
 		$this->load->library('upload', $config);
 
-		if ( ! $this->upload->do_upload('bukti'))
-		{
+		if (! $this->upload->do_upload('bukti')) {
 			$this->upload->display_errors();
-		}
-		else
-		{
+		} else {
 			$img = $this->upload->data();
 			$image = $img['file_name'];
-			// var_dump($image);die;
-			$this->User_m->addBayar($image);
+
+			$data = [
+				'order_id' => $this->input->post('order_id', true),
+				'user_id' => user()['idusers'],
+				'file' => $image,
+				'total' => $this->input->post('total', true),
+				'status' => 'pending',
+				'keterangan' => $this->input->post('keterangan', true),
+				'create_at' => get_dateTime(),
+				'create_by' => user()['idusers']
+			];
+
+			$this->db->insert('pembayaran', $data);
+			$this->toastr->success('Konfirmasi pembayaran telah ditambahkan');
 		}
-		// $data = [
-		// 	'total'=>$this->input->post('total', true),
-		// 	'file'=>$this->input->post('bukti', true),
-		// 	'keterangan'=>$this->input->post('keterangan', true),
-		// 	'tgl_bayar'=>get_dateTime()
-		// ];
-		// // var_dump($data);die;
-		// $this->db->where('idpembayaran', $this->input->post('idbayar', true));
-		// $this->db->update('pembayaran', $data);
 		redirect('public/konfirmasi');
 	}
 	public function editTestimoni()
@@ -234,21 +202,8 @@ class User extends CI_Controller {
 		$this->db->update('testimonial', $data);
 		redirect('public/testimoni');
 	}
-		public function addNewUser() {
-		// Handle image upload
-		$config['upload_path'] = './uploads/users/';
-		$config['allowed_types'] = 'jpg|jpeg|png|gif';
-		$config['max_size'] = 2048; // 2MB
-		$config['encrypt_name'] = TRUE; // Encrypt the name of the uploaded file
-		$this->load->library('upload', $config);
-	
-		if ($this->upload->do_upload('user_gambar')) {
-			$upload_data = $this->upload->data();
-			$user_image = $upload_data['file_name'];
-		} else {
-			$user_image = NULL; // If no image uploaded, set to NULL
-		}
-	
+	public function addNewUser(){
+		// $this->User_m->register();
 		$data = [
 			'user_name' => htmlspecialchars($this->input->post('user_name', true)),
 			'user_password' => password_hash(htmlspecialchars($this->input->post('user_password', true)), PASSWORD_DEFAULT),
@@ -258,65 +213,30 @@ class User extends CI_Controller {
 			'is_active' => 1,
 			'is_block' => 0,
 			'create_at' => get_dateTime(),
-			'create_by' => user()['idusers'],
-			'user_gambar' => $user_image // Store the image file name
+			'create_by' => user()['idusers']
 		];
-	
 		$this->db->insert('users', $data);
 		$this->toastr->success('Created Successfully');
 		redirect('user/alluser');
 	}
-
-	public function updateUser() {
-		// Get current user ID
-		$user_id = $this->input->post('idusers', true);
-	
-		// Default user_image is NULL
-		$user_image = NULL;
-	
-		// Check if new image is uploaded
-		if (!empty($_FILES['user_gambar']['name'])) {
-			// Config upload path and restrictions
-			$config['upload_path'] = './uploads/users/';
-			$config['allowed_types'] = 'jpg|jpeg|png|gif';
-			$config['max_size'] = 2048; // 2MB
-			$config['encrypt_name'] = TRUE; // Encrypt the name of the uploaded file
-			$this->load->library('upload', $config);
-	
-			if ($this->upload->do_upload('user_gambar')) {
-				$upload_data = $this->upload->data();
-				$user_image = $upload_data['file_name']; // Store new image name
-			} else {
-				// If upload fails, keep the error message for debugging
-				log_message('error', 'Upload error: ' . $this->upload->display_errors());
-			}
+	public function updateUser()
+	{
+		if($this->input->post('idusers', true)==1){
+			$user_type = 'super_user';
+		}else{
+			$user_type = htmlspecialchars($this->input->post('user_type', true));
 		}
-	
-		// If image is not uploaded, try to keep the old image
-		if (!$user_image) {
-			// Query to get the current image from the database if no new image uploaded
-			$user = $this->db->get_where('users', ['idusers' => $user_id])->row();
-			if ($user) {
-				$user_image = $user->user_gambar; // Retain old image if no new image
-			}
-		}
-	
-		// Prepare data for update
 		$data = [
 			'user_name' => htmlspecialchars($this->input->post('user_name', true)),
 			'user_fullname' => htmlspecialchars($this->input->post('user_fullname', true)),
 			'user_telp' => htmlspecialchars($this->input->post('user_telp', true)),
-			'user_type' => ($user_id == 1) ? 'super_user' : htmlspecialchars($this->input->post('user_type', true)),
-			'update_at' => get_dateTime(),
-			'update_by' => user()['idusers'],
-			'user_gambar' => $user_image, // Store the image filename (new or old)
+			'user_type' => $user_type,
+			"update_at"=>get_dateTime(),
+			"update_by"=>user()['idusers']
 		];
-	
-		// Update the user record in the database
-		$this->db->where('idusers', $user_id);
+		$this->db->where('idusers', $this->input->post('idusers', true));
 		$this->db->update('users', $data);
 	}
-	
 	public function changepassword()
 	{
 		$data = [
@@ -331,66 +251,130 @@ class User extends CI_Controller {
 	}
 	public function proses_order()
 	{
-		//-------------------------Input data order------------------------------
-		$data_order = array('code' => 'ODR-'.get_dateTime(),
-							'datetime' => get_dateTime(),
-							'user_id' => user()['idusers'],
-							'subtotal' => $this->input->post('subtotal',true),
-							'total_weight' => $this->input->post('weight',true),
-							'order_ongkir' => $this->input->post('delivery',true),
-							'total_harga' => $this->input->post('carttotal',true),
-							'order_prov' => $this->input->post('prov',true),
-							'order_kab' => $this->input->post('kab',true),
-							'order_kec' => $this->input->post('kec',true),
-							'order_kodepos' => $this->input->post('kodepos',true),
-							'order_address' => $this->input->post('address',true),
-							'order_kurir' => $this->input->post('kurir',true),
-							'order_layanan' => $this->input->post('layanan',true),
-							'status_bayar' => 'belum lunas',
-							'status' => 'pembayaran pending',
-							'create_at'=>get_dateTime(),
-							'create_by'=>user()['idusers']
-						);
-							// var_dump($data_order);die;
+		// Input data order
+		$data_order = [
+			'code' => 'ODR-' . get_dateTime(),
+			'datetime' => get_dateTime(),
+			'user_id' => user()['idusers'],
+			'subtotal' => $this->input->post('subtotal', true),
+			'total_weight' => $this->input->post('weight', true),
+			'order_ongkir' => $this->input->post('delivery', true),
+			'total_harga' => $this->input->post('carttotal', true),
+			'order_prov' => $this->input->post('prov', true),
+			'order_kab' => $this->input->post('kab', true),
+			'order_kec' => $this->input->post('kec', true),
+			'order_kodepos' => $this->input->post('kodepos', true),
+			'order_address' => $this->input->post('address', true),
+			'order_kurir' => $this->input->post('kurir', true),
+			'order_layanan' => $this->input->post('layanan', true),
+			'status_bayar' => 'belum lunas',
+			'status' => 'pembayaran pending',
+			'create_at' => get_dateTime(),
+			'create_by' => user()['idusers']
+		];
+
 		$id_order = $this->User_m->tambah_order($data_order);
-		//-------------------------Input data pembayaran------------------------------
-		$data_bayar = array('order_id' => $id_order,
-							'user_id' => user()['idusers'],
-							'file' => '',
-							'total' => 0,
-							'status' => 'pending',
-							'keterangan' => '',
-							'create_at'=>get_dateTime(),
-							'create_by'=>user()['idusers']
-						);
-							// var_dump($data_order);die;
+
+		// Input data pembayaran
+		$data_bayar = [
+			'order_id' => $id_order,
+			'user_id' => user()['idusers'],
+			'file' => '',
+			'total' => 0,
+			'status' => 'pending',
+			'keterangan' => '',
+			'create_at' => get_dateTime(),
+			'create_by' => user()['idusers']
+		];
+
 		$id_bayar = $this->User_m->tambah_bayar($data_bayar);
-		//-------------------------Input data detail order-----------------------		
-		if ($cart = cartlist(user()['idusers']))
-			{
-				foreach ($cart as $item)
-					{
-						$data_detail = array(
-							'product_id' => $item['product_id'],
-							'order_id' =>$id_order,
-							'qty' => $item['qty'],
-							'harga' => $item['harga'],			
-							'satuan' => $item['satuan'],			
-							'berat' => $item['berat'],
-							'create_at'=>get_dateTime(),
-							'create_by'=>user()['idusers']			
-						);
-						$proses = $this->User_m->tambah_detail_order($data_detail);
-						$this->db->where('idcart', $item['idcart']);
-						$this->db->delete('cart');
-					}
+
+		// Input data detail order
+		if ($cart = cartlist(user()['idusers'])) {
+			foreach ($cart as $item) {
+				$data_detail = [
+					'product_id' => $item['product_id'],
+					'order_id' => $id_order,
+					'qty' => $item['qty'],
+					'harga' => $item['harga'],
+					'satuan' => $item['satuan'],
+					'berat' => $item['berat'],
+					'create_at' => get_dateTime(),
+					'create_by' => user()['idusers']
+				];
+
+				$this->User_m->tambah_detail_order($data_detail);
+
+				$this->db->where('idcart', $item['idcart']);
+				$this->db->delete('cart');
 			}
-		//-------------------------Hapus shopping cart--------------------------		
-		// $this->cart->destroy();
-		
-		redirect(base_url('user'),'refresh');
-		
+		}
+
+		redirect(base_url('public/konfirmasi'), 'refresh');
 	}
+
+
+	public function add_to_cart_totals() {
+		$user_id = $this->session->userdata('user_id');
+		$idorder = $this->input->post('order_id'); // Get the order ID from the form submission
+	
+		// Validate the inputs
+		$subtotal = $this->input->post('subtotal');
+		$delivery_fee = $this->input->post('delivery_fee');
+		$interest_rate = $this->input->post('interest_rate');
+		$installment_duration = $this->input->post('installment_duration');
+		$down_payment = $this->input->post('down_payment');
+	
+		if (!is_numeric($subtotal) || !is_numeric($delivery_fee) || !is_numeric($interest_rate) || !is_numeric($down_payment) || !is_numeric($installment_duration)) {
+			$this->session->set_flashdata('error', 'Invalid input values.');
+			redirect('cart');
+		}
+	
+		$interest_amount = ($subtotal * $interest_rate) / 100;
+		$grand_total = $subtotal + $interest_amount + $delivery_fee;
+		$remaining_installments = ($grand_total - $down_payment) / $installment_duration;
+	
+		// Prepare data for saving to the database
+		$data = [
+			'order_id' => $idorder,
+			'user_id' => $user_id,
+			'subtotal' => $subtotal,
+			'delivery_fee' => $delivery_fee,
+			'interest_rate' => $interest_rate,
+			'interest_amount' => $interest_amount,
+			'grand_total' => $grand_total,
+			'down_payment' => $down_payment,
+			'remaining_installments' => $remaining_installments,
+			'installment_duration' => $installment_duration,
+			'created_at' => time(),
+			'created_by' => $user_id,
+		];
+	
+		// Insert data into the 'pesanan' table
+		$this->db->insert('pesanan', $data);
+	
+		if ($this->db->affected_rows() > 0) {
+			$this->session->set_flashdata('success', 'Cart totals have been successfully saved.');
+		} else {
+			$this->session->set_flashdata('error', 'Failed to save cart totals.');
+		}
+	
+		// Prepare cart totals data to pass to the view
+		$cart_totals = [
+			'total' => $subtotal,
+			'bunga' => $interest_amount,
+			'ongkir' => $delivery_fee,
+			'sisa_cicilan' => $remaining_installments,
+		];
+	
+		// Pass both 'cart_totals' and 'order_id' to the view
+		$this->load->view('themes/motor/cart', [
+			'cart_totals' => $cart_totals,
+			'order_id' => $idorder // Pass the order_id here
+		]);
+	}
+	
+	
 	// public function proses_orde()
 	// {
 	// 	//-------------------------Input data order------------------------------

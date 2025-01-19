@@ -82,6 +82,37 @@
                                 </p>
                             </div>
                         </div>
+                        <!--tambahan stok-->
+                        <p class="text-left">
+                            <a href="#" class="mr-2" style="color: #000;"><?=$p['stok'];?> <span style="color: #bbb;">Stok Tersedia</span></a>
+                        </p>
+                        <div class="bottom-area d-flex px-3">
+                            <div class="m-auto d-flex">
+                                <a href="<?=base_url();?>detail/<?=encrypt_url($p['idproduct']);?>/<?=$p['product_seo'];?>"
+                                    class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                    <span><i class="ion-ios-menu"></i></span>
+                                </a>
+                                <?php if($p['stok']!=0):?>
+                                <?php if($this->session->userdata('username') && $this->session->userdata('access')=='customer'):?>
+                                <input type="hidden" id="<?=$p['idproduct'];?>" name="qty" value="1">
+                                <a href="#" class="buy-now-login d-flex justify-content-center align-items-center mx-1"
+                                    data-produkid="<?=$p['idproduct'];?>" data-produkgambar="<?=$p['product_image'];?>"
+                                    data-produknama="<?=$p['product_name'];?>" data-produkharga="<?=$harga_pas;?>"
+                                    data-produksatuan="<?=$p['satuan'];?>" data-produkberat="<?=$p['berat'];?>">
+                                    <span><i class="ion-ios-cart"></i></span>
+                                </a>
+                                <?php else:?>
+                                <input type="hidden" id="<?=$p['idproduct'];?>" name="qty" value="1">
+                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1"
+                                    data-produkid="<?=$p['idproduct'];?>" data-produkgambar="<?=$p['product_image'];?>"
+                                    data-produknama="<?=$p['product_name'];?>" data-produkharga="<?=$harga_pas;?>"
+                                    data-produksatuan="<?=$p['satuan'];?>" data-produkberat="<?=$p['berat'];?>">
+                                    <span><i class="ion-ios-cart"></i></span>
+                                </a>
+                                <?php endif;?>
+                                <?php endif;?>
+                            </div>
+                        </div>
                         <div class="bottom-area d-flex px-3">
                             <div class="m-auto d-flex">
                                 <a href="<?=base_url();?>detail/<?=encrypt_url($p['idproduct']);?>/<?=$p['product_seo'];?>"

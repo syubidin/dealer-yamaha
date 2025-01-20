@@ -48,28 +48,28 @@ class Transaction extends CI_Controller {
 	}
 	public function editStatusBayar()
 	{
-		$idbayar = $this->input->post('idbayar');
-		$orderid = $this->input->post('orderid');
-		$status = $this->input->post('status');
-		$jenis_pembayaran = $this->input->post('jenis_pembayaran');
-		$uang_muka = $this->input->post('uang_muka');
-		$durasi_cicilan = $this->input->post('durasi_cicilan');
-
-		// Update data pembayaran
-		$data = [
-			'status' => $status,
-			'jenis_pembayaran' => $jenis_pembayaran,
-			'uang_muka' => $jenis_pembayaran == 'credit' ? $uang_muka : NULL,
-			'durasi_cicilan' => $jenis_pembayaran == 'credit' ? $durasi_cicilan : NULL,
-			'status_cicilan' => $jenis_pembayaran == 'credit' ? 'pending' : 'lunas',
+		$bayar = [
+			"status"=>$this->input->post('status', true),
+			"update_at"=>get_dateTime(),
+			"update_by"=>user()['idusers']
 		];
-
-		$this->Pembayaran_m->updatePaymentStatus($idbayar, $data);
-
-		// Redirect or success message
+		$this->db->where('idpembayaran', $this->input->post('idbayar', true));
+		$this->db->update('pembayaran', $bayar);
+		if($this->input->post('status', true)!='verified'){
+			$order = [
+				"status_bayar"=>'belum lunas',
+				"status"=>'pembayaran pending'
+			];
+		}else{
+			$order = [
+				"status_bayar"=>'lunas',
+				"status"=>'pembayaran terima'
+			];
+		}
+		$this->db->where('idorder', $this->input->post('orderid', true));
+		$this->db->update('pesanan', $order);
 		redirect('transaction/payment');
 	}
-
 	public function editStatus()
 	{
 		$data = [

@@ -52,23 +52,36 @@ function ubahuser() {
     var user_telp = $('[name="user_telp"]').val();
     var user_name = $('[name="user_name"]').val();
     var user_type = $('[name="user_type"]').val();
+
+    // Create a FormData object to send form data including the file
+    var formData = new FormData();
+    formData.append('idusers', idusers);
+    formData.append('user_fullname', user_fullname);
+    formData.append('user_telp', user_telp);
+    formData.append('user_name', user_name);
+    formData.append('user_type', user_type);
+
+    // If the file input exists and there is a file chosen, append it to FormData
+    var user_gambar = $('[name="user_gambar"]')[0].files[0]; // Grabbing the file input
+    if (user_gambar) {
+        formData.append('user_gambar', user_gambar);  // Append the file
+    }
+
     $.ajax({
         type: "POST",
-        data: {
-            idusers: idusers,
-            user_fullname: user_fullname,
-            user_telp: user_telp,
-            user_name: user_name,
-            user_type: user_type
-        },
-        url: '<?=base_url();?>user/updateUser',
+        url: '<?=base_url();?>user/updateUser',  // Make sure URL is correct
+        data: formData,
+        contentType: false,  // Let jQuery set the content-type header for multipart/form-data
+        processData: false,  // Prevent jQuery from processing the data
         success: function() {
             $('#modal_add').modal('hide');
             toastr.success("Update Successfully");
             setTimeout(() => {
-                window.location =
-                    "<?=site_url();?>user/alluser";
+                window.location = "<?=site_url();?>user/alluser";
             }, 2500);
+        },
+        error: function() {
+            toastr.error("Failed to update. Please try again.");
         }
     });
 }
@@ -315,7 +328,7 @@ $(function() {
         </div>
     </div>
 </section>
-
+<!-- Modal view produk -->
 <div class="modal fade" id="modal_add" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">

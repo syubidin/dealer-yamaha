@@ -15,10 +15,13 @@
     <div class="container">
         <div class="row">
         <div class="col-lg-6 mb-5 ftco-animate" style="overflow:scroll; height:400px;">
-            <a href="<?= base_url().'uploads/products/'.$produk->product_image; ?>" class="image-popup">
-                <center>><img src="<?= base_url().'uploads/products/'.$produk->product_image; ?>" class="img-fluid" alt="<?= $produk->product_image; ?>"
-                style="border:1px solid;margin-bottom:5px;width:80%;max-width:600px;height:auto;"></center
-            </a>
+        <a href="<?= base_url().'uploads/products/'.$produk->product_image; ?>" class="image-popup">
+        <center>
+            <img src="<?= base_url().'uploads/products/'.$produk->product_image; ?>" class="img-fluid" 
+                 alt="<?= $produk->product_image; ?>" 
+                 style="border:1px solid;margin-bottom:5px;width:80%;max-width:600px;height:auto;">
+        </center>
+         </a>
         </div>
             <div class="col-lg-6 product-details pl-md-5 ftco-animate">
                 <h3><?=$produk->product_name;?></h3>

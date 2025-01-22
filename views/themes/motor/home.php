@@ -200,34 +200,35 @@
     
 </section>
 
-<section class="ftco-section testimony-section" style="margin-top:-95px;">
+<section class="ftco-section testimony-section">
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 heading-section ftco-animate text-center">
                 <!-- <span class="subheading">Testimony</span> -->
                 <h2 class="mb-4">TESTIMONI PELANGGAN</h2>
-                <p>Berikut ini testimoni pelanggan yang sudah berbelanjang di dealer resmi yamaha.</p>
+                <p>Berikut pengalaman pelanggan kami yang sudah berbelanjang.</p>
             </div>
         </div>
         <div class="row ftco-animate">
             <div class="col-md-12">
                 <div class="carousel-testimony owl-carousel">
-                    <?php foreach(testi() as $testi): ?>
+                    <?php foreach(testi() as $testi):?>
                     <div class="item">
-                        <div class="testimony-wrap text-center p-4 pb-5" style="border-radius: 10px; background: #f9f9f9;">
-                            <div class="user-img mb-4">
-                            <img src="<?= isset($testi['image']) ? base_url().'uploads/'.$testi['image'] : base_url().'uploads/default.png'; ?>" 
-                             alt="<?= $testi['name']; ?>" 
-                             style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid #0000ff;">
-                            </div>
-                            <div class="text">
-                                <h3 class="name mb-3" style="font-weight: bold; font-size: 18px; color: #222;"><?=$testi['name'];?></h3>
-                                <p class="position mb-3" style="font-style: italic; color: #666;"><?=$testi['job'];?></p>
-                                <p class="mb-4" style="color: #444; font-size: 14px; line-height: 1.6;">"<?=$testi['message'];?>"</p>
+                        <div class="testimony-wrap p-4 pb-5">
+                            <!-- <div class="user-img mb-5"
+								style="background-image: url(<?=base_url().'views/themes/'.theme_active().'/';?>images/person_1.jpg)">
+								<span class="quote d-flex align-items-center justify-content-center">
+									<i class="icon-quote-left"></i>
+								</span>
+							</div> -->
+                            <div class="text text-center">
+                                <p class="mb-5 pl-4 line"><?=$testi['message'];?></p>
+                                <p class="name"><?=$testi['name'];?></p>
+                                <span class="position"><?=$testi['job'];?></span>
                             </div>
                         </div>
                     </div>
-                    <?php endforeach; ?>
+                    <?php endforeach;?>
                 </div>
             </div>
         </div>

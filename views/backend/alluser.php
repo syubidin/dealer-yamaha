@@ -346,7 +346,7 @@ $(function() {
                     </div>
                     <div class="form-group">
                         <label>No. Telp <span style="color:red;">*</span></label>
-                        <input type="text" class="form-control" name="user_telp" placeholder="Nomor telepon" required>
+                        <input type="number" class="form-control" name="user_telp" placeholder="Nomor telepon" required>
                     </div>
                     <div class="form-group">
                         <label>Username <span style="color:red;">*</span></label>

@@ -44,10 +44,6 @@
                             class="fa fa-angle-double-right"></i>
                         Category Product</a>
                 </li>
-                <li <?=isset($image) ? 'class="active"':'';?>><a href="<?=site_url('image');?>"><i
-                            class="fa fa-angle-double-right"></i>
-                        Image Product</a>
-                </li>
             </ul>
         </li>
         <?php endif;?>
@@ -94,9 +90,6 @@
                 </span>
             </a>
             <ul class="treeview-menu">
-                <li <?=isset($slider) ? 'class="active"':'';?>><a href="<?=site_url('plugin');?>"><i
-                            class="fa fa-angle-double-right"></i> Sliders</a>
-                </li>
                 <li <?=isset($testimoni) ? 'class="active"':'';?>><a href="<?=site_url('plugin/testimoni');?>"><i
                             class="fa fa-angle-double-right"></i> Testimonial</a>
                 </li>

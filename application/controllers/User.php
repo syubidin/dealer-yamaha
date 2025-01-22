@@ -147,6 +147,7 @@ class User extends CI_Controller {
 			'user_id' => user()['idusers'],
 			'name' => $this->input->post('nama', true),
 			'telp' => $this->input->post('telp', true),
+			'user_gambar' => $this->input->post('user_gambar', true),
 			'job' => $this->input->post('job', true),
 			'message' => $this->input->post('message', true),
 			'create_at' => get_dateTime(),
@@ -192,6 +193,7 @@ class User extends CI_Controller {
 		$data = [
 			'name'=>$this->input->post('nama', true),
 			'telp'=>$this->input->post('telp', true),
+			'user_gambar' => $this->input->post('user_gambar', true),
 			'job'=>$this->input->post('job', true),
 			'message'=>$this->input->post('message', true),
 			'status'=>'No',

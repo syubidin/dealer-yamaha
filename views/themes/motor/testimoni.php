@@ -27,6 +27,19 @@
                             value="<?=user()['user_telp'];?>" required>
                     </div>
                     <div class="form-group">
+    <input type="hidden" class="form-control" name="user_gambar" value="<?=user()['user_gambar'];?>">
+    <label>Gambar Anda:</label>
+    <?php 
+    $user_gambar = user()['user_gambar']; // Nama file gambar
+    $gambar_path = base_url('uploads/users/'.$user_gambar); // Path gambar
+    $gambar_default = base_url('uploads/users/default.png'); // Path gambar default
+    
+    // Validasi apakah file gambar ada
+    $gambar_src = !empty($user_gambar) && file_exists('./uploads/users/'.$user_gambar) ? $gambar_path : $gambar_default;
+    ?>
+    <img src="<?= $gambar_src; ?>" alt="Gambar User" style="width: 100px; height: 100px;">
+</div>
+                    <div class="form-group">
                         <input type="text" class="form-control" name="job" placeholder="Pekerjaan Anda" required>
                     </div>
                     <div class="form-group">
@@ -53,6 +66,18 @@
                             value="<?=user()['user_telp'];?>" required>
                     </div>
                     <div class="form-group">
+    <input type="hidden" class="form-control" name="user_gambar" value="<?=user()['user_gambar'];?>">
+    <label>Gambar Anda:</label>
+    <?php 
+    $user_gambar = user()['user_gambar'];
+    $gambar_path = base_url('uploads/users/'.$user_gambar);
+    $gambar_default = base_url('uploads/users/default.png'); 
+    ?>
+    <img src="<?= file_exists('./uploads/users/'.$user_gambar) ? $gambar_path : $gambar_default; ?>" 
+         alt="Gambar User" 
+         style="width: 100px; height: 100px;">
+</div>
+                    <div class="form-group">
                         <input type="text" class="form-control" name="job" placeholder="Pekerjaan Anda" required>
                     </div>
                     <div class="form-group">
@@ -77,6 +102,7 @@
                         <input type="text" class="form-control" placeholder="Your Phone" value="<?=$testi->telp;?>"
                             readonly>
                     </div>
+                    
                     <div class="form-group">
                         <input type="text" class="form-control" value="<?=$testi->job;?>" readonly>
                     </div>

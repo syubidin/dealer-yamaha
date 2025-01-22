@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 15, 2025 at 08:54 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 7.4.33
+-- Waktu pembuatan: 22 Jan 2025 pada 08.40
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cart`
+-- Struktur dari tabel `cart`
 --
 
 CREATE TABLE `cart` (
@@ -44,18 +44,18 @@ CREATE TABLE `cart` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `cart`
+-- Dumping data untuk tabel `cart`
 --
 
 INSERT INTO `cart` (`idcart`, `product_id`, `user_id`, `qty`, `harga`, `satuan`, `berat`, `create_at`, `create_by`, `update_at`, `update_by`, `delete_at`, `delete_by`) VALUES
-(6, 67, 11, 1, 17230000, 'unit', 67, 1735408060, 11, 0, 0, 0, 0),
-(7, 62, 11, 1, 19400000, 'unit', 56, 1735408060, 11, 0, 0, 0, 0),
-(15, 29, 26, 1, 27450000, 'Unit', 3000, 1736944532, 26, 0, 0, 0, 0);
+(3, 34, 2, 1, 16000000, 'unit', 1057, 1661772411, 2, 0, 0, 0, 0),
+(4, 35, 2, 1, 1200000, 'unit', 1057, 1661772418, 2, 0, 0, 0, 0),
+(8, 82, 11, 1, 46960000, '12', 12000, 1737550017, 11, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detail_order`
+-- Struktur dari tabel `detail_order`
 --
 
 CREATE TABLE `detail_order` (
@@ -75,7 +75,7 @@ CREATE TABLE `detail_order` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `detail_order`
+-- Dumping data untuk tabel `detail_order`
 --
 
 INSERT INTO `detail_order` (`iddetail_order`, `product_id`, `order_id`, `qty`, `harga`, `satuan`, `berat`, `create_at`, `create_by`, `update_at`, `update_by`, `delete_at`, `delete_by`) VALUES
@@ -90,16 +90,11 @@ INSERT INTO `detail_order` (`iddetail_order`, `product_id`, `order_id`, `qty`, `
 (21, 29, 16, 1, 150000, 'potong', 3000, 1661772397, 2, 0, 0, 0, 0),
 (22, 39, 16, 1, 118500, 'pcs', 1057, 1661772397, 2, 0, 0, 0, 0),
 (23, 62, 17, 1, 19400000, 'unit', 56, 1671184982, 10, 0, 0, 0, 0),
-(24, 34, 18, 1, 16000000, 'unit', 1057, 1735394326, 2, 0, 0, 0, 0),
-(25, 38, 20, 1, 28220000, 'unit', 1057, 1736874740, 26, 0, 0, 0, 0),
-(26, 38, 21, 1, 28220000, 'unit', 1057, 1736936451, 26, 0, 0, 0, 0),
-(27, 50, 22, 1, 27300000, 'unit', 35, 1736936625, 26, 0, 0, 0, 0),
-(28, 33, 23, 1, 37200000, 'unit', 90, 1736936670, 26, 0, 0, 0, 0),
-(29, 29, 24, 1, 27450000, 'Unit', 3000, 1736942185, 26, 0, 0, 0, 0),
-(30, 34, 25, 1, 17095000, 'unit', 1057, 1736943891, 26, 0, 0, 0, 0);
+(24, 29, 18, 1, 27450000, 'Unit', 3000, 1736341396, 11, 0, 0, 0, 0),
+(25, 37, 19, 1, 56320000, 'unit', 1057, 1736946900, 12, 0, 0, 0, 0);
 
 --
--- Triggers `detail_order`
+-- Trigger `detail_order`
 --
 DELIMITER $$
 CREATE TRIGGER `kurang_stok` AFTER INSERT ON `detail_order` FOR EACH ROW BEGIN
@@ -111,7 +106,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `info`
+-- Struktur dari tabel `info`
 --
 
 CREATE TABLE `info` (
@@ -124,7 +119,7 @@ CREATE TABLE `info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `info`
+-- Dumping data untuk tabel `info`
 --
 
 INSERT INTO `info` (`idinfo`, `informasi`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
@@ -134,7 +129,7 @@ INSERT INTO `info` (`idinfo`, `informasi`, `create_at`, `create_by`, `update_at`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jenis`
+-- Struktur dari tabel `jenis`
 --
 
 CREATE TABLE `jenis` (
@@ -143,7 +138,7 @@ CREATE TABLE `jenis` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `jenis`
+-- Dumping data untuk tabel `jenis`
 --
 
 INSERT INTO `jenis` (`id_jenis`, `nama`) VALUES
@@ -155,7 +150,7 @@ INSERT INTO `jenis` (`id_jenis`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kabupaten`
+-- Struktur dari tabel `kabupaten`
 --
 
 CREATE TABLE `kabupaten` (
@@ -166,7 +161,7 @@ CREATE TABLE `kabupaten` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `kabupaten`
+-- Dumping data untuk tabel `kabupaten`
 --
 
 INSERT INTO `kabupaten` (`id_kab`, `id_prov`, `nama`, `id_jenis`) VALUES
@@ -688,7 +683,7 @@ INSERT INTO `kabupaten` (`id_kab`, `id_prov`, `nama`, `id_jenis`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kecamatan`
+-- Struktur dari tabel `kecamatan`
 --
 
 CREATE TABLE `kecamatan` (
@@ -698,7 +693,7 @@ CREATE TABLE `kecamatan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `kecamatan`
+-- Dumping data untuk tabel `kecamatan`
 --
 
 INSERT INTO `kecamatan` (`id_kec`, `id_kab`, `nama`) VALUES
@@ -7804,7 +7799,7 @@ INSERT INTO `kecamatan` (`id_kec`, `id_kab`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kurir`
+-- Struktur dari tabel `kurir`
 --
 
 CREATE TABLE `kurir` (
@@ -7820,7 +7815,7 @@ CREATE TABLE `kurir` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `kurir`
+-- Dumping data untuk tabel `kurir`
 --
 
 INSERT INTO `kurir` (`idkurir`, `kode`, `nama`, `layanan`, `keterangan`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
@@ -7832,7 +7827,7 @@ INSERT INTO `kurir` (`idkurir`, `kode`, `nama`, `layanan`, `keterangan`, `create
 -- --------------------------------------------------------
 
 --
--- Table structure for table `modules`
+-- Struktur dari tabel `modules`
 --
 
 CREATE TABLE `modules` (
@@ -7841,7 +7836,7 @@ CREATE TABLE `modules` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `modules`
+-- Dumping data untuk tabel `modules`
 --
 
 INSERT INTO `modules` (`idmodule`, `module_name`) VALUES
@@ -7854,7 +7849,7 @@ INSERT INTO `modules` (`idmodule`, `module_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ongkir`
+-- Struktur dari tabel `ongkir`
 --
 
 CREATE TABLE `ongkir` (
@@ -7875,7 +7870,7 @@ CREATE TABLE `ongkir` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `ongkir`
+-- Dumping data untuk tabel `ongkir`
 --
 
 INSERT INTO `ongkir` (`idongkir`, `asal`, `kode_pos_asal`, `tujuan`, `kode_pos_tujuan`, `kurir`, `layanan`, `biaya`, `estimasi`, `catatan`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
@@ -7886,7 +7881,7 @@ INSERT INTO `ongkir` (`idongkir`, `asal`, `kode_pos_asal`, `tujuan`, `kode_pos_t
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pembayaran`
+-- Struktur dari tabel `pembayaran`
 --
 
 CREATE TABLE `pembayaran` (
@@ -7896,10 +7891,6 @@ CREATE TABLE `pembayaran` (
   `file` varchar(255) NOT NULL,
   `total` int(11) NOT NULL,
   `status` enum('pending','verified') NOT NULL,
-  `jenis_pembayaran` enum('cash','credit') DEFAULT NULL,
-  `uang_muka` int(11) DEFAULT NULL,
-  `durasi_cicilan` int(11) DEFAULT NULL,
-  `status_cicilan` enum('pending','lunas') DEFAULT 'pending',
   `keterangan` varchar(255) NOT NULL,
   `tgl_bayar` int(11) NOT NULL,
   `create_at` int(11) NOT NULL,
@@ -7909,24 +7900,18 @@ CREATE TABLE `pembayaran` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `pembayaran`
+-- Dumping data untuk tabel `pembayaran`
 --
 
-INSERT INTO `pembayaran` (`idpembayaran`, `order_id`, `user_id`, `file`, `total`, `status`, `jenis_pembayaran`, `uang_muka`, `durasi_cicilan`, `status_cicilan`, `keterangan`, `tgl_bayar`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
-(17, 17, 10, 'bukti-bayar-1671163489.jpg', 14803, 'verified', NULL, NULL, NULL, 'pending', 'sdh di transper', 1671185089, 1671184982, 10, 1736590598, 1),
-(18, 18, 2, '', 0, 'pending', NULL, NULL, NULL, 'pending', '', 0, 1735394326, 2, 0, 0),
-(19, 19, 11, '', 0, 'pending', NULL, NULL, NULL, 'pending', '', 0, 1735398097, 11, 0, 0),
-(20, 20, 26, '', 0, 'pending', NULL, NULL, NULL, 'pending', '', 0, 1736874740, 26, 0, 0),
-(21, 21, 26, '', 0, 'pending', NULL, NULL, NULL, 'pending', '', 0, 1736936451, 26, 0, 0),
-(22, 22, 26, '', 0, 'pending', NULL, NULL, NULL, 'pending', '', 0, 1736936625, 26, 0, 0),
-(23, 23, 26, '', 0, 'pending', NULL, NULL, NULL, 'pending', '', 0, 1736936670, 26, 0, 0),
-(24, 24, 26, '', 0, 'pending', NULL, NULL, NULL, 'pending', '', 0, 1736942180, 26, 0, 0),
-(25, 25, 26, '', 0, 'pending', NULL, NULL, NULL, 'pending', '', 0, 1736943891, 26, 0, 0);
+INSERT INTO `pembayaran` (`idpembayaran`, `order_id`, `user_id`, `file`, `total`, `status`, `keterangan`, `tgl_bayar`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
+(17, 17, 10, 'bukti-bayar-1671163489.jpg', 14803, 'pending', 'sdh di transper', 1671185089, 1671184982, 10, 0, 0),
+(18, 18, 11, '', 0, 'pending', '', 0, 1736341396, 11, 0, 0),
+(19, 19, 12, '', 0, 'pending', '', 0, 1736946900, 12, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pesanan`
+-- Struktur dari tabel `pesanan`
 --
 
 CREATE TABLE `pesanan` (
@@ -7957,24 +7942,18 @@ CREATE TABLE `pesanan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `pesanan`
+-- Dumping data untuk tabel `pesanan`
 --
 
 INSERT INTO `pesanan` (`idorder`, `code`, `no_resi`, `datetime`, `user_id`, `subtotal`, `total_weight`, `order_ongkir`, `total_harga`, `order_prov`, `order_kab`, `order_kec`, `order_kodepos`, `order_address`, `order_kurir`, `order_layanan`, `status_bayar`, `status`, `create_at`, `create_by`, `update_at`, `update_by`, `delete_at`, `delete_by`) VALUES
-(17, 'ODR-1671184982', '', 1671184982, 10, 0, 56, 0, 0, 31, 3172, 'koja', '14270', 'jl,ndjjdldooldkjk', 'JNE', 'REG', 'lunas', 'selesai', 1671184982, 10, 1736714647, 1, 0, 0),
-(18, 'ODR-1735394326', '', 1735394326, 2, 0, 1057, 0, 0, 32, 3275, 'Bantargebang', '17145', 'Bekasi Timur Regency', 'JNE', 'OKE', 'belum lunas', 'pembayaran pending', 1735394326, 2, 0, 0, 0, 0),
-(19, 'ODR-1735398097', '', 1735398097, 11, 0, 0, 0, 0, 32, 3216, 'Bantargebang', '17154', 'Regensi', 'JNE', 'REG', 'belum lunas', 'pembayaran pending', 1735398097, 11, 0, 0, 0, 0),
-(20, 'ODR-1736874740', '', 1736874740, 26, 0, 1057, 0, 0, 32, 3275, 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 'JNE', 'OKE', 'belum lunas', 'pembayaran pending', 1736874740, 26, 0, 0, 0, 0),
-(21, 'ODR-1736936451', '', 1736936451, 26, 0, 1057, 0, 0, 32, 3275, 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 'JNE', 'OKE', 'belum lunas', 'pembayaran pending', 1736936451, 26, 0, 0, 0, 0),
-(22, 'ODR-1736936625', '', 1736936625, 26, 0, 35, 0, 0, 32, 3275, 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 'JNE', 'OKE', 'belum lunas', 'pembayaran pending', 1736936625, 26, 0, 0, 0, 0),
-(23, 'ODR-1736936669', '', 1736936669, 26, 0, 90, 0, 0, 32, 3275, 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 'JNE', 'OKE', 'belum lunas', 'pembayaran pending', 1736936669, 26, 0, 0, 0, 0),
-(24, 'ODR-1736942174', '', 1736942174, 26, 0, 3000, 0, 0, 32, 3275, 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 'JNE', 'OKE', 'belum lunas', 'pembayaran pending', 1736942174, 26, 0, 0, 0, 0),
-(25, 'ODR-1736943890', '', 1736943890, 26, 0, 1057, 0, 0, 32, 3275, 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 'POS', 'Biasa', 'belum lunas', 'pembayaran pending', 1736943890, 26, 0, 0, 0, 0);
+(17, 'ODR-1671184982', '', 1671184982, 10, 0, 56, 0, 0, 31, 3172, 'koja', '14270', 'jl,ndjjdldooldkjk', 'JNE', 'REG', 'belum lunas', 'pembayaran pending', 1671184982, 10, 1671185207, 1, 0, 0),
+(18, 'ODR-1736341396', '', 1736341396, 11, 0, 3000, 0, 0, 34, 3402, 'ngawi', '123134r', 'jln nganjuk', 'JNE', 'OKE', 'belum lunas', 'pembayaran pending', 1736341396, 11, 0, 0, 0, 0),
+(19, 'ODR-1736946900', '', 1736946900, 12, 0, 1057, 0, 0, 75, 7502, 'ngawi', '12345', 'ngawi', 'JNE', 'OKE', 'belum lunas', 'pembayaran pending', 1736946900, 12, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Struktur dari tabel `product`
 --
 
 CREATE TABLE `product` (
@@ -7999,7 +7978,7 @@ CREATE TABLE `product` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `product`
+-- Dumping data untuk tabel `product`
 --
 
 INSERT INTO `product` (`idproduct`, `category_id`, `product_name`, `product_seo`, `satuan`, `harga_beli`, `harga_jual`, `diskon`, `berat`, `product_image`, `keterangan`, `stok`, `create_at`, `create_by`, `update_at`, `update_by`, `delete_at`, `delete_by`) VALUES
@@ -8008,16 +7987,16 @@ INSERT INTO `product` (`idproduct`, `category_id`, `product_name`, `product_seo`
 (27, 10, 'ALL NEW NMAX 155', 'Maxi Yamaha', 'unit', 31125000, 31225000, 2000, '11000', 'nmax.jfif', 'Kapasitas Oli Mesin	Total – 1,00 L ; Berkala 0,90 L\r\nSistem Bahan Bakar	FI (Fuel Injection)\r\nTipe Kopling	Kering, Centrifugal Automatic\r\nTipe Transmisi	V-belt Automatic\r\nTipe Mesin	Liquid cooled 4-stroke, SOHC\r\nJumlah/Posisi Silinder	Single Cylinder\r\nKapasitas Mesin	155cc\r\nDiameter x Langkah	58,0 mm x 58.7 mm\r\nPerbandingan Kompresi	11.6 : 1\r\nDaya Maksimum	11.3 kW / 8000 rpm\r\nTorsi Maksimum	13.9Nm / 6500rpm\r\n', 0, 1575210085, 1, 1575626878, 1, 0, 0),
 (31, 1, 'gear 125', 'Matic', 'Ikat', 17200000, 17500000, 0, '1057', 'gear-125.png', 'Yamaha Gear baru saja diluncurkan ke pasar Indonesia oleh PT Yamaha Indonesia Motor Manufacturing (YIMM) lewat peluncuran virtual. Ini adalah skuter terbaru Yamaha yang masuk dalam keluarga skuter matik (skutik) bermesin Blue Core 125 cc.\r\nSekilas tampilan Yamaha Gear mirip dengan Yamaha Mio, tapi jika dilihat lebih dekat motor ini berbeda. Yamaha Gear memiliki panjang x lebar x tinggi: 1.870mm x 685 mm x 1060 mm. Jarak sumbu rodanya 1.260, tinggi tempat duduk 750 mm dan jarak ke tanahya 160 mm.\r\n\r\nBaca artikel detikoto, \"Spesifikasi Lengkap Yamaha Gear 125 yang Baru Meluncur\" selengkapnya https://oto.detik.com/berita/d-5269043/spesifikasi-lengkap-yamaha-gear-125-yang-baru-meluncur.\r\n\r\nDownload Apps Detikcom Sekarang https://apps.detik.com/detik/\r\n', 2, 1575210446, 1, 1575626844, 1, 0, 0),
 (32, 1, 'X-RIDE', 'MATIC', 'UNIT', 19400000, 19600000, 0, '1057', 'x-ride.png', 'TIPE MESIN	4 Langkah, 2 Valve SOHC, Berpendingin Angin, Bluecore\r\nSUSUNAN SILINDER	Cylinder Tunggal\r\nDIAMETER X LANGKAH	52,4 x 57,9 mm\r\nPERBANDINGAN KOMPRESI	9,5 : 1\r\nVOLUME SILINDER	125 cc\r\nDAYA MAKSIMUM	7,0 Kw / 8000 rpm\r\nTORSI MAKSIMUM	9,6 N.m / 5500 rpm\r\nSISTEM STARTER	Electric Starter & kick starter\r\nSISTEM PELUMASAN	Wet sump\r\nKAPASITAS OLI MESIN	Total : 0,84 L ; Berkala : 0,80 L ; Ganti Filter Oli : 0,80 L\r\n', 1, 1575210478, 1, 1575626835, 1, 0, 0),
-(33, 28, 'XSR-155', 'naked bike', 'unit', 37100000, 37200000, 0, '90', 'xsr-155.png', 'Pipa Knalpot\r\nSingle Exhaust\r\nJenis Penggerak\r\nChain Drive\r\nJumlah silinder\r\n1\r\nKatup Per Silinder\r\n4\r\nSistem Pendinginan\r\nPendingin Cairan\r\nJumlah langkah\r\n4-Stroke\r\nSistem pelumasan\r\nWet Sump\r\nRasio Kompresi\r\n11.6:1\r\nKonfigurasi Katup\r\nSOHC\r\nKapasitas\r\n155\r\nDiameter x langkah\r\n58 mm x 58.7 mm\r\nJenis Kopling\r\nWet, Multi-Plate', 0, 1661771578, 1, 1661771578, 1, 0, 0),
-(34, 1, 'MIO M3', 'Matic', 'unit', 17125000, 17125000, 30000, '1057', 'mio-m3.png', 'Tipe mesin	Air cooled 4-stroke, SOHC\r\nSusunan silinder	Single cylinder\r\nDiameter X Langkah	52,4 x 57,9 mm\r\nPerbandingan kompresi	9,5 : 1\r\nVolume silinder	125 cc\r\nDaya maksimum	7 kW / 8000 rpm\r\nTorsi maksimum	9.6 Nm / 5500 rpm\r\nSistem starter	Electric & kick starter\r\nSistem pelumasan	Wet sump\r\nKapasitas oli mesin	Total = 0,84 L ; Berkala = 0,80 L\r\n', 10, 1575559513, 1, 1575626815, 1, 0, 0),
+(33, 28, 'XSR-155', 'naked bike', 'unit', 37100000, 37200000, 0, '90', 'xsr-155.png', 'Pipa Knalpot\r\nSingle Exhaust\r\nJenis Penggerak\r\nChain Drive\r\nJumlah silinder\r\n1\r\nKatup Per Silinder\r\n4\r\nSistem Pendinginan\r\nPendingin Cairan\r\nJumlah langkah\r\n4-Stroke\r\nSistem pelumasan\r\nWet Sump\r\nRasio Kompresi\r\n11.6:1\r\nKonfigurasi Katup\r\nSOHC\r\nKapasitas\r\n155\r\nDiameter x langkah\r\n58 mm x 58.7 mm\r\nJenis Kopling\r\nWet, Multi-Plate', 1, 1661771578, 1, 1661771578, 1, 0, 0),
+(34, 1, 'MIO M3', 'Matic', 'unit', 17125000, 17125000, 30000, '1057', 'mio-m3.png', 'Tipe mesin	Air cooled 4-stroke, SOHC\r\nSusunan silinder	Single cylinder\r\nDiameter X Langkah	52,4 x 57,9 mm\r\nPerbandingan kompresi	9,5 : 1\r\nVolume silinder	125 cc\r\nDaya maksimum	7 kW / 8000 rpm\r\nTorsi maksimum	9.6 Nm / 5500 rpm\r\nSistem starter	Electric & kick starter\r\nSistem pelumasan	Wet sump\r\nKapasitas oli mesin	Total = 0,84 L ; Berkala = 0,80 L\r\n', 12, 1575559513, 1, 1575626815, 1, 0, 0),
 (35, 1, 'Fino', 'Matic', 'unit', 18200000, 18400000, 0, '1057', 'fino.png', 'Volume Cylinder	125 cc\r\nPerbandingan Kompresi	9,5 : 1\r\nDaya Maksimum	7.0 kW (9.52 PS) / 8000rpm\r\nTorsi Maksimum	9.6 N.m (0,98 kgf.m) / 5500rpm\r\nSistem Starter	Elektrik & kick starter\r\nSistem Pelumasan	Basah\r\nKapasitas Oli Mesin	Total = 0,84 L ; Berkala = 0,80 L\r\nSistem Bahan Bakar	Fuel Injection\r\nTipe Kopling	Kering, sentrifugal Automatic\r\nTipe Transmisi	V-belt automatic\r\nTipe Mesin	Air cooled, 4-stroke, SOHC\r\nJumlah / Posisi Silinder	Single cylinder\r\nDiameter X Langkah	52,4 x 57,9 mm\r\n', 12, 1575626912, 1, 0, 0, 0, 0),
-(36, 10, 'XMAX CONNECTED', 'Matic Maxi', 'unit', 66000000, 66100000, 0, '1057', 'xmax.jfif', 'Big Fuel Tank Capacity (13 L) Aktivitas berkendara menjadi lebih nyaman dan menyenangkan dengan tangki bensin berkapasitas besar. Smart Key System. Sistem kunci canggih tanpa anak kunci (keyless), dilengkapi fitur Answer Back System, memudahkan pengendara mencari posisi parkir motor. Electric Power Socket.\r\n', 12, 1576435486, 1, 1576435486, 1, 0, 0),
-(37, 28, 'mt-25', 'naked bike', 'unit', 56100000, 56320000, 0, '1057', 'mt-25.png', 'Pipa Knalpot\r\nSingle Exhaust\r\nJenis Penggerak\r\nChain Drive\r\nKatup Per Silinder\r\n4\r\nKonfigurasi Katup\r\nDOHC\r\nJenis Kopling\r\nWet\r\nSistem Pendinginan\r\nPendingin Cairan\r\nJumlah langkah\r\n4-Stroke\r\nTipe injeksi\r\nDirect Injection\r\n', 11, 1661771589, 1, 1661771589, 1, 0, 0),
-(38, 28, 'VIXION', 'naked bike', 'unit', 28600000, 28220500, 500, '1057', 'VIXION.png', 'Kapasitas Tempat Duduk\r\n2\r\nGround Clearance\r\n165 mm\r\nLebar\r\n720 mm\r\nPanjang\r\n1955 mm\r\nKapasitas Tangki Oli\r\n1.15 L\r\nWheelbase\r\n1295 mm\r\nTinggi\r\n1025 mm\r\nBerat Kosong\r\n132 kg\r\nKategori\r\nStreet\r\nKetinggian Jok\r\n795 mm', 98, 1661771767, 1, 0, 0, 0, 0),
+(82, 1, 'xmax', 'xmax', '12', 40000000, 47000000, 40000, '12000', 'product-1737528114.png', '<p>X MAX CONNECTED</p>\r\n', 5, 1737549714, 1, 0, 0, 0, 0),
+(37, 28, 'mt-25', 'naked bike', 'unit', 56100000, 56320000, 0, '1057', 'mt-25.png', 'Pipa Knalpot\r\nSingle Exhaust\r\nJenis Penggerak\r\nChain Drive\r\nKatup Per Silinder\r\n4\r\nKonfigurasi Katup\r\nDOHC\r\nJenis Kopling\r\nWet\r\nSistem Pendinginan\r\nPendingin Cairan\r\nJumlah langkah\r\n4-Stroke\r\nTipe injeksi\r\nDirect Injection\r\n', 10, 1661771589, 1, 1661771589, 1, 0, 0),
+(38, 28, 'VIXION', 'naked bike', 'unit', 28600000, 28220500, 500, '1057', 'VIXION.png', 'Kapasitas Tempat Duduk\r\n2\r\nGround Clearance\r\n165 mm\r\nLebar\r\n720 mm\r\nPanjang\r\n1955 mm\r\nKapasitas Tangki Oli\r\n1.15 L\r\nWheelbase\r\n1295 mm\r\nTinggi\r\n1025 mm\r\nBerat Kosong\r\n132 kg\r\nKategori\r\nStreet\r\nKetinggian Jok\r\n795 mm', 100, 1661771767, 1, 0, 0, 0, 0),
 (39, 28, 'MT-15', 'naked bike', 'unit', 37900000, 38020500, 2000, '1057', 'MT-15.png', 'Pipa Knalpot\r\nSingle Exhaust\r\nJenis Penggerak\r\nChain Drive\r\nJumlah silinder\r\n1\r\nKatup Per Silinder\r\n4\r\nSistem Pendinginan\r\nPendingin Cairan\r\nJumlah langkah\r\n4-Stroke\r\nSistem pelumasan\r\nWet Sump\r\nRasio Kompresi\r\n11.6:1\r\nKonfigurasi Katup\r\nSOHC\r\nKapasitas\r\n155\r\nDiameter x langkah\r\n58 mm x 58.7 mm\r\nTipe injeksi\r\nFuel Injection', 499, 1661771873, 1, 0, 0, 0, 0),
 (40, 29, 'ALL NEW R15 CONNECTED', 'sport', 'unit', 39100000, 39125500, 5500, '1057', 'ALLNEWR15CONNECTED.png', 'https://www.yamaha-motor.co.id/product/all-new-R15-connected/#fifth-section', 350, 1661771973, 1, 0, 0, 0, 0),
 (5, 15, 'XMAX CONNECTED', 'matic', 'unit', 0, 0, 0, '', 'maxi.png', 'Nmax Connected ditawarkan dalam opsi mesin 1: 155 cc. Periksa spesifikasi lengkapnya di sini: Yamaha Nmax Connected spec. Berapa Kapasitas Mesin dari Yamaha Nmax Connected? Apa Fitur Keamanan yang Tersedia di Yamaha Nmax Connected? Fitur keselamatan Yamaha Nmax Connected adalah: ABS, Dimmer Switch, Reflektor samping, Alarm and Engine Check Warning.', 2, 1233, 122123, 122323, 0, 0, 0),
-(50, 10, 'ALL NEW AEROX 155 CONNECTED', 'Maxi', 'unit', 27190280, 27300000, 0, '35 kg', 'aerox.png', 'Yamaha Aerox 155VVA tersedia dalam pilihan mesin Petrol di Indonesia Scooter baru dari Yamaha hadir dalam 6 varian. Bicara soal spesifikasi mesin Yamaha Aerox 155VVA, ini ditenagai dua pilihan mesin Petrol berkapasitas 155.1 cc. Aerox 155VVA tersedia dengan transmisi CVT tergantung variannya. Aerox 155VVA adalah Scooter 2 seater dengan panjang 1990 mm, lebar 700 mm, wheelbase 1350 mm. serta ground clearance 142 mm.', 2, 155626858, 1, 157526858, 1, 0, 0),
+(50, 10, 'ALL NEW AEROX 155 CONNECTED', 'Maxi', 'unit', 27190280, 27300000, 0, '35 kg', 'aerox.png', 'Yamaha Aerox 155VVA tersedia dalam pilihan mesin Petrol di Indonesia Scooter baru dari Yamaha hadir dalam 6 varian. Bicara soal spesifikasi mesin Yamaha Aerox 155VVA, ini ditenagai dua pilihan mesin Petrol berkapasitas 155.1 cc. Aerox 155VVA tersedia dengan transmisi CVT tergantung variannya. Aerox 155VVA adalah Scooter 2 seater dengan panjang 1990 mm, lebar 700 mm, wheelbase 1350 mm. serta ground clearance 142 mm.', 3, 155626858, 1, 157526858, 1, 0, 0),
 (53, 10, 'LEXI', 'matic', 'unit', 22540000, 22560000, 0, '20 kg', 'lexi.png', 'Spesifikasi dan fitur utama Yamaha Lexi 2022. Lihat spesifikasi mesin, dimensi, fitur keamanan dan teknologi secara rinci di bawah.', 4, 1667071873, 1, 1661891873, 1, 0, 0),
 (56, 29, 'R25', 'Sport', 'unit', 62200000, 62300000, 0, '35 kg', 'R25.png', 'apasitas Tempat Duduk\r\n2\r\nGround Clearance\r\n160 mm\r\nTinggi\r\n1135 mm\r\nLebar\r\n720 mm\r\nPanjang\r\n2090 mm\r\nWheelbase\r\n1380 mm\r\nKapasitas Tangki Oli\r\n2.4 L\r\nKategori\r\nSport\r\nKetinggian Jok\r\n780 mm', 2, 7281902, 1, 8276389, 1, 0, 0),
 (60, 30, 'Mx King 150', 'MOPED 4 tak', 'unit', 25180000, 25280900, 0, '56 kg', 'MxKing150.png', 'Yamaha Jupiter MX King 150 dibandrol dengan harga Rp 21,95 Juta. Jupiter MX King 150 dari Yamaha Indonesia hadir dalam mesin Petrol dengan perpindahan mesin cc yang menawarkan tenaga hp. Yamaha Jupiter MX King 150 tersedia dalam transmisi Variable Kecepatan CVT yang memiliki penghematan bahan bakar kmpl. King 150 ditawarkan dalam 3 warna: Black Sniper, Red Corner, White Superior. Cicilan bulanan terendah untuk Yamaha Jupiter MX King 150 adalah Rp 500.821 selama 36 Bulan dengan uang muka Rp 5,49 Juta. Motor Moped ini bersaing ketat dengan. Varian Yamaha Jupiter MX Lainnya adalah :Standard, King 150.', 3, 8176299, 1, 927390, 1, 0, 0),
@@ -8029,7 +8008,7 @@ INSERT INTO `product` (`idproduct`, `category_id`, `product_name`, `product_seo`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_category`
+-- Struktur dari tabel `product_category`
 --
 
 CREATE TABLE `product_category` (
@@ -8045,7 +8024,7 @@ CREATE TABLE `product_category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `product_category`
+-- Dumping data untuk tabel `product_category`
 --
 
 INSERT INTO `product_category` (`idcategory`, `category_name`, `category_seo`, `category_description`, `category_image`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
@@ -8059,7 +8038,7 @@ INSERT INTO `product_category` (`idcategory`, `category_name`, `category_seo`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_image`
+-- Struktur dari tabel `product_image`
 --
 
 CREATE TABLE `product_image` (
@@ -8073,7 +8052,7 @@ CREATE TABLE `product_image` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `product_image`
+-- Dumping data untuk tabel `product_image`
 --
 
 INSERT INTO `product_image` (`idImage`, `product_id`, `image`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
@@ -8086,7 +8065,7 @@ INSERT INTO `product_image` (`idImage`, `product_id`, `image`, `create_at`, `cre
 -- --------------------------------------------------------
 
 --
--- Table structure for table `provinsi`
+-- Struktur dari tabel `provinsi`
 --
 
 CREATE TABLE `provinsi` (
@@ -8095,7 +8074,7 @@ CREATE TABLE `provinsi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `provinsi`
+-- Dumping data untuk tabel `provinsi`
 --
 
 INSERT INTO `provinsi` (`id_prov`, `nama`) VALUES
@@ -8137,7 +8116,7 @@ INSERT INTO `provinsi` (`id_prov`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `settings`
+-- Struktur dari tabel `settings`
 --
 
 CREATE TABLE `settings` (
@@ -8159,11 +8138,11 @@ CREATE TABLE `settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `settings`
+-- Dumping data untuk tabel `settings`
 --
 
 INSERT INTO `settings` (`id`, `group`, `variable`, `value`, `default`, `description`, `created_at`, `updated_at`, `deleted_at`, `restored_at`, `created_by`, `updated_by`, `deleted_by`, `restored_by`, `is_deleted`) VALUES
-(1, 'general', 'meta_description', 'Dealer Yamaha', 'Produk terbaru', 'Deskripsi Meta', '2018-04-01 18:51:58', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, NULL, NULL, 'false'),
+(1, 'general', 'meta_description', 'Dealer yamaha', 'Produk terbaru', 'Deskripsi Meta', '2018-04-01 18:51:58', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, NULL, NULL, 'false'),
 (2, 'general', 'meta_keywords', 'Motor yamaha', 'motor terbaik', 'Kata Kunci Meta', '2018-04-01 18:51:58', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, NULL, NULL, 'false'),
 (3, 'general', 'google_map_api_key', 'AIzaSyBdZwsJsQY8wt-JNofqHzV11pMaSLgUC-Y', 'AIzaSyDmiycFxzYZ37FOwA4wqSbL3z2YvIYIArw', 'API Key Google Map', '2018-04-01 18:51:58', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, NULL, NULL, 'false'),
 (4, 'general', 'latitude', '-2.08', '-6.2407311', 'Latitude', '2018-04-01 18:51:58', '2019-10-26 00:02:31', NULL, NULL, NULL, 1, NULL, NULL, 'false'),
@@ -8238,7 +8217,7 @@ INSERT INTO `settings` (`id`, `group`, `variable`, `value`, `default`, `descript
 -- --------------------------------------------------------
 
 --
--- Table structure for table `slider`
+-- Struktur dari tabel `slider`
 --
 
 CREATE TABLE `slider` (
@@ -8253,7 +8232,7 @@ CREATE TABLE `slider` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `slider`
+-- Dumping data untuk tabel `slider`
 --
 
 INSERT INTO `slider` (`idslide`, `image`, `title`, `sub_title`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
@@ -8263,7 +8242,7 @@ INSERT INTO `slider` (`idslide`, `image`, `title`, `sub_title`, `create_at`, `cr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `testimonial`
+-- Struktur dari tabel `testimonial`
 --
 
 CREATE TABLE `testimonial` (
@@ -8281,21 +8260,21 @@ CREATE TABLE `testimonial` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `testimonial`
+-- Dumping data untuk tabel `testimonial`
 --
 
 INSERT INTO `testimonial` (`idtestimoni`, `user_id`, `name`, `telp`, `job`, `message`, `status`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
-(2, 2, 'Billy', '081222333444', 'karyawan swasta', 'Saya sejek kecil suka dengan motor yamaha', 'Yes', 1575714719, 2, 1735407257, 1),
-(3, 5, 'Muhammad', '083893900', 'wirasuwasta', 'Terima kasih yamaha', 'Yes', 1575715791, 5, 1735407251, 1),
+(2, 2, 'Billy', '081222333444', 'karyawan swasta', 'Saya sejek kecil suka dengan motor yamaha', 'No', 1575714719, 2, 1661723817, 2),
+(3, 5, 'Muhammad', '083893900', 'wirasuwasta', 'Terima kasih yamaha', 'Yes', 1575715791, 5, 1575715852, 1),
 (5, 4, 'Zahra Amelia', '0829128790', 'Guru', 'Teman terbaik saat berkendara', 'Yes', 0, 0, 1575716085, 1),
 (6, 6, 'Widya Prastika', 'widnya@gmail.co', 'Wirausaha', 'Mesinnya bagus', 'Yes', 1576433102, 6, 1576433133, 1),
 (7, 2, 'roin', '087122233444', 'Programmer', 'Mesin terkenal sangat tangguh', 'No', 1576496271, 2, 1661723817, 2),
-(8, 11, 'Fatimah Azzahra', '087874080963', 'mahasiswi', 'bagus sekali ', 'Yes', 1735395456, 11, 1735407264, 1);
+(8, 13, 'salsa', '08123241243', 'mahasiswa', 'bagus banget', 'No', 1737548226, 13, 1737548478, 13);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `themes`
+-- Struktur dari tabel `themes`
 --
 
 CREATE TABLE `themes` (
@@ -8307,7 +8286,7 @@ CREATE TABLE `themes` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
--- Dumping data for table `themes`
+-- Dumping data untuk tabel `themes`
 --
 
 INSERT INTO `themes` (`id_theme`, `theme_name`, `theme_folder`, `theme_author`, `is_active`) VALUES
@@ -8316,16 +8295,16 @@ INSERT INTO `themes` (`id_theme`, `theme_name`, `theme_folder`, `theme_author`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
   `idusers` int(11) NOT NULL,
   `user_name` varchar(25) DEFAULT NULL,
-  `user_gambar` varchar(255) NOT NULL,
   `user_password` varchar(128) DEFAULT NULL,
   `user_fullname` varchar(128) DEFAULT NULL,
   `user_telp` varchar(15) NOT NULL,
+  `user_gambar` varchar(255) NOT NULL,
   `user_url` varchar(128) NOT NULL,
   `user_bio` text NOT NULL,
   `user_group_id` int(11) DEFAULT NULL,
@@ -8345,23 +8324,57 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`idusers`, `user_name`, `user_gambar`, `user_password`, `user_fullname`, `user_telp`, `user_url`, `user_bio`, `user_group_id`, `user_type`, `user_forgot_password_key`, `user_forgot_password_date`, `last_loggin`, `ip_address`, `is_active`, `is_block`, `create_at`, `update_at`, `delete_at`, `create_by`, `update_by`, `delete_by`) VALUES
-(1, 'admin', '', '$2y$10$fetknyRWIpyGMC5NhLh5OOFsJM39k3r5LY.RJp6vCFjvnjpBh5992', 'Dealer yamaha', '081222333444', 'https://yamaha.com', '-', NULL, 'super_user', NULL, NULL, 1736846046, '::1', 1, 0, 1556509343, 1661633811, NULL, 1, 1, NULL),
-(2, 'customer', '', '$2y$10$P40GddIH4tDw9.FE5.IkW.ckgrqEHZL84wyejtHQvGHJEh.Bxy.Ke', 'Eka Saputra', '082248577297', '', '', NULL, 'customer', NULL, NULL, 1735394166, '::1', 1, 0, 1574127580, 1661724195, NULL, 1, 1, NULL),
-(5, 'user', '', '$2y$10$obUw4kBrR7A6bsYP.K9HqepMvAwTLPiTzNKojOJjs0NWIL79Wi91a', 'Zahra Amelia', '081444555666', '', '', NULL, 'administrator', NULL, NULL, 1736785802, '::1', 1, 0, 1575715597, 1736785756, NULL, 1, 1, NULL),
-(19, 'mar', 'user-1736691397.png', '$2y$10$ZavP6aPuxkgy0fByPzrYZOi2wPwPj2WaO9NPHdoHWY.DMxWMf5mYC', 'Fatimah Azzahra', '087874080963', '', '', NULL, 'customer', NULL, NULL, 1736804743, '::1', 1, 0, 1736712997, 1736805739, NULL, 1, 1, NULL),
-(23, 'elea', 'user-1736787085.png', '$2y$10$mspOu1CSXcREqYOu66cbZuLeHYasqbJ1zbJi1ZVl3zIak0kqZT6f2', 'Elea', '087879099276', '', '', NULL, 'user', NULL, NULL, NULL, NULL, 1, 0, 1736808686, 1736818434, NULL, 1, 1, NULL),
-(24, 'ele', 'user-1736826399.png', '$2y$10$l7gZNyNYg8uJvugQYlFLz.pkf3LhYfBeV/BF2yVFiecP8uz.gvPae', 'eleea', '087879099276', '', '', NULL, 'user', NULL, NULL, NULL, NULL, 1, 0, 2025, 1736849547, NULL, 1, 1, NULL),
-(25, 'bibi', 'user-1736827987.png', '$2y$10$tuoBJjAnLOaolMfHmV1IguEsX3wtrEOPOVyK8GY4.ZQzXwDBredF2', 'Elea', '087879099276', '', '', NULL, 'user', NULL, NULL, NULL, NULL, 1, 0, 1736849587, NULL, NULL, 1, NULL, NULL),
-(26, 'syubidin', '', '$2y$10$J0220rQI0rRVDxvrfH6AGOQeqF9u57ErsmiGtc26KKpUz5HqJN3A.', 'Syuby Alwi Akbar Attala', '08123456789', '', '', NULL, 'customer', NULL, NULL, 1736934777, '::1', 1, 0, 1736874630, NULL, NULL, 1, NULL, NULL);
+INSERT INTO `users` (`idusers`, `user_name`, `user_password`, `user_fullname`, `user_telp`, `user_gambar`, `user_url`, `user_bio`, `user_group_id`, `user_type`, `user_forgot_password_key`, `user_forgot_password_date`, `last_loggin`, `ip_address`, `is_active`, `is_block`, `create_at`, `update_at`, `delete_at`, `create_by`, `update_by`, `delete_by`) VALUES
+(1, 'admin', '$2y$10$fetknyRWIpyGMC5NhLh5OOFsJM39k3r5LY.RJp6vCFjvnjpBh5992', 'Dealer yamaha', '081222333444', '', 'https://yamaha.com', '-', NULL, 'super_user', NULL, NULL, 1737552236, '::1', 1, 0, 1556509343, 1661633811, NULL, 1, 1, NULL),
+(2, 'customer', '$2y$10$P40GddIH4tDw9.FE5.IkW.ckgrqEHZL84wyejtHQvGHJEh.Bxy.Ke', 'Eka Saputra', '082248577297', '', '', '', NULL, 'customer', NULL, NULL, 1661772299, '::1', 1, 0, 1574127580, 1661724195, NULL, 1, 1, NULL),
+(5, 'user', '$2y$10$dnbz1kC5cQw9iWzIWV2dHupAG6YCiBUbE2R.B2Pi4grD9hnl7EASu', 'Zahra Amelia', '081444555666', '', '', '', NULL, 'user', NULL, NULL, 1575715603, '::1', 1, 0, 1575715597, 1661724296, NULL, 1, 1, NULL),
+(10, 'yogi', '$2y$10$FkH1qAGiyuOkZU/Mgbsw9Oupi/Z96c1Hwi9UOcqzTYNx7mjYkfG22', 'yogi sa', '086738283993', '', '', '', NULL, 'customer', NULL, NULL, 1671184836, '::1', 1, 0, 1671184823, NULL, NULL, 1, NULL, NULL),
+(11, 'dimas12@gmail.com', '$2y$10$1dOkZ/R2v9luZPT1h7oMeewuSKrXCcFRqcxVuN2tR5fUIf6820B4e', 'dimas', '08123241243', '', '', '', NULL, 'customer', NULL, NULL, 1737550017, '::1', 1, 0, 1736341224, NULL, NULL, 1, NULL, NULL),
+(12, 'dayat', '$2y$10$uMa8X8EzucPsrwjIgqR.3u4.QXV.L/hKY9VHi1q9FKBdQVe/A7OcW', 'dimas', '08123241243', 'default.jpg', '', '', NULL, 'customer', NULL, NULL, 1736946808, '::1', 1, 0, 1736946703, NULL, NULL, 1, NULL, NULL),
+(13, 'salsa', '$2y$10$DiepQbxM07OCMJrckeOVNO0AblV.13LThOrtLi2hqcQQDQogzlybC', 'salsa', '08123241243', 'default.png', '', '', NULL, 'customer', NULL, NULL, 1737548208, '::1', 1, 0, 1737548201, NULL, NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_profile`
+-- Struktur dari tabel `user_group`
+--
+
+CREATE TABLE `user_group` (
+  `iduser_group` int(11) NOT NULL,
+  `user_group` varchar(128) DEFAULT NULL,
+  `create_at` int(11) DEFAULT NULL,
+  `update_at` int(11) DEFAULT NULL,
+  `delete_at` int(11) DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL,
+  `update_by` int(11) DEFAULT NULL,
+  `delete_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user_privileges`
+--
+
+CREATE TABLE `user_privileges` (
+  `iduser_privileges` int(11) NOT NULL,
+  `user_group_id` int(11) DEFAULT NULL,
+  `module_id` int(11) DEFAULT NULL,
+  `create_at` int(11) DEFAULT NULL,
+  `update_at` int(11) DEFAULT NULL,
+  `delete_at` int(11) DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL,
+  `update_by` int(11) DEFAULT NULL,
+  `delete_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user_profile`
 --
 
 CREATE TABLE `user_profile` (
@@ -8381,246 +8394,268 @@ CREATE TABLE `user_profile` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `user_profile`
+-- Dumping data untuk tabel `user_profile`
 --
 
 INSERT INTO `user_profile` (`idUser_profile`, `users_id`, `fullname`, `telp`, `prov`, `kab`, `kec`, `kodepos`, `address`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
 (5, 7, 'Eka Saputra', '082248577297', '51', '5171', 'Manimeri a', '98363', 'asd', 1577559444, 7, 0, 0),
 (6, 10, 'yogi sa', '086738283993', '31', '3172', 'koja', '14270', 'jlnkjkdslkllskdjjsdi', 1671185015, 10, 0, 0),
-(7, 2, 'Eka Saputra', '082248577297', '32', '3275', 'Bantargebang', '17154', 'Bekasi Timur Regency', 1735394522, 2, 1735394569, 7),
-(8, 12, 'Fatimah Azzahra', '087874080963', '32', '3216', 'Bantargebang', '17154', 'Marakas bekasi utara', 1736522404, 12, 0, 0),
-(9, 26, 'Syuby Alwi Akbar Attala', '08123456789', '32', '3275', 'Bantargebang', '17154', 'Bekasi Timur Regency 5', 1736874715, 26, 0, 0);
+(7, 12, 'dimas', '08123241243', '64', '6402', 'ngawi', '12345', 'Jln ngawi', 1736947350, 12, 0, 0);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `cart`
+-- Indeks untuk tabel `cart`
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`idcart`);
 
 --
--- Indexes for table `detail_order`
+-- Indeks untuk tabel `detail_order`
 --
 ALTER TABLE `detail_order`
   ADD PRIMARY KEY (`iddetail_order`);
 
 --
--- Indexes for table `info`
+-- Indeks untuk tabel `info`
 --
 ALTER TABLE `info`
   ADD PRIMARY KEY (`idinfo`);
 
 --
--- Indexes for table `kabupaten`
+-- Indeks untuk tabel `kabupaten`
 --
 ALTER TABLE `kabupaten`
   ADD PRIMARY KEY (`id_kab`);
 
 --
--- Indexes for table `kecamatan`
+-- Indeks untuk tabel `kecamatan`
 --
 ALTER TABLE `kecamatan`
   ADD PRIMARY KEY (`id_kec`);
 
 --
--- Indexes for table `kurir`
+-- Indeks untuk tabel `kurir`
 --
 ALTER TABLE `kurir`
   ADD PRIMARY KEY (`idkurir`);
 
 --
--- Indexes for table `modules`
+-- Indeks untuk tabel `modules`
 --
 ALTER TABLE `modules`
   ADD PRIMARY KEY (`idmodule`);
 
 --
--- Indexes for table `ongkir`
+-- Indeks untuk tabel `ongkir`
 --
 ALTER TABLE `ongkir`
   ADD PRIMARY KEY (`idongkir`);
 
 --
--- Indexes for table `pembayaran`
+-- Indeks untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
   ADD PRIMARY KEY (`idpembayaran`);
 
 --
--- Indexes for table `pesanan`
+-- Indeks untuk tabel `pesanan`
 --
 ALTER TABLE `pesanan`
   ADD PRIMARY KEY (`idorder`);
 
 --
--- Indexes for table `product`
+-- Indeks untuk tabel `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`idproduct`);
 
 --
--- Indexes for table `product_category`
+-- Indeks untuk tabel `product_category`
 --
 ALTER TABLE `product_category`
   ADD PRIMARY KEY (`idcategory`);
 
 --
--- Indexes for table `product_image`
+-- Indeks untuk tabel `product_image`
 --
 ALTER TABLE `product_image`
   ADD PRIMARY KEY (`idImage`);
 
 --
--- Indexes for table `provinsi`
+-- Indeks untuk tabel `provinsi`
 --
 ALTER TABLE `provinsi`
   ADD PRIMARY KEY (`id_prov`);
 
 --
--- Indexes for table `settings`
+-- Indeks untuk tabel `settings`
 --
 ALTER TABLE `settings`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `unique_field` (`group`,`variable`);
 
 --
--- Indexes for table `slider`
+-- Indeks untuk tabel `slider`
 --
 ALTER TABLE `slider`
   ADD PRIMARY KEY (`idslide`);
 
 --
--- Indexes for table `testimonial`
+-- Indeks untuk tabel `testimonial`
 --
 ALTER TABLE `testimonial`
   ADD PRIMARY KEY (`idtestimoni`);
 
 --
--- Indexes for table `themes`
+-- Indeks untuk tabel `themes`
 --
 ALTER TABLE `themes`
   ADD PRIMARY KEY (`id_theme`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`idusers`);
 
 --
--- Indexes for table `user_profile`
+-- Indeks untuk tabel `user_group`
+--
+ALTER TABLE `user_group`
+  ADD PRIMARY KEY (`iduser_group`);
+
+--
+-- Indeks untuk tabel `user_privileges`
+--
+ALTER TABLE `user_privileges`
+  ADD PRIMARY KEY (`iduser_privileges`);
+
+--
+-- Indeks untuk tabel `user_profile`
 --
 ALTER TABLE `user_profile`
   ADD PRIMARY KEY (`idUser_profile`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `cart`
+-- AUTO_INCREMENT untuk tabel `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `idcart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idcart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `detail_order`
+-- AUTO_INCREMENT untuk tabel `detail_order`
 --
 ALTER TABLE `detail_order`
-  MODIFY `iddetail_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `iddetail_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT for table `info`
+-- AUTO_INCREMENT untuk tabel `info`
 --
 ALTER TABLE `info`
   MODIFY `idinfo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `kurir`
+-- AUTO_INCREMENT untuk tabel `kurir`
 --
 ALTER TABLE `kurir`
   MODIFY `idkurir` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `modules`
+-- AUTO_INCREMENT untuk tabel `modules`
 --
 ALTER TABLE `modules`
   MODIFY `idmodule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `ongkir`
+-- AUTO_INCREMENT untuk tabel `ongkir`
 --
 ALTER TABLE `ongkir`
   MODIFY `idongkir` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `pembayaran`
+-- AUTO_INCREMENT untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `idpembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `idpembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT for table `pesanan`
+-- AUTO_INCREMENT untuk tabel `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `idorder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `idorder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT for table `product`
+-- AUTO_INCREMENT untuk tabel `product`
 --
 ALTER TABLE `product`
-  MODIFY `idproduct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `idproduct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
--- AUTO_INCREMENT for table `product_category`
+-- AUTO_INCREMENT untuk tabel `product_category`
 --
 ALTER TABLE `product_category`
   MODIFY `idcategory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
--- AUTO_INCREMENT for table `product_image`
+-- AUTO_INCREMENT untuk tabel `product_image`
 --
 ALTER TABLE `product_image`
   MODIFY `idImage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT for table `settings`
+-- AUTO_INCREMENT untuk tabel `settings`
 --
 ALTER TABLE `settings`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
--- AUTO_INCREMENT for table `slider`
+-- AUTO_INCREMENT untuk tabel `slider`
 --
 ALTER TABLE `slider`
   MODIFY `idslide` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `testimonial`
+-- AUTO_INCREMENT untuk tabel `testimonial`
 --
 ALTER TABLE `testimonial`
   MODIFY `idtestimoni` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `themes`
+-- AUTO_INCREMENT untuk tabel `themes`
 --
 ALTER TABLE `themes`
   MODIFY `id_theme` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `idusers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `idusers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `user_profile`
+-- AUTO_INCREMENT untuk tabel `user_group`
+--
+ALTER TABLE `user_group`
+  MODIFY `iduser_group` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `user_privileges`
+--
+ALTER TABLE `user_privileges`
+  MODIFY `iduser_privileges` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `user_profile`
 --
 ALTER TABLE `user_profile`
-  MODIFY `idUser_profile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idUser_profile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

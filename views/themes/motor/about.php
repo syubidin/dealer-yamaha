@@ -138,7 +138,7 @@
             <div class="col-md-7 heading-section ftco-animate text-center">
                 <!-- <span class="subheading">Testimony</span> -->
                 <h2 class="mb-4">TESTIMONI PELANGGAN</h2>
-                <p>Berikut pengalaman pelanggan kami yang sudah berbelanjang.</p>
+                <p>Berikut pengalaman pelanggan kami yang sudah berbelanja.</p>
             </div>
         </div>
         <div class="row ftco-animate">
@@ -147,6 +147,13 @@
                     <?php foreach(testi() as $testi):?>
                     <div class="item">
                         <div class="testimony-wrap p-4 pb-5">
+                            <!-- Tambahkan gambar pengguna -->
+                            <div class="user-img mb-5"
+                                style="background-image: url(<?= file_exists('./uploads/users/'.$testi['user_gambar']) ? base_url('uploads/users/'.$testi['user_gambar']) : base_url('uploads/users/default.png'); ?>);">
+                                <span class="quote d-flex align-items-center justify-content-center">
+                                    <i class="icon-quote-left"></i>
+                                </span>
+                            </div>
                             <!-- <div class="user-img mb-5"
 								style="background-image: url(<?=base_url().'views/themes/'.theme_active().'/';?>images/person_1.jpg)">
 								<span class="quote d-flex align-items-center justify-content-center">

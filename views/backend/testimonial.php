@@ -245,6 +245,7 @@ $(function() {
                         <!-- <th width="5"><i class="fa fa-eye"></i></th> -->
                         <th>NAMA</th>
                         <th>PEKERJAAN</th>
+                        <th>GAMBAR</th>
                         <th>PESAN</th>
                         <!-- <th>STATUS BAYAR</th> -->
                         <th width="20">PUBLISH</th>
@@ -266,10 +267,19 @@ $(function() {
                         <td><?=$n++.'.';?></td>
                         <td><input type="checkbox" class="check" name="check_id[]" value="<?=$t->idtestimoni;?>"></td>
                         <td><a href="#modal_add" data-toggle="modal" onclick="submit(<?=$t->idtestimoni;?>)"><i
-                                    class="fa fa-edit"></i></a>
+                            class="fa fa-edit"></i></a>
                         </td>
                         <td><?=$t->name;?></td>
                         <td><?=$t->job;?></td>
+                        <td><!-- Kolom gambar -->
+                            <?php 
+                            $gambar_path = base_url('uploads/users/'.$t->user_gambar);
+                            $gambar_default = base_url('uploads/users/default.png');
+                            ?>
+                            <img src="<?= file_exists('./uploads/users/'.$t->user_gambar) ? $gambar_path : $gambar_default; ?>" 
+                                alt="Gambar User" 
+                                style="width: 50px; height: 50px; border-radius: 5px;">
+                        </td> 
                         <td><?=$t->message;?></td>
                         <td><label
                                 class="label <?php if($t->status=='No'){echo 'label-warning';}else{echo 'label-success';}?>"><?=$t->status;?></label>

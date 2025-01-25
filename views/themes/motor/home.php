@@ -8,7 +8,7 @@
           <div class="col-md-12 ftco-animate text-center">
             <h1 class="mb-2">Dealer Yamaha</h1>
             <h2 class="subheading mb-4">Motor yamaha terbaik dikelasnya</h2>
-            <p><a href="#products" class="btn btn-danger">Beli Sekarang</a></p>
+            <p><a href="<?=base_url('public/product');?>" class="btn btn-danger">Beli Sekarang</a></p>
           </div>
         </div>
       </div>
@@ -21,7 +21,7 @@
           <div class="col-sm-12 ftco-animate text-center">
             <h1 class="mb-2">Motor dengan kualitas terbaik</h1>
             <h2 class="subheading mb-4">Dealer Resmi Yamaha</h2>
-            <p><a href="#products" class="btn btn-danger">Belanja Sekarang</a></p>
+            <p><a href="<?=base_url('public/product');?>" class="btn btn-danger">Belanja Sekarang</a></p>
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@
           <div class="col-sm-12 ftco-animate text-center">
             <h1 class="mb-2">Motor dengan kualitas terbaik</h1>
             <h2 class="subheading mb-4">Dealer Resmi Yamaha</h2>
-            <p><a href="#products" class="btn btn-danger">Belanja Sekarang</a></p>
+            <p><a href="<?=base_url('public/product');?>" class="btn btn-danger">Belanja Sekarang</a></p>
           </div>
         </div>
       </div>
@@ -206,7 +206,7 @@
             <div class="col-md-7 heading-section ftco-animate text-center">
                 <!-- <span class="subheading">Testimony</span> -->
                 <h2 class="mb-4">TESTIMONI PELANGGAN</h2>
-                <p>Berikut pengalaman pelanggan kami yang sudah berbelanjang.</p>
+                <p>Berikut pengalaman pelanggan kami yang sudah berbelanja.</p>
             </div>
         </div>
         <div class="row ftco-animate">
@@ -215,6 +215,13 @@
                     <?php foreach(testi() as $testi):?>
                     <div class="item">
                         <div class="testimony-wrap p-4 pb-5">
+                            <!-- Tambahkan gambar pengguna -->
+                            <div class="user-img mb-5"
+                                style="background-image: url(<?= file_exists('./uploads/users/'.$testi['user_gambar']) ? base_url('uploads/users/'.$testi['user_gambar']) : base_url('uploads/users/default.png'); ?>);">
+                                <span class="quote d-flex align-items-center justify-content-center">
+                                    <i class="icon-quote-left"></i>
+                                </span>
+                            </div>
                             <!-- <div class="user-img mb-5"
 								style="background-image: url(<?=base_url().'views/themes/'.theme_active().'/';?>images/person_1.jpg)">
 								<span class="quote d-flex align-items-center justify-content-center">

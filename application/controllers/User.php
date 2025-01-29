@@ -343,7 +343,7 @@ class User extends CI_Controller {
 	{
 		// Input data order
 		$data_order = [
-			'code' => 'ODR-' . get_dateTime(),
+			'code' => 'ORD-' . get_dateTime(),
 			'datetime' => get_dateTime(),
 			'user_id' => user()['idusers'],
 			'subtotal' => $this->input->post('subtotal', true),

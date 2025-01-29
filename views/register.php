@@ -32,7 +32,7 @@
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
-            <p class="login-box-msg">Please enter your username and password !</p>
+            <p class="login-box-msg">Please fill in your data !</p>
             
             <form action="<?=base_url('auth/register');?>" method="post" enctype="multipart/form-data">
                 <div class="form-group has-feedback">

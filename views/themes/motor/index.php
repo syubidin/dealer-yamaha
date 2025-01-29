@@ -111,7 +111,7 @@
                             <a class="dropdown-item" href="<?=base_url('public/konfirmasi');?>">Konfirmasi
                                 Pembayaran</a>
                             <a class="dropdown-item" href="<?=base_url('public/testimoni');?>">Testimoni</a>
-                            <a class="dropdown-item" href="<?=base_url('public/contact');?>">Contact Us</a>
+                            <a class="dropdown-item" href="<?=base_url('public/contact');?>">Kontak Kami</a>
                             <a class="dropdown-item" href="<?=base_url('auth/logout');?>">Keluar</a>
                         </div>
                     </li>

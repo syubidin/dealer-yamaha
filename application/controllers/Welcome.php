@@ -104,6 +104,13 @@ class Welcome extends CI_Controller {
 		$data['content'] = 'themes/'.theme_active().'/testimoni';
 		$this->load->view('themes/'.theme_active().'/index',$data);
 	}
+	public function contact()
+	{
+		is_logged_in();
+		$data['contact']=$this->db->get_where('contact_us',['idusers'=>user()['idusers']])->row();
+		$data['content'] = 'themes/'.theme_active().'/contact';
+		$this->load->view('themes/'.theme_active().'/index',$data);
+	}
 	public function konfirmasiBayar()
 	{
 		is_logged_in();

@@ -157,6 +157,39 @@ class User extends CI_Controller {
 		$this->toastr->success('Testimoni telah ditambahkan');
 		redirect('public/testimoni');
 	}
+	public function addContact()
+	{
+		// Set aturan validasi form
+		$this->form_validation->set_rules('nama_contact', 'Nama Lengkap', 'required');
+		$this->form_validation->set_rules('no_contact', 'No. Telp', 'required|numeric');
+		$this->form_validation->set_rules('pesan', 'Pesan', 'required');
+
+		// Validasi form
+		if ($this->form_validation->run() == FALSE) {
+			// Simpan input ke flashdata jika validasi gagal
+			$this->session->set_flashdata('old_data', $this->input->post());
+			$this->session->set_flashdata('error', validation_errors('<p class="text-danger">', '</p>'));
+			redirect('public/contact');
+		} else {
+			// Ambil data form dan simpan ke dalam array
+			$data = [
+				'idusers' => user()['idusers'],
+				'nama_contact' => $this->input->post('nama_contact', true),
+				'no_contact' => $this->input->post('no_contact', true),
+				'pesan' => $this->input->post('pesan', true),
+			];
+
+			// Insert data ke tabel contact_us
+			$this->db->insert('contact_us', $data);
+
+			// Set flash data untuk sukses
+			$this->session->set_flashdata('message_status', 'sent');
+			$this->toastr->success('Pesan Anda telah terkirim!');
+			
+			// Redirect ke halaman yang sama
+			redirect('public/contact');
+		}
+	}
 	public function addKonfirmasi()
 	{
 		$config['upload_path'] = './uploads/bukti/';

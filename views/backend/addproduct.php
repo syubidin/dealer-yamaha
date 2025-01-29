@@ -88,6 +88,7 @@ function add_tag() {
                     <label>Nama <span style="color:red;">*</span></label>
                     <input type="text" class="form-control" placeholder="ex : Vixion" name="product_name" 
                         value="<?= isset($edata) && is_array($edata) ? $edata['product_name'] : set_value('product_name'); ?>" autofocus>
+                        
                 </div>
             </div>
             <div class="col-md-6">
@@ -174,6 +175,14 @@ function add_tag() {
             <div class="col-md-12">
                 <div class="form-group">
                     <label>Pilih Gambar Cover</label>
+                    <!-- Cek apakah ada gambar sebelumnya -->
+                    <?php if (isset($edata['product_image']) && !empty($edata['product_image'])): ?>
+                        <div>
+                            <img src="<?= base_url('uploads/products/' . $edata['product_image']); ?>" alt="Product Image" style="max-width: 200px; max-height: 150px;">
+                            <br>
+                            <small>Gambar Sebelumnya</small>
+                        </div>
+                    <?php endif; ?>
                     <input type="file" class="form-control" name="image" value="<?= isset($edata['product_image']) ? $edata['product_image'] : ''; ?>">
                     <span>File format : <b><?= settings('general', 'file_allowed_types'); ?></b></span>
                 </div>

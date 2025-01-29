@@ -30,6 +30,14 @@ class Plugin extends CI_Controller {
 		$data['content'] = 'backend/testimonial';
 		$this->load->view('backend/index', $data);
 	}
+	public function contact()
+	{
+		$data['title'] = 'All Contact';
+		$data['plugin'] = true; // Tetap true
+		$data['contact'] = $this->Plugin_m->allContact(); // Isi dengan data dari model
+		$data['content'] = 'backend/contact';
+		$this->load->view('backend/index', $data);
+	}
 	public function kurir()
 	{
 		$data['title'] = 'All Services';

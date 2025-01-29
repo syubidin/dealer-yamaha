@@ -93,6 +93,9 @@
                 <li <?=isset($testimoni) ? 'class="active"':'';?>><a href="<?=site_url('plugin/testimoni');?>"><i
                             class="fa fa-angle-double-right"></i> Testimonial</a>
                 </li>
+                <li <?=isset($contact) ? 'class="active"':'';?>><a href="<?=site_url('plugin/contact');?>"><i
+                            class="fa fa-angle-double-right"></i> Contact Us</a>
+                </li>
                 <li <?=isset($kurir) ? 'class="active"':'';?>><a href="<?=site_url('plugin/kurir');?>"><i
                             class="fa fa-angle-double-right"></i> Services</a>
                 <li <?=isset($ongkir) ? 'class="active"':'';?>><a href="<?=site_url('plugin/ongkir');?>"><i

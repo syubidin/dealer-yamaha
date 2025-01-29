@@ -10,6 +10,10 @@ class Plugin_m extends CI_Model {
 	public function allTestimoni(){
 		return $this->db->get('testimonial')->result();
 	}
+	public function allContact() {
+		$query = $this->db->get('contact_us');
+		return $query->result() ?: []; // Kembalikan array kosong jika tidak ada data
+	}
 	public function allService(){
 		return $this->db->get('kurir')->result();
 	}
@@ -43,6 +47,10 @@ class Plugin_m extends CI_Model {
 	public function delete_permanenTesti($id)
 	{
 		$this->db->delete('testimonial', ['idtestimoni'=>$id]);
+	}
+	public function delete_permanenContact($id_contact)
+	{
+		$this->db->delete('contact', ['id_contact'=>$id_contact]);
 	}
 	public function delete_permanenService($id)
 	{

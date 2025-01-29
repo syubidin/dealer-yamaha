@@ -60,6 +60,7 @@ $route['public/category']='welcome/category';
 $route['public/product']='welcome/product';
 $route['public/user_profil']='welcome/profil';
 $route['public/testimoni']='welcome/testimoni';
+$route['public/contact'] = 'welcome/contact';
 $route['public/konfirmasi']='welcome/konfirmasiBayar';
 $route['detail/(:any)/(:any)']='welcome/detailproduct';
 $route['category/(:any)/(:any)']='welcome/bycategory';

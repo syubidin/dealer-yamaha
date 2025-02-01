@@ -263,32 +263,21 @@
         <?php endif;?>
     </form>
 
-</div>
-
-
-                    
+</div>                   
                 </div>
             </div>
         </form>
     </div>
 
-
-
-
-
-
-
-
 </section>
 
 <script>
     // JavaScript untuk menampilkan input sesuai dengan pilihan metode pembayaran
-document.querySelectorAll('input[name="payment_method"]').forEach(function (input) {
+    document.querySelectorAll('input[name="payment_method"]').forEach(function (input) {
     input.addEventListener('change', function () {
         const creditSection = document.getElementById('payment_credit_section');
         const creditDuration = document.getElementById('payment_credit_duration');
         const installmentAmount = document.getElementById('installment_amount');
-        const totalPrice = parseFloat('<?=cartsubTotal(user()['idusers']);?>');
         
         if (this.value === 'credit') {
             creditSection.style.display = 'block';
@@ -299,9 +288,6 @@ document.querySelectorAll('input[name="payment_method"]').forEach(function (inpu
             creditDuration.style.display = 'none';
             installmentAmount.style.display = 'none';
         }
-
-        // Update cart totals when payment method changes
-        updateCartTotals();
     });
 });
 
@@ -333,6 +319,9 @@ function updateCartTotals() {
     // Update sisa cicilan setelah DP
     updateInstallmentAmount(totalWithInterest);
 }
+
+
+
 
 // Fungsi untuk menghitung dan menampilkan sisa cicilan
 function updateInstallmentAmount(totalPriceWithInterest) {

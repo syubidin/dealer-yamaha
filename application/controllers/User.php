@@ -199,28 +199,58 @@ class User extends CI_Controller {
 
 		$this->load->library('upload', $config);
 
-		if (! $this->upload->do_upload('bukti')) {
+		if (!$this->upload->do_upload('bukti')) {
 			$this->upload->display_errors();
 		} else {
 			$img = $this->upload->data();
 			$image = $img['file_name'];
 
 			$data = [
-				'order_id' => $this->input->post('order_id', true),
+				'order_id' => $this->input->post('idbayar'),
 				'user_id' => user()['idusers'],
 				'file' => $image,
-				'total' => $this->input->post('total', true),
+				'total' => $this->input->post('total'),
 				'status' => 'pending',
-				'keterangan' => $this->input->post('keterangan', true),
+				'keterangan' => $this->input->post('keterangan'),
 				'create_at' => get_dateTime(),
 				'create_by' => user()['idusers']
 			];
 
 			$this->db->insert('pembayaran', $data);
+
+			// Jika metode pembayaran adalah credit, simpan detail cicilan
+			if ($this->input->post('jenis_pembayaran') == 'credit') {
+				$data_cicilan = [
+					'order_id' => $this->input->post('idbayar'),
+					'uang_muka' => $this->input->post('uang_muka'),
+					'durasi_cicilan' => $this->input->post('durasi_cicilan'),
+					'sisa_cicilan' => $this->input->post('sisa_cicilan'),
+					'cicilan_per_bulan' => $this->input->post('cicilan_per_bulan'),
+					'create_at' => get_dateTime(),
+					'create_by' => user()['idusers']
+				];
+
+				$this->db->insert('credit_payments', $data_cicilan);
+			}
+
 			$this->toastr->success('Konfirmasi pembayaran telah ditambahkan');
 		}
 		redirect('public/konfirmasi');
 	}
+
+	public function getDetailCicilan()
+	{
+		$idbayar = $this->input->post('idbayar');
+
+		// Ambil data cicilan dari database
+		$this->db->select('total, sisa_cicilan');
+		$this->db->where('idpembayaran', $idbayar);
+		$data = $this->db->get('pembayaran')->row_array();
+
+		// Kembalikan data dalam format JSON
+		echo json_encode($data);
+	}
+
 	public function editTestimoni()
 	{
 		$data = [
@@ -341,6 +371,11 @@ class User extends CI_Controller {
 	}
 	public function proses_order()
 	{
+		// Ambil data dari form
+		$payment_method = $this->input->post('payment_method');
+		$dp = $this->input->post('dp');
+		$installment_duration = $this->input->post('installment_duration');
+
 		// Input data order
 		$data_order = [
 			'code' => 'ORD-' . get_dateTime(),
@@ -357,12 +392,13 @@ class User extends CI_Controller {
 			'order_address' => $this->input->post('address', true),
 			'order_kurir' => $this->input->post('kurir', true),
 			'order_layanan' => $this->input->post('layanan', true),
-			'status_bayar' => 'belum lunas',
+			'status_bayar' => ($payment_method == 'cash') ? 'lunas' : 'belum lunas',
 			'status' => 'pembayaran pending',
 			'create_at' => get_dateTime(),
 			'create_by' => user()['idusers']
 		];
 
+		// Simpan data order
 		$id_order = $this->User_m->tambah_order($data_order);
 
 		// Input data pembayaran
@@ -370,14 +406,42 @@ class User extends CI_Controller {
 			'order_id' => $id_order,
 			'user_id' => user()['idusers'],
 			'file' => '',
-			'total' => 0,
+			'total' => ($payment_method == 'cash') ? $this->input->post('carttotal', true) : $dp,
 			'status' => 'pending',
-			'keterangan' => '',
+			'keterangan' => ($payment_method == 'credit') ? 'Pembayaran Kredit' : 'Pembayaran Tunai',
 			'create_at' => get_dateTime(),
 			'create_by' => user()['idusers']
 		];
 
 		$id_bayar = $this->User_m->tambah_bayar($data_bayar);
+
+		// Jika metode pembayaran adalah kredit, simpan detail cicilan
+		if ($payment_method == 'credit') {
+			$total_harga = floatval($this->input->post('carttotal', true));
+		$dp = floatval($this->input->post('dp'));
+		$installment_duration = intval($this->input->post('installment_duration'));
+
+		if ($installment_duration > 0) {
+			$sisa_cicilan = $total_harga - $dp;
+			$cicilan_per_bulan = $sisa_cicilan / $installment_duration;
+		} else {
+			$sisa_cicilan = 0;
+			$cicilan_per_bulan = 0;
+		}
+
+
+			$data_cicilan = [
+				'order_id' => $id_order,
+				'down_payment' => $dp,
+				'remaining_installments' => $sisa_cicilan,
+				'installment_duration' => $installment_duration,
+				'installment_amount' => $cicilan_per_bulan,
+				'create_at' => get_dateTime(),
+				'create_by' => user()['idusers']
+			];
+
+			$this->db->insert('credit_payments', $data_cicilan);
+		}
 
 		// Input data detail order
 		if ($cart = cartlist(user()['idusers'])) {

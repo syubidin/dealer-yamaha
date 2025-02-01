@@ -1,5 +1,5 @@
 <div class="hero-wrap hero-bread"
-     style="background-image: url('<?=base_url().'views/themes/'.theme_active().'/';?>images/dashboard1.jpg');">
+     style="background-image: url('<?=base_url().'views/themes/'.theme_active().'/';?>images/banner6.png'); height:600px;">
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">

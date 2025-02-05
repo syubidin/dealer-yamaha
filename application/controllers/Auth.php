@@ -8,8 +8,8 @@ class Auth extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Auth_m');
-		
-	}
+    	$this->load->helper('encryption_helper'); // Pastikan nama helper sesuai dengan yang ada di `application/helpers/`
+}
 	
 
 	public function index()
@@ -24,63 +24,66 @@ class Auth extends CI_Controller {
 		}
 		
 	}
-	private function _login(){
+	private function _login() {
+		$this->load->helper('encryption_helper'); // Load helper
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
-		
-		$user = $this->db->get_where('users', ['user_name'=>$username])->row_array();
-		if($user){
-			if($user['is_active'] == 1){
-				if($user['is_block'] == 0){
-					if(password_verify($password, $user['user_password'])){
+	
+		$user = $this->db->get_where('users', ['user_name' => $username])->row_array();
+	
+		if ($user) {
+			if ($user['is_active'] == 1) {
+				if ($user['is_block'] == 0) {
+					// Dekripsi password dari database dan bandingkan
+					if (decrypt_password($user['user_password']) === $password) {
 						$data = [
 							'telp' => $user['user_telp'],
 							'username' => $user['user_name'],
 							'access' => $user['user_type']
 						];
 						$this->session->set_userdata($data);
-						// redirect('dashboard');
+						
 						$this->Auth_m->updateLogin($user['idusers']);
-						if($user['user_type']!= 'customer'){
+	
+						if ($user['user_type'] != 'customer') {
 							redirect('dashboard');
-						}else{
-							if ($cart = $this->cart->contents())
-							{
-								foreach ($cart as $item)
-									{
-										$data = array(
-											'product_id' => $item['id'],
-											'user_id' => $user['idusers'],
-											'qty' => $item['qty'],
-											'harga' => $item['price'],			
-											'satuan' => $item['satuan'],			
-											'berat' => $item['weight'],
-											'create_at'=>get_dateTime(),
-											'create_by'=>$user['idusers']			
-										);
-										$this->db->insert('cart',$data);
-									}
+						} else {
+							if ($cart = $this->cart->contents()) {
+								foreach ($cart as $item) {
+									$data = [
+										'product_id' => $item['id'],
+										'user_id' => $user['idusers'],
+										'qty' => $item['qty'],
+										'harga' => $item['price'],            
+										'satuan' => $item['satuan'],            
+										'berat' => $item['weight'],
+										'create_at' => get_dateTime(),
+										'create_by' => $user['idusers']            
+									];
+									$this->db->insert('cart', $data);
+								}
 							}
 							$this->cart->destroy();
 							redirect('user');
 						}
-					}else{
+					} else {
 						$this->session->set_flashdata('msg', '<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><i class="fa fa-ban"></i> Password anda salah.</div>');
 						redirect('auth');
 					}
-				}else{
+				} else {
 					$this->session->set_flashdata('msg', '<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><i class="fa fa-ban"></i> Akun anda diblok.</div>');
 					redirect('auth');
 				}
-			}else{
+			} else {
 				$this->session->set_flashdata('msg', '<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><i class="fa fa-ban"></i> Akun anda sudah tidak aktif.</div>');
 				redirect('auth');
 			}
-		}else{
+		} else {
 			$this->session->set_flashdata('msg', '<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><i class="fa fa-ban"></i> Username tidak terdaftar.</div>');
 			redirect('auth');
 		}
 	}
+	
 	public function register(){
 		$data['title'] = 'Buat Akun';
 		$this->form_validation->set_rules('fullname', 'Fullname', 'trim|required');
@@ -140,51 +143,74 @@ class Auth extends CI_Controller {
         $user = $this->db->get_where('users', ['user_name' => $username])->row_array();
 
         if ($user) {
-            // Generate kode pemulihan
-            $kode_pemulihan = rand(100000, 999999); // Kode 6 digit
-            $this->db->where('idusers', $user['idusers']);
-            $this->db->update('users', ['user_forgot_password_key' => $kode_pemulihan]);
+            // Simpan username ke session
+            $this->session->set_userdata('reset_username', $username);
 
-            // Set pesan berhasil di halaman login
-            $this->session->set_flashdata('msg', '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Your recovery code will be: <strong>' . $kode_pemulihan . '</strong>. Masukkan kode ini untuk reset password.</div>');
-            redirect('auth/reset_password');
+            // Ambil password terenkripsi dari database
+            $encrypted_password = $user['user_password'];
+
+            // Dekripsi password (pastikan fungsi decrypt_password tersedia)
+            $decrypt_password = decrypt_password($encrypted_password);
+
+			$this->session->set_flashdata('msg', '<div class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            Password saat ini Anda: <strong>' . htmlspecialchars($decrypt_password) . '</strong></div>');
+
+            // Kirim data ke view
+            $data['username'] = $username;
+            $data['decrypt_password'] = $decrypt_password;
+
+            $this->load->view('password_old', $data);
         } else {
             // Username tidak ditemukan
-            $this->session->set_flashdata('msg', '<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Username tidak terdaftar.</div>');
+            $this->session->set_flashdata('msg', '<div class="alert alert-danger alert-dismissible">Username tidak terdaftar.</div>');
             redirect('auth/forgot_password');
         }
     }
 }
 
-	public function reset_password()
-	{
-		$data['title'] = 'Reset Password';
-		$this->form_validation->set_rules('user_forgot_password_key', 'Kode Pemulihan', 'trim|required');
-		$this->form_validation->set_rules('password1', 'Password Baru', 'trim|required|min_length[3]|max_length[25]|matches[password2]');
-		$this->form_validation->set_rules('password2', 'Konfirmasi Password Baru', 'trim|required|min_length[3]|max_length[25]|matches[password1]');
+public function reset_password()
+{
+    $data['title'] = 'Reset Password';
+    
+    // Ambil username dari session
+    $username = $this->session->userdata('reset_username');
 
-		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('lost_password', $data);
-		} else {
-			$user_forgot_password_key = $this->input->post('user_forgot_password_key');
-			$password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
+    if (!$username) {
+        // Jika session tidak ada, redirect kembali ke forgot_password
+        $this->session->set_flashdata('msg', '<div class="alert alert-danger alert-dismissible">Silakan masukkan username terlebih dahulu.</div>');
+        redirect('auth/forgot_password');
+        return;
+    }
 
-			$user = $this->db->get_where('users', ['user_forgot_password_key' => $user_forgot_password_key])->row_array();
+    $this->form_validation->set_rules('password1', 'Password Baru', 'trim|required|min_length[3]|max_length[25]|matches[password2]');
+    $this->form_validation->set_rules('password2', 'Konfirmasi Password Baru', 'trim|required|min_length[3]|max_length[25]|matches[password1]');
 
-			if ($user) {
-				// Update password
-				$this->db->where('idusers', $user['idusers']);
-				$this->db->update('users', ['user_password' => $password, 'user_forgot_password_key' => null]);
+    if ($this->form_validation->run() == FALSE) {
+        $data['username'] = $username; // Kirim username ke view agar bisa dipakai
+        $this->load->view('lost_password', $data);
+    } else {
+        $password = encrypt_password($this->input->post('password1'));
+        
+        $user = $this->db->get_where('users', ['user_name' => $username])->row_array();
 
-				$this->session->set_flashdata('msg', '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Password berhasil direset. Silakan login dengan password baru Anda.</div>');
-				redirect('auth');
-			} else {
-				// Kode pemulihan salah
-				$this->session->set_flashdata('msg', '<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Invalid recovery code.</div>');
-				redirect('auth/reset_password');
-			}
-		}
-	}
+        if ($user) {
+            // Update password
+            $this->db->where('idusers', $user['idusers']);
+            $this->db->update('users', ['user_password' => $password]);
+            
+            // Hapus session reset_username setelah password diubah
+            $this->session->unset_userdata('reset_username');
+
+            $this->session->set_flashdata('msg', '<div class="alert alert-success alert-dismissible">Password berhasil direset. Silakan login dengan password baru Anda.</div>');
+            redirect('auth');
+        } else {
+            // Username tidak ditemukan
+            $this->session->set_flashdata('msg', '<div class="alert alert-danger alert-dismissible">Terjadi kesalahan. Silakan coba lagi.</div>');
+            redirect('auth/reset_password');
+        }
+    }
+}
 	
 	public function logout()
 	{

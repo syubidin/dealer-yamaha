@@ -12,21 +12,27 @@ class Auth_m extends CI_Model {
 	}
 	public function register($user_data)
 	{
+		$this->load->helper('encryption_helper');
 		$data = [
-			'user_name' => htmlspecialchars($user_data['user_name']),
-			'user_password' => password_hash(htmlspecialchars($user_data['user_password']), PASSWORD_DEFAULT),
-			'user_fullname' => htmlspecialchars($user_data['user_fullname']),
-			'user_telp' => htmlspecialchars($user_data['user_telp']),
-			'user_gambar' => htmlspecialchars($user_data['user_gambar']), // Nama file gambar
-			'user_type' => 'customer',
-			'is_active' => 1,
-			'is_block' => 0,
-			'create_at' => get_dateTime(),
-			'create_by' => 1
-		];
+            'user_name' => htmlspecialchars($user_data['user_name']),
+            'user_password' => encrypt_password($user_data['user_password']), // Simpan password terenkripsi
+            'user_fullname' => htmlspecialchars($user_data['user_fullname']),
+            'user_telp' => htmlspecialchars($user_data['user_telp']),
+            'user_gambar' => htmlspecialchars($user_data['user_gambar']),
+            'user_type' => 'customer',
+            'is_active' => 1,
+            'is_block' => 0,
+            'create_at' => date('Y-m-d H:i:s'),
+            'create_by' => 1
+        ];
 		$this->db->insert('users', $data);
 		
 	}
+
+    public function get_user_by_username($username) {
+        return $this->db->where('user_name', $username)->get('users')->row();
+    }
+
 	public function updateLogin($id)
 	{
 		$data = [

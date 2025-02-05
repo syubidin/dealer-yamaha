@@ -190,6 +190,7 @@ class User extends CI_Controller {
 			redirect('public/contact');
 		}
 	}
+	
 	public function addKonfirmasi()
 	{
 		$config['upload_path'] = './uploads/bukti/';
@@ -239,17 +240,34 @@ class User extends CI_Controller {
 	}
 
 	public function getDetailCicilan()
-	{
-		$idbayar = $this->input->post('idbayar');
+{
+    // Mengambil idbayar dari POST request
+    $idbayar = $this->input->post('idbayar', true);
 
-		// Ambil data cicilan dari database
-		$this->db->select('total, sisa_cicilan');
-		$this->db->where('idpembayaran', $idbayar);
-		$data = $this->db->get('pembayaran')->row_array();
+    // Cek apakah idbayar ada
+    if ($idbayar) {
+        // Ambil data cicilan dari model
+        $cicilan = $this->User_m->getCicilanDetail($idbayar);
 
-		// Kembalikan data dalam format JSON
-		echo json_encode($data);
-	}
+        // Jika cicilan ditemukan, kirimkan data ke frontend
+        if ($cicilan) {
+            // Kirimkan response dalam format JSON dengan detail cicilan
+            echo json_encode([
+                'total' => $cicilan->total,  // Total Pesanan
+                'sisa_cicilan' => $cicilan->sisa_cicilan,  // Sisa Cicilan
+            ]);
+        } else {
+            // Jika data cicilan tidak ditemukan, kirimkan pesan error
+            echo json_encode(['error' => 'Data cicilan tidak ditemukan']);
+        }
+    } else {
+        // Jika ID Bayar tidak valid, kirimkan pesan error
+        echo json_encode(['error' => 'ID Bayar tidak valid']);
+    }
+}
+
+
+
 
 	public function editTestimoni()
 	{
@@ -369,164 +387,74 @@ class User extends CI_Controller {
 		$this->toastr->success('Change Password Successfully');
 		redirect('user/alluser');
 	}
+
 	public function proses_order()
-	{
-		// Ambil data dari form
-		$payment_method = $this->input->post('payment_method');
-		$dp = $this->input->post('dp');
-		$installment_duration = $this->input->post('installment_duration');
+{
+    // Ambil data dari form
+    $payment_method = $this->input->post('payment_method');
+    
+    // Input data order
+    $data_order = [
+        'code' => 'ORD-' . get_dateTime(),
+        'datetime' => get_dateTime(),
+        'user_id' => user()['idusers'],
+        'subtotal' => $this->input->post('subtotal', true),
+        'total_weight' => $this->input->post('weight', true),
+        'order_ongkir' => $this->input->post('delivery', true),
+        'total_harga' => $this->input->post('carttotal', true),
+        'order_prov' => $this->input->post('prov', true),
+        'order_kab' => $this->input->post('kab', true),
+        'order_kec' => $this->input->post('kec', true),
+        'order_kodepos' => $this->input->post('kodepos', true),
+        'order_address' => $this->input->post('address', true),
+        'order_kurir' => $this->input->post('kurir', true),
+        'order_layanan' => $this->input->post('layanan', true),
+        'status_bayar' => 'lunas',
+        'status' => 'pembayaran pending',
+        'create_at' => get_dateTime(),
+        'create_by' => user()['idusers']
+    ];
 
-		// Input data order
-		$data_order = [
-			'code' => 'ORD-' . get_dateTime(),
-			'datetime' => get_dateTime(),
-			'user_id' => user()['idusers'],
-			'subtotal' => $this->input->post('subtotal', true),
-			'total_weight' => $this->input->post('weight', true),
-			'order_ongkir' => $this->input->post('delivery', true),
-			'total_harga' => $this->input->post('carttotal', true),
-			'order_prov' => $this->input->post('prov', true),
-			'order_kab' => $this->input->post('kab', true),
-			'order_kec' => $this->input->post('kec', true),
-			'order_kodepos' => $this->input->post('kodepos', true),
-			'order_address' => $this->input->post('address', true),
-			'order_kurir' => $this->input->post('kurir', true),
-			'order_layanan' => $this->input->post('layanan', true),
-			'status_bayar' => ($payment_method == 'cash') ? 'lunas' : 'belum lunas',
-			'status' => 'pembayaran pending',
-			'create_at' => get_dateTime(),
-			'create_by' => user()['idusers']
-		];
+    // Simpan data order
+    $id_order = $this->User_m->tambah_order($data_order);
 
-		// Simpan data order
-		$id_order = $this->User_m->tambah_order($data_order);
+    // Input data pembayaran
+    $data_bayar = [
+        'order_id' => $id_order,
+        'user_id' => user()['idusers'],
+        'file' => 'file',
+        'total' => $this->input->post('carttotal', true),
+        'status' => 'pending',
+        'keterangan' => 'Pembayaran Tunai',
+        'create_at' => get_dateTime(),
+        'create_by' => user()['idusers']
+    ];
 
-		// Input data pembayaran
-		$data_bayar = [
-			'order_id' => $id_order,
-			'user_id' => user()['idusers'],
-			'file' => '',
-			'total' => ($payment_method == 'cash') ? $this->input->post('carttotal', true) : $dp,
-			'status' => 'pending',
-			'keterangan' => ($payment_method == 'credit') ? 'Pembayaran Kredit' : 'Pembayaran Tunai',
-			'create_at' => get_dateTime(),
-			'create_by' => user()['idusers']
-		];
+    $id_bayar = $this->User_m->tambah_bayar($data_bayar);
 
-		$id_bayar = $this->User_m->tambah_bayar($data_bayar);
+    // Input data detail order
+    if ($cart = cartlist(user()['idusers'])) {
+        foreach ($cart as $item) {
+            $data_detail = [
+                'product_id' => $item['product_id'],
+                'order_id' => $id_order,
+                'qty' => $item['qty'],
+                'harga' => $item['harga'],
+                'satuan' => $item['satuan'],
+                'berat' => $item['berat'],
+                'create_at' => get_dateTime(),
+                'create_by' => user()['idusers']
+            ];
+            $this->User_m->tambah_detail_order($data_detail);
+            $this->db->where('idcart', $item['idcart']);
+            $this->db->delete('cart');
+        }
+    }
 
-		// Jika metode pembayaran adalah kredit, simpan detail cicilan
-		if ($payment_method == 'credit') {
-			$total_harga = floatval($this->input->post('carttotal', true));
-		$dp = floatval($this->input->post('dp'));
-		$installment_duration = intval($this->input->post('installment_duration'));
-
-		if ($installment_duration > 0) {
-			$sisa_cicilan = $total_harga - $dp;
-			$cicilan_per_bulan = $sisa_cicilan / $installment_duration;
-		} else {
-			$sisa_cicilan = 0;
-			$cicilan_per_bulan = 0;
-		}
-
-
-			$data_cicilan = [
-				'order_id' => $id_order,
-				'down_payment' => $dp,
-				'remaining_installments' => $sisa_cicilan,
-				'installment_duration' => $installment_duration,
-				'installment_amount' => $cicilan_per_bulan,
-				'create_at' => get_dateTime(),
-				'create_by' => user()['idusers']
-			];
-
-			$this->db->insert('credit_payments', $data_cicilan);
-		}
-
-		// Input data detail order
-		if ($cart = cartlist(user()['idusers'])) {
-			foreach ($cart as $item) {
-				$data_detail = [
-					'product_id' => $item['product_id'],
-					'order_id' => $id_order,
-					'qty' => $item['qty'],
-					'harga' => $item['harga'],
-					'satuan' => $item['satuan'],
-					'berat' => $item['berat'],
-					'create_at' => get_dateTime(),
-					'create_by' => user()['idusers']
-				];
-
-				$this->User_m->tambah_detail_order($data_detail);
-
-				$this->db->where('idcart', $item['idcart']);
-				$this->db->delete('cart');
-			}
-		}
-
-		redirect(base_url('public/konfirmasi'), 'refresh');
-	}
+    redirect(site_url('public/konfirmasi'), 'refresh');
+}
 
 
-	public function add_to_cart_totals() {
-		$user_id = $this->session->userdata('user_id');
-		$idorder = $this->input->post('order_id'); // Get the order ID from the form submission
-	
-		// Validate the inputs
-		$subtotal = $this->input->post('subtotal');
-		$delivery_fee = $this->input->post('delivery_fee');
-		$interest_rate = $this->input->post('interest_rate');
-		$installment_duration = $this->input->post('installment_duration');
-		$down_payment = $this->input->post('down_payment');
-	
-		if (!is_numeric($subtotal) || !is_numeric($delivery_fee) || !is_numeric($interest_rate) || !is_numeric($down_payment) || !is_numeric($installment_duration)) {
-			$this->session->set_flashdata('error', 'Invalid input values.');
-			redirect('cart');
-		}
-	
-		$interest_amount = ($subtotal * $interest_rate) / 100;
-		$grand_total = $subtotal + $interest_amount + $delivery_fee;
-		$remaining_installments = ($grand_total - $down_payment) / $installment_duration;
-	
-		// Prepare data for saving to the database
-		$data = [
-			'order_id' => $idorder,
-			'user_id' => $user_id,
-			'subtotal' => $subtotal,
-			'delivery_fee' => $delivery_fee,
-			'interest_rate' => $interest_rate,
-			'interest_amount' => $interest_amount,
-			'grand_total' => $grand_total,
-			'down_payment' => $down_payment,
-			'remaining_installments' => $remaining_installments,
-			'installment_duration' => $installment_duration,
-			'created_at' => time(),
-			'created_by' => $user_id,
-		];
-	
-		// Insert data into the 'pesanan' table
-		$this->db->insert('pesanan', $data);
-	
-		if ($this->db->affected_rows() > 0) {
-			$this->session->set_flashdata('success', 'Cart totals have been successfully saved.');
-		} else {
-			$this->session->set_flashdata('error', 'Failed to save cart totals.');
-		}
-	
-		// Prepare cart totals data to pass to the view
-		$cart_totals = [
-			'total' => $subtotal,
-			'bunga' => $interest_amount,
-			'ongkir' => $delivery_fee,
-			'sisa_cicilan' => $remaining_installments,
-		];
-	
-		// Pass both 'cart_totals' and 'order_id' to the view
-		$this->load->view('themes/motor/cart', [
-			'cart_totals' => $cart_totals,
-			'order_id' => $idorder // Pass the order_id here
-		]);
-	}
 	
 	
 	// public function proses_orde()

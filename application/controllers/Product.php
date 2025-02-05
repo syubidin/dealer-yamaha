@@ -40,6 +40,14 @@ class Product extends CI_Controller {
 		$data['content'] = 'backend/addproduct';
 		$this->load->view('backend/index', $data);
 	}
+	public function laporan()
+	{
+		$data['title'] = 'Laporan Keuntungan';
+		$data['laporan'] = true; // Hapus $data['Product'] karena tidak digunakan
+		$data['alllaporan'] = $this->Product_m->alllaporan(); // Panggil fungsi model
+		$data['content'] = 'backend/laporan'; // Pastikan backend/laporan.php ada
+		$this->load->view('backend/index', $data);
+	}
 	public function createProduct()
 	{
 		// saveRoutePosts();

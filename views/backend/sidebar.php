@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <!-- sidebar: style can be found in sidebar.less -->
 <section class="sidebar">
     <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -77,6 +78,15 @@
         <li <?=isset($payment) ? 'class="active"':'';?>>
             <a href="<?=base_url('transaction/payment');?>">
                 <i class="fa fa-money"></i> <span>PAYMENT</span>
+                <span class="pull-right-container">
+                </span>
+            </a>
+        </li>
+        <?php endif;?>
+        <?php if ($this->session->userdata('access') === 'super_user' || $this->session->userdata('access') === 'administrator' || $this->session->userdata('access') === 'user'): ?>
+        <li <?=isset($laporan) ? 'class="active"':'';?>>
+            <a href="<?=base_url('product/laporan');?>">
+            <i class="bi bi-file-earmark-arrow-down-fill"></i> <span>LAPORAN</span>
                 <span class="pull-right-container">
                 </span>
             </a>

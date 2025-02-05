@@ -58,7 +58,7 @@ function submit(x) {
                         <th>KODE</th>
                         <th>WAKTU</th>
                         <th>BUKTI BAYAR</th>
-                        <th>TOTAL HARGA</th>
+                        <!-- <th>TOTAL HARGA</th> -->
                         <th>TOTAL BAYAR</th>
                         <th>STATUS</th>
                     </tr>
@@ -86,7 +86,7 @@ function submit(x) {
                         <td><?=date('Y-m-d H:i:s',$p['tgl_bayar']);?></td>
                         <td><a href="<?=base_url().'uploads/bukti/'.$p['file'];?>" target="_blank"><?=$p['file'];?></a>
                         </td>
-                        <td><?='Rp. '.money($p['total_harga']);?></td>
+                        <!-- <td><?='Rp. '.money($p['total_harga']);?></td> -->
                         <td
                             class="<?php if($p['total_harga']==$p['total']){echo 'text-green';}else{echo 'text-yellow';}?>">
                             <?='Rp. '.money($p['total']);?></td>

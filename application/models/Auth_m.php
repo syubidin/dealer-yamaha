@@ -43,7 +43,7 @@ class Auth_m extends CI_Model {
 		$this->db->update('users', $data);
 		
 	}
-
+	
 	
 }
 

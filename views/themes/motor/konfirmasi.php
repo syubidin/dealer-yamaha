@@ -1,13 +1,3 @@
-<?php
-// Debugging, lihat isi dari objek $b
-echo '<pre>';
-print_r(bayar(user()['idusers']));
-echo '</pre>';
-?>
-
-
-
-
 <div class="hero-wrap hero-bread"
     style="background-image: url('<?=base_url().'views/themes/'.theme_active().'/';?>images/dashboard5.jpg');">
     <div class="container">
@@ -27,103 +17,102 @@ echo '</pre>';
             <?=$infobank->informasi;?>
         </div>
         <div class="row block-9">
-    <?php if(empty($testi->user_id)): ?>
-    <div class="col-md-12 d-flex mb-3">
-        <form action="<?=base_url('user/addKonfirmasi');?>" method="post" class="bg-white p-5 contact-form" enctype="multipart/form-data">
-            <!-- Pilih Pesanan -->
-            <div class="form-group">
-    <label>Pilih Pesanan</label>
-    <select name="idbayar" class="form-control" id="idbayar" required>
-        <option value="">Pilih Pesanan</option>
-        <?php foreach(bayar(user()['idusers']) as $b): ?>
-            <option value="<?=$b->idpembayaran;?>" data-total="<?=$b->total;?>">
-                <!-- Menampilkan nomor pesanan dan gambar pesanan -->
-                Pesanan: <?=$b->order_id;?> 
-                <img src="<?=base_url('assets/images/yamaha/' . $b->product_image);?>" alt="Gambar Pesanan" style="width: 50px; height: 50px; object-fit: cover;">
-            </option>
-        <?php endforeach; ?>    
-    </select>   
-</div>
-
-
-
-
-            <!-- Detail Cicilan (Akan Ditampilkan Setelah Memilih Pesanan) -->
-            <div id="detail_cicilan" style="display: none;">
-                <div class="form-group">
-                    <label>Total Pesanan</label>
-                    <input type="text" class="form-control" id="total_pesanan" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Sisa Cicilan</label>
-                    <input type="text" class="form-control" id="sisa_cicilan" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Uang Muka</label>
-                    <input type="number" class="form-control" name="uang_muka" id="uang_muka" placeholder="Masukkan Uang Muka" required>
-                </div>
-                <div class="form-group">
-                    <label>Durasi Cicilan (bulan)</label>
-                    <input type="number" class="form-control" name="durasi_cicilan" id="durasi_cicilan" placeholder="Masukkan Durasi Cicilan" required>
-                </div>
-                <div class="form-group">
-                    <label>Cicilan Per Bulan</label>
-                    <input type="text" class="form-control" id="cicilan_per_bulan" readonly>
-                </div>
+            <?php if(empty($testi->user_id)):?>
+            <?php 
+			foreach(bayar(user()['idusers']) as $b): 
+			?>
+            <div class="col-md-6 d-flex mb-3" id="form-addbayar">
+                <form action="<?=base_url('user/addKonfirmasi');?>" method="post" class="bg-white p-5 contact-form"
+                    enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Jumlah pembayaran</label>
+                        <input type="hidden" class="form-control" name="idbayar" value="<?=$b->idpembayaran;?>">
+                        <input type="number" class="form-control" name="total" placeholder="Total Bayar"
+                            value="<?=$b->total;?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Keterangan</label>
+                        <textarea name="keterangan" id="" cols="30" rows="7" class="form-control"
+                            placeholder="Keterangan" required><?=$b->keterangan;?></textarea>
+                    </div>
+                    <?php if($b->file!=''):?>
+                    <div class="form-group">
+                        <label>File bukti pembayaran anda</label>
+                        <img src="<?=base_url('uploads/bukti/');?><?=$b->file;?>" alt="<?=$b->file;?>"
+                            style="width:435px;height:200px;text-align:center;">
+                    </div>
+                    <?php if($b->status=='pending'):?>
+                    <div class="form-group">
+                        <input type="file" class="form-control" name="bukti">
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary py-3 px-5">Konfirmasi Lagi</button>
+                    </div>
+                    <?php endif;?>
+                    <?php else:?>
+                    <div class="form-group">
+                        <input type="file" class="form-control" name="bukti">
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary py-3 px-5">Konfirmasi</button>
+                    </div>
+                    <?php endif;?>
+                </form>
             </div>
+            <?php endforeach; ?>
+            <?php endif;?>
+            <?php if(!empty($testi->user_id)):?>
+            <div class="col-md-6 order-md-last d-flex">
+                <form action="<?=base_url('user/editKonfirmasi');?>" method="post" class="bg-white p-5 contact-form">
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" name="user_id" value="<?=user()['idusers'];?>">
+                        <input type="text" class="form-control" name="nama" placeholder="Nama Lengkap Anda"
+                            value="<?=user()['user_fullname'];?>" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="telp" placeholder="No. Telp Anda"
+                            value="<?=user()['user_telp'];?>" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="job" placeholder="Pekerjaan Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" id="" cols="30" rows="7" class="form-control"
+                            placeholder="Testimoni Anda" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary py-3 px-5">Edit Testimoni</button>
+                    </div>
+                </form>
 
-            <!-- Tombol Konfirmasi -->
-            <div class="form-group text-center">
-                <button type="submit" class="btn btn-primary py-3 px-5">Konfirmasi Pembayaran</button>
             </div>
-        </form>
+            <?php endif;?>
+            <?php if(!empty($testi->user_id)):?>
+            <div class="col-md-6 d-flex">
+                <form action="#" class="bg-white p-5 contact-form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Your Name" value="<?=$testi->name;?>"
+                            readonly>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Your Phone" value="<?=$testi->telp;?>"
+                            readonly>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" value="<?=$testi->job;?>" readonly>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="" id="" cols="30" rows="7" class="form-control"
+                            readonly><?=$testi->message;?></textarea>
+                    </div>
+                    <!-- <div class="form-group">
+						<input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+					</div> -->
+                </form>
+
+            </div>
+            <?php endif;?>
+        </div>
     </div>
-    <?php endif; ?>
-</div>
-    </div>
+
 </section>
-
-<script>
-$(document).ready(function() {
-    // Menampilkan detail cicilan saat pesanan dipilih
-    $('#idbayar').on('change', function() {
-        var selectedOption = $(this).find('option:selected');
-        var idbayar = selectedOption.val();
-
-        if (idbayar) {
-            // Kirim AJAX request untuk mengambil detail cicilan
-            $.ajax({
-                url: '<?=base_url('user/getDetailCicilan');?>',
-                method: 'POST',
-                data: { idbayar: idbayar },
-                dataType: 'json',
-                success: function(response) {
-                    if (response) {
-                        // Tampilkan detail cicilan
-                        $('#detail_cicilan').show();
-                        $('#total_pesanan').val(response.total);
-                        $('#sisa_cicilan').val(response.sisa_cicilan);
-
-                        // Hitung cicilan per bulan saat uang muka atau durasi cicilan diubah
-                        $('#uang_muka, #durasi_cicilan').on('input', function() {
-                            var uangMuka = parseFloat($('#uang_muka').val()) || 0;
-                            var durasiCicilan = parseFloat($('#durasi_cicilan').val()) || 1;
-                            var sisaCicilan = parseFloat(response.sisa_cicilan) || 0;
-
-                            if (uangMuka > 0 && durasiCicilan > 0) {
-                                var cicilanPerBulan = (sisaCicilan - uangMuka) / durasiCicilan;
-                                $('#cicilan_per_bulan').val(cicilanPerBulan.toFixed(2));
-                            } else {
-                                $('#cicilan_per_bulan').val('');
-                            }
-                        });
-                    }
-                }
-            });
-        } else {
-            // Sembunyikan detail cicilan jika tidak ada pesanan yang dipilih
-            $('#detail_cicilan').hide();
-        }
-    });
-});
-</script>

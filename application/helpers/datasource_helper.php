@@ -178,13 +178,20 @@ if (!function_exists('testi')){
 /**
 * Get Pembayaran
 */
-if (!function_exists('bayar')){
-	function bayar($id){
-		$CI =& get_instance();
-		$CI->db->order_by('idpembayaran', 'desc');
-		return $CI->db->get_where('pembayaran',['user_id'=>$id])->result();
-	}
+if (!function_exists('bayar')) {
+    function bayar($id) {
+        $CI =& get_instance();
+        $CI->db->select('pembayaran.*, product.product_name, product.product_image');
+        $CI->db->from('pembayaran');
+        $CI->db->join('detail_order', 'pembayaran.order_id = detail_order.order_id', 'left'); // Ambil product_id dari detail_order
+        $CI->db->join('product', 'detail_order.product_id = product.idproduct', 'left'); // Ambil product_image dari product
+        $CI->db->where('pembayaran.user_id', $id);
+        $CI->db->order_by('pembayaran.idpembayaran', 'desc');
+        return $CI->db->get()->result();
+    }
 }
+
+
 /**
 * Get Detail Order
 */

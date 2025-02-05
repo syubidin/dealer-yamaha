@@ -42,7 +42,7 @@
                     <small class="text-red"><?=form_error('fullname');?></small>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" placeholder="Nomor Telepon" name="telp"
+                    <input type="number" class="form-control" placeholder="Nomor Telepon" name="telp"
                         value="<?=set_value('telp');?>">
                         <span class="input-group-text form-control-feedback"><i class="bi bi-telephone-fill"></i></i></span>
                     <small class="text-red"><?=form_error('telp');?></small>

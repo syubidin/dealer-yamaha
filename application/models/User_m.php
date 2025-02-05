@@ -67,7 +67,7 @@
 
         public function allPayment()
         {
-            // $this->db->join('pesanan', 'pesanan.idorder = pembayaran.order_id', 'left');
+            $this->db->join('pesanan', 'pesanan.idorder = pembayaran.order_id', 'left');
             $sql = "SELECT pembayaran.*, pesanan.*, pembayaran.status AS verify FROM pembayaran, pesanan WHERE pembayaran.order_id = pesanan.idorder";
             return $this->db->query($sql)->result_array();
         }
@@ -138,7 +138,18 @@
             return $this->db->insert_id();
         }
 
-        
+        public function getCicilanDetail($order_id)
+{
+    // Memilih kolom yang diperlukan, termasuk total dan sisa cicilan
+    $this->db->select('total, remaining_installments as sisa_cicilan');
+    // Menambahkan kondisi untuk filter berdasarkan order_id
+    $this->db->where('order_id', $order_id);
+    
+    // Mengambil data dari tabel credit_payments
+    return $this->db->get('credit_payments')->row();
+}
+
+    
     }
 
     /* End of file User_m.php */

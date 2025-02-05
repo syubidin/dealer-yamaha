@@ -8,7 +8,7 @@ class Auth extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Auth_m');
-    	$this->load->helper('encryption_helper'); // Pastikan nama helper sesuai dengan yang ada di `application/helpers/`
+    	$this->load->helper('encryption_helper'); // Pastikan nama helper sesuai dengan yang ada di application/helpers/
 }
 	
 

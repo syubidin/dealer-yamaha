@@ -29,7 +29,8 @@
         <!-- End Pesan Flash -->
 
         <div class="row block-9 justify-content-center d-flex">
-            <?php if(!empty($contact->idusers)): ?>
+        <?php if(isset($contact) || true): ?>
+
                 <!-- Kotak yang menyatukan form dan gambar -->
                 <div class="col-md-12 d-flex" style="border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); background-color: #fff;">
                     <!-- Kolom untuk Formulir Kontak -->

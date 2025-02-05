@@ -105,6 +105,19 @@ class Product_m extends CI_Model {
 	{
 		return $this->db->get_where('posts',['post_title'=>$data['post_title']]);
 	}
+	public function alllaporan() {
+		$this->db->select('
+			product.product_image,
+			product.product_name,
+			product.harga_beli,
+			product.harga_jual,
+			product.diskon,
+			(product.harga_beli - COALESCE(product.diskon, 0) - product.harga_jual) AS keuntungan
+		');
+		$this->db->from('product');
+	
+		return $this->db->get()->result();
+	}
 }
 
 /* End of file Product_m.php */

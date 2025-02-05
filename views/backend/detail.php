@@ -307,7 +307,7 @@ $(function() {
                 </div>
                 <div class="col-md-4">
                     <table class="table">
-                        <tr>
+                        <!-- <tr>
                             <td>Ongkos Kirim</td>
                             <td>:</td>
                             <td><strong><?='Rp. '.money($detail->order_ongkir);?></strong></td>
@@ -316,7 +316,7 @@ $(function() {
                             <td>Total Harga</td>
                             <td>:</td>
                             <td><strong><?='Rp. '.money($detail->total_harga);?></strong></td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td>Status Bayar</td>
                             <td>:</td>
